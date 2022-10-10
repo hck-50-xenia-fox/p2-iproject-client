@@ -1,9 +1,5 @@
-<script setup>
-import TheWelcome from '../components/TheWelcome.vue'
-</script>
-
+<script></script>
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <button id="pay-button">Pay!</button>
 </template>
+<style></style>
