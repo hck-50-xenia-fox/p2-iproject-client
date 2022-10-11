@@ -1,6 +1,9 @@
 import { defineStore } from "pinia";
+import { io } from "socket.io-client";
 import axios from "@/apis/axios-instance.js";
 
+const socket = io("http://localhost:3000");
+console.log(socket);
 export const useIndexStore = defineStore("index", {
   state: () => ({
     isLogin: false,
