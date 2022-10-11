@@ -9,12 +9,13 @@ export const useFoodStore = defineStore("food", {
     food: [],
     categories: [],
     favorites: [],
+    restaurant: [],
     favoritesIds: [],
     theFood: {},
     query: "",
     pages: 0,
-    url: "https://amrestokw.web.app/detailfood",
-    // url: "http://localhost:3000/cus",
+    // url: "https://amrestokw.web.app/detailfood",
+    url: "http://localhost:3000",
     theQrCode: {},
   }),
   actions: {
@@ -102,6 +103,15 @@ export const useFoodStore = defineStore("food", {
           }
         );
         this.theQrCode = data.qrcode;
+      } catch (err) {
+        this.errorAlert(err.response.data.message);
+      }
+    },
+    async getRestaurantData() {
+      try {
+        let { data } = await axios.get("http://localhost:3000/restaurant");
+        console.log(data);
+        this.restaurant = data;
       } catch (err) {
         this.errorAlert(err.response.data.message);
       }
