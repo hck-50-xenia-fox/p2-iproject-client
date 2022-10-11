@@ -1,35 +1,36 @@
-@import "./base.css";
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-
-  font-weight: normal;
-}
-
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
+body{
   }
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
+  .form-style input{
+    border:0;
+    height:50px;
+    border-radius:0;
+    border-bottom:1px solid #ebebeb;	
   }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
+  .form-style input:focus{
+  border-bottom:1px solid #007bff;	
+  box-shadow:none;
+  outline:0;
+  background-color:#ebebeb;	
   }
-}
+  .sideline {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    color:#ccc;
+  }
+  button{
+  height:50px;	
+  }
+  .sideline:before,
+  .sideline:after {
+      content: '';
+      border-top: 1px solid #ebebeb;
+      margin: 0 20px 0 0;
+      flex: 1 0 20px;
+  }
+  
+  .sideline:after {
+      margin: 0 0 0 20px;
+  }

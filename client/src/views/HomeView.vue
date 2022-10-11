@@ -25,9 +25,10 @@ import TableRowCrypto from '../components/TableRowCrypto.vue'
 </script>
 
 <template>
-  <div class="container table-responsive py-5">
+  <!-- <h1>HELLOWORLD</h1> -->
+  <div class="container  py-5">
     <div class="row">
-      <table class="table table-bordered table-dark table-hover">
+      <table class="table  table-dark table-hover">
   <thead class="thead-dark">
     <tr >
       <th v-for="title in titles" :key="title">{{title}}</th>
