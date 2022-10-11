@@ -38,6 +38,33 @@ export const useIndexStore = defineStore("index", {
       }
     },
 
+    async handleCredentialResponse(response) {
+      const { credential } = response;
+      try {
+        const { data } = await axios({
+          method: "POST",
+          url: "/pub/google-login",
+          data: {
+            credential,
+          },
+        });
+
+        localStorage.setItem("access_token", data.access_token);
+        localStorage.setItem("role", data.role);
+        localStorage.setItem("userId", data.userId);
+        localStorage.setItem("name", data.name);
+
+        this.router.push("/");
+        this.isLoggedIn = true;
+      } catch (err) {
+        new Swal(
+          "Whoops, can't login!",
+          "please double check your email/password",
+          "error"
+        );
+      }
+    },
+
     logout() {
       localStorage.clear();
       this.router.push("/");
