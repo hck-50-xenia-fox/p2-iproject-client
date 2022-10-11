@@ -6,7 +6,7 @@ import { useIndexStore } from "@/stores/index.js";
 import { mapActions } from "pinia";
 export default {
   methods: {
-    ...mapActions(useIndexStore, ["logout"]),
+    ...mapActions(useIndexStore, ["logout", "signout"]),
   },
   computed: {},
   components: { PayButton, ChatButton },
@@ -20,11 +20,12 @@ export default {
   <ChatButton />
 
   <div>
-    <RouterLink to='/login'>Login</RouterLink>
+    <RouterLink to="/login">Login</RouterLink>
   </div>
 
   <div>
     <button @click="logout()">Logout</button>
+    <button @click="signout()">fblogout</button>
   </div>
 </template>
 <style></style>

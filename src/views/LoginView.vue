@@ -12,7 +12,11 @@ export default {
     };
   },
   methods: {
-    ...mapActions(useIndexStore, ["login"]),
+    ...mapActions(useIndexStore, [
+      "login",
+      "handleCredentialResponse",
+      "signInWithFacebook",
+    ]),
 
     googleBtn() {
       window.onload = () => {
@@ -60,7 +64,7 @@ export default {
                     autocomplete="email"
                     required=""
                     placeholder="Your Email"
-                    class="block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
+                    class="block w-full px-5 py-3 text-base placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg text-neutral-600 bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
                   />
                 </div>
               </div>
@@ -81,7 +85,7 @@ export default {
                     autocomplete="current-password"
                     required=""
                     placeholder="Your Password"
-                    class="block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
+                    class="block w-full px-5 py-3 text-base placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg text-neutral-600 bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
                   />
                 </div>
               </div>
@@ -127,14 +131,14 @@ export default {
                 <div class="w-full border-t border-gray-300"></div>
               </div>
               <div class="relative flex justify-center text-sm">
-                <span class="px-2 text-neutral-600 bg-white">
+                <span class="px-2 bg-white text-neutral-600">
                   Or continue with
                 </span>
               </div>
             </div>
-            <div>
-              <span id="google-btn"></span>
-            </div>
+
+            <span id="google-btn"></span>
+            <button @click.prevent="signInWithFacebook">iseng</button>
           </div>
         </div>
       </div>

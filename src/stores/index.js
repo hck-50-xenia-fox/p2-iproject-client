@@ -1,12 +1,30 @@
 import { defineStore } from "pinia";
 import axios from "@/apis/axios-instance.js";
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseUrl = "https://imqbfsulurhrhklxfzdj.supabase.co";
+const supabase = createClient(
+  supabaseUrl,
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImltcWJmc3VsdXJocmhrbHhmemRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjU1MTI2NTUsImV4cCI6MTk4MTA4ODY1NX0.2NvZZP8Ua3CKLQat7LcCB54z_yZNULRpz1GPLFi_MyA"
+);
 
 export const useIndexStore = defineStore("index", {
   state: () => ({
-    isLogin: false,
+    isLoggedIn: false,
   }),
 
   actions: {
+    async signInWithFacebook() {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: "facebook",
+      });
+      console.log(data, error);
+    },
+
+    async signout() {
+      const { error } = await supabase.auth.signOut();
+    },
+
     async payButton() {
       try {
         const { data } = await axios({
@@ -30,7 +48,12 @@ export const useIndexStore = defineStore("index", {
           },
         });
 
+        this.isLoggedIn = true;
+
         localStorage.setItem("access_token", data.access_token);
+        localStorage.setItem("role", data.role);
+        localStorage.setItem("UserId", data.userId);
+        localStorage.setItem("name", data.name);
 
         this.router.push("/");
       } catch (err) {
@@ -39,29 +62,26 @@ export const useIndexStore = defineStore("index", {
     },
 
     async handleCredentialResponse(response) {
-      const { credential } = response;
       try {
+        const { credential } = response;
         const { data } = await axios({
-          method: "POST",
-          url: "/pub/google-login",
+          method: "post",
+          url: "/users/google-login",
           data: {
             credential,
           },
         });
 
+        this.isLoggedIn = true;
+
         localStorage.setItem("access_token", data.access_token);
         localStorage.setItem("role", data.role);
-        localStorage.setItem("userId", data.userId);
+        localStorage.setItem("UserId", data.userId);
         localStorage.setItem("name", data.name);
 
         this.router.push("/");
-        this.isLoggedIn = true;
       } catch (err) {
-        new Swal(
-          "Whoops, can't login!",
-          "please double check your email/password",
-          "error"
-        );
+        console.log(err);
       }
     },
 
