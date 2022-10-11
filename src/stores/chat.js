@@ -4,7 +4,6 @@ const socket = io("http://localhost:3000");
 
 export const useChatStore = defineStore("chat", {
   state: () => ({
-    // isLogin: false,
     chat: {
       message: "",
     },
