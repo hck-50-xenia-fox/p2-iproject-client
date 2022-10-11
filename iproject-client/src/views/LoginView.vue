@@ -1,0 +1,51 @@
+<script>
+import { mapActions } from 'pinia';
+import { useLoginStore } from '../stores/storeLogin';
+export default {
+    name: "LoginView",
+    data() {
+        return {
+            dataLogin: {
+                email: "",
+                password: ""
+            }
+        }
+    },
+    methods: {
+        ...mapActions(useLoginStore, ["loginHandler"]),
+    }
+}
+</script>
+
+<template>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col">
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        <h3>Login</h3>
+                        <p>Welcome to Petshop App!</p>
+                        <form method="post" @submit.prevent="loginHandler(dataLogin)">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input v-model="dataLogin.email" type="email" class="form-control" id="email" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input v-model="dataLogin.password" type="password" class="form-control"
+                                    id="password" />
+                            </div>
+                            <button type="submit" class="btn btn-danger me-3">
+                                Let's Login! <i class="bi bi-arrow-right-square"></i>
+                            </button>
+                            
+                            <button @click="$router.push('/register')" type="submit" class="btn btn-secondary">
+                                I'm a new user <i class="bi bi-person-lines-fill"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
