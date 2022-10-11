@@ -1,5 +1,12 @@
-<script></script>
+<script>
+import PayButton from "../components/PayButton.vue";
+export default {
+  methods: {},
+  computed: {},
+  components: { PayButton },
+};
+</script>
 <template>
-  <button id="pay-button">Pay!</button>
+  <PayButton></PayButton>
 </template>
 <style></style>
