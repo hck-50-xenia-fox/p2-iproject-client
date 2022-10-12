@@ -1,6 +1,7 @@
 <script>
 import Navbar from '../components/Navbar.vue';
 import { reactive, onMounted, ref } from 'vue';
+import db from '../db'
 export default {
     name: "Chat",
     components: {
@@ -40,6 +41,7 @@ export default {
         messagesRef.on('value', snapshot => {
           const data = snapshot.val();
           let messages = [];
+          console.log(data);
           Object.keys(data).forEach(key => {
             messages.push({
               id: key,
@@ -69,8 +71,9 @@ export default {
         <div class="p-8 lg:w-1/2 mx-auto mt-10 rounded-lg">
             <div class="bg-gray-100 rounded-lg py-12 px-4 lg:px-24">
                 <p class="text-center text-sm text-gray-500 font-light"> Chat With Oder </p>
-                <form class="mt-6">
+                <form class="mt-6" @submit.prevent="Login">
                     <div class="relative mt-3"> <input
+                        v-model="inputUsername"
                             class="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
                             id="username" type="text" placeholder="Username" />
                         <div class="absolute left-0 inset-y-0 flex items-center"> <svg
@@ -93,13 +96,12 @@ export default {
     </div>
 
 
-    <div class="view chat" v-else>
+    <div class="view chat mx-10" v-else>
           <header>
-            <button class="bg-red-500 logout hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" @click="Logout">Exit Chat</button>
             <h1 class="rounded-lg box-content w-fit mt-12 bg-stone-900 text-lg text-white p-3">Welcome, {{ state.username }}</h1>
           </header>
           
-          <section class="chat-box ">
+          <section class="chat-box">
             <div 
               v-for="message in state.messages" 
               :key="message.key" 
@@ -151,7 +153,7 @@ export default {
             
             .form-inner {
                 display: block;
-                background-color: #1c1917;
+                background-color: black;
                 padding: 50px 15px;
                 border-radius: 16px;
                 box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
@@ -181,7 +183,7 @@ export default {
                     color: #333;
                     font-size: 18px;
                     box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
-                    background-color: #78350f;
+                    background-color: black;
                     transition: 0.4s;
                     &::placeholder {
                         color: #FFF;
@@ -260,7 +262,7 @@ export default {
                     .content {
                         display: inline-block;
                         padding: 10px 20px;
-                        background-color: #78350f;
+                        background-color: black;
                         border-radius: 999px;
                         color: #FFF;
                         font-size: 18px;
@@ -277,7 +279,7 @@ export default {
                         .content {
                             color: #FFF;
                             font-weight: 600;
-                            background-color: #ea526f;
+                            background-color: black;
                         }
                     }
                 }
@@ -305,7 +307,7 @@ export default {
                     color: #fff;
                     font-size: 18px;
                     box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
-                    background-color: #78350f;
+                    background-color: black;
                     transition: 0.4s;
                     &::placeholder {
                         color: #FFF;
