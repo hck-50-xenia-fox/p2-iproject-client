@@ -1,9 +1,24 @@
 <script>
 import { RouterLink, RouterView } from "vue-router";
 import { mapActions } from "pinia";
+import { useIndexStore } from '../stores'
 
 export default {
-    name: 'LoginView'
+    name: 'LoginView',
+    data() {
+        return {
+            loginUser: {
+                email: '',
+                password: ''
+            }
+        }
+    },
+    methods: {
+        ...mapActions(useIndexStore, ['handleLogin']),
+        login() {
+            this.handleLogin(this.loginUser)
+        }
+    }
 }
 </script>
 
@@ -11,7 +26,7 @@ export default {
     <section>
     <div class="row d-flex justify-content-center mt-5">
       <br /><br /><br />
-      <form >
+      <form @submit.prevent="login">
         <div class="row d-flex justify-content-center">
           <div class="form-control mb-4" style="width: 500px">
             <!-- Email input -->
@@ -21,6 +36,7 @@ export default {
               id="loginEmail-form"
               class="form-control mt-1 mb-1"
               placeholder="Input your email address"
+              v-model="loginUser.email"
               
             />
             <!-- Password Input -->
@@ -30,6 +46,7 @@ export default {
               id="loginPassword-form"
               class="form-control mt-1 mb-1"
               placeholder="Input your password"
+              v-model="loginUser.password"
               
             />
           </div>
