@@ -119,7 +119,8 @@ export default {
                             <div class="video-info">
                                 <h3 class="video-title">{{video.titleVideo}}</h3>
                                 <ul class="video-meta-data">
-                                    <li class="video-creator">ReallyCoolVlogs <i class="fas fa-check-circle"></i></li>
+                                    <li class="video-creator">{{dataChannelDetail.title}} <i
+                                            class="fas fa-check-circle"></i></li>
                                     <li class="video-views">{{video.views}} views</li>
                                     <li class="video-upload-date">{{video.date}}</li>
                                 </ul>

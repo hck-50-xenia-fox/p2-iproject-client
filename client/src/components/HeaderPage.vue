@@ -36,16 +36,16 @@ export default {
         <div class="header">
             <div class="header__left">
                 <i id="menu" class="material-icons">menu</i>
-                <img src="../assets/YouTube-Logo.wine.svg" alt="" />
+                <img src="../assets/YouTube-Logo.wine.svg" alt="" @click.prevent="this.$router.push('/')" />
             </div>
 
-            <div class="header__search">
+            <div class="header__search d-flex flex-row">
                 <form action="" @submit.prevent="this.$router.push(`/search/${search}`)">
                     <input type="text" placeholder="Search" v-model="search" />
                     <button type="submit"><i class="material-icons">search</i></button>
                 </form>
-                <div>
-                    <button @click.prevent="start">text</button>
+                <div class="ms-3">
+                    <button @click.prevent="start"><i id="menu" class="material-icons">mic</i></button>
                 </div>
             </div>
 
