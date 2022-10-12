@@ -6,7 +6,7 @@ export default {
   props: ["invoice", "index"],
   methods: {
     ...mapActions(useDataStore, ["generateInvoice"]),
-    handleGenerateInvoie(page) {
+    handleGenerateInvoice(page) {
       this.generateInvoice(page);
     },
   },
@@ -22,7 +22,7 @@ export default {
     <td>{{ invoice.priceToSale }}</td>
     <td>{{ invoice.rev }}</td>
     <td>
-      <button @click.prevent="handleGenerateInvoie(invoice.id)">
+      <button @click.prevent="handleGenerateInvoice(invoice.id)">
         Print Invoice
       </button>
       || <button>Delete</button>
