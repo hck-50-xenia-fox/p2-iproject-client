@@ -9,8 +9,10 @@ export default {
         <div class="overlay"></div>
         <div class="container">
             <div class="row">
+                <img class="display-t" style="width: 120%; height: 100%; justify-content: center;"
+                    src="../assets/images/cover.jpeg" />
                 <div class="col-md-8 col-md-offset-2 text-center">
-                    <div class="d-flex display-t js-fullheight">
+                    <div class="display-t js-fullheight">
                         <div class="display-tc js-fullheight animate-box justify-content-center"
                             data-animate-effect="fadeIn">
                             <h1>Explore &amp; Discover Depok</h1>

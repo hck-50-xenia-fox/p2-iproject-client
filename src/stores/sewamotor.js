@@ -63,7 +63,8 @@ export const useSewamotorStore = defineStore("sewamotor", {
             access_token: localStorage.getItem("access_token"),
           },
         });
-        this.currentMotorcycle = response.data.data;
+        console.log(response)
+        this.currentMotorcycle = response.data
       } catch (err) {
         console.log(err);
         Swal.fire({

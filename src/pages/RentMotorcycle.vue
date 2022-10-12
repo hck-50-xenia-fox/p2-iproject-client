@@ -22,12 +22,13 @@ export default {
 		<div class="container">
 			<div class="row animate-box">
 				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-					<h2>Our Motorcycles</h2>
-					<p>Motorcycle Models Listed for Rent</p>
+					<h2>Discover our Motorcycle Fleet</h2>
+					<p>See our selection of motorcycles that we have to offer you and start your adventure.</p>
 				</div>
 			</div>
 			<div class="row">
-				<MotorcycleCard v-for="motorcycle in motorcycles" :key="motorcycle._id" :motorcycle="motorcycle" :id="motorcycle._id" />
+				<MotorcycleCard v-for="motorcycle in motorcycles" :key="motorcycle._id" :motorcycle="motorcycle"
+					:id="motorcycle._id" />
 			</div>
 		</div>
 	</div>
