@@ -39,7 +39,7 @@ export default {
             style="text-decoration: none"
             to="/InventoryAddForm"
           >
-            Inventory</RouterLink
+            Add Inventory</RouterLink
           >
         </button>
         <div class="table-responsive">

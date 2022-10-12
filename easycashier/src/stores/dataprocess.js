@@ -64,8 +64,51 @@ export const useDataStore = defineStore("data", {
         );
         Swal.fire({
           icon: "success",
+          text: `Invoice Success Added`,
+        });
+        this.router.push("/inventory");
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          text: `${error.response.data.message}`,
+        });
+      }
+    },
+    async addInvoice(invoice) {
+      try {
+        let {
+          customerName,
+          customerAddress,
+          InventoryId,
+          quantity,
+          priceToSale,
+          rev,
+          customerEmail,
+          customerPhoneNumber,
+        } = invoice;
+        await axios.post(
+          `${url}/invoice`,
+          {
+            customerName,
+            customerAddress,
+            InventoryId,
+            quantity,
+            priceToSale,
+            rev,
+            customerEmail,
+            customerPhoneNumber,
+          },
+          {
+            headers: {
+              access_token: localStorage.access_token,
+            },
+          }
+        );
+        Swal.fire({
+          icon: "success",
           text: `Inventory Success Added`,
         });
+        this.router.push("/invoice");
       } catch (error) {
         Swal.fire({
           icon: "error",

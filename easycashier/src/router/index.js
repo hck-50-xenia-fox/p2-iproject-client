@@ -6,6 +6,7 @@ import Inventory from "../views/Inventory.vue";
 import Invoice from "../views/Invoice.vue";
 import InventoryAddForm from "../components/InventoryAddForm.vue";
 import historyData from "../views/History.vue";
+import invoiceAddForm from "../components/InvoiceAddForm.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,7 +46,11 @@ const router = createRouter({
       name: "history",
       component: historyData,
     },
-    
+    {
+      path: "/invoiceAddForm",
+      name: "invoiceAddForm",
+      component: invoiceAddForm,
+    },
   ],
 });
 router.beforeEach((to, from) => {
