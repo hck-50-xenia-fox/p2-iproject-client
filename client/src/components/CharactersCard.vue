@@ -1,6 +1,6 @@
 <script>
 import {mapActions, mapState} from 'pinia'
-import {useIndexStore} from '../router'
+// import {useIndexStore} from '../router/index'
 
 export default {
     name: 'CharactersCard',
@@ -16,7 +16,7 @@ export default {
 
 <template>
     <div class="card mx-3 my-3" style="width: 18rem; background-color: honeydew;">
-  <img class="card-img-top mt-4" :src="character.imageUrl" alt="Card image cap" style="height:150px">
+  <img class="card-img-top mt-4 img-fluid" :src="character.imageUrl" alt="Card image cap" >
   <div class="row justify-content-end mt-2" >
     <div class="col-2">
         <a href="" ><i class="fa-regular fa-star"></i></a>
