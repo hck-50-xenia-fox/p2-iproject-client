@@ -55,12 +55,13 @@ export const useUserStore = defineStore("user", {
       }
     },
     logout() {
+      localStorage.clear();
       this.changeIsLogin(false);
       Swal.fire({
         icon: "success",
         text: `Logout Success!`,
       });
-      this.router.push("/");
+      this.router.push("/login");
     },
     changeIsLogin(boolean) {
       this.isLogin = boolean;

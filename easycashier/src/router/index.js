@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import Login from "../views/Login.vue";
 import Signup from "../views/Signup.vue";
+import Inventory from "../views/Inventory.vue";
+import Invoice from "../views/Invoice.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,8 +23,26 @@ const router = createRouter({
       name: "signup",
       component: Signup,
     },
+    {
+      path: "/inventory",
+      name: "inventory",
+      component: Inventory,
+    },
+    {
+      path: "/invoice",
+      name: "invoice",
+      component: Invoice,
+    },
     //
   ],
+});
+router.beforeEach((to, from) => {
+  if (!localStorage.access_token && to.name == "home") {
+    return "/login";
+  }
+  if (localStorage.access_token && to.name == "Login") {
+    return "/";
+  }
 });
 
 export default router;
