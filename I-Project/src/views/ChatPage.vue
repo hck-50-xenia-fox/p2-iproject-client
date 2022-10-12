@@ -1,16 +1,71 @@
 <script>
 import Navbar from '../components/Navbar.vue';
-
+import { reactive, onMounted, ref } from 'vue';
 export default {
     name: "Chat",
     components: {
         Navbar
+    },
+    setup () {
+      const inputUsername = ref("");
+      const inputMessage = ref("");
+      const state = reactive({
+        username: "",
+        messages: []
+      });
+      const Login = () => {
+        if (inputUsername.value != "" || inputUsername.value != null) {
+          state.username = inputUsername.value;
+          inputUsername.value = "";
+        }
+      }
+      const Logout = () => {
+        state.username = "";
+      }
+      const SendMessage = () => {
+        const messagesRef = db.database().ref("messages");
+        if (inputMessage.value === "" || inputMessage.value === null) {
+          return;
+        }
+        const message = {
+          username: state.username,
+          content: inputMessage.value
+        }
+        messagesRef.push(message);
+        inputMessage.value = "";
+        console.log(messagesRef);
+      }
+      onMounted(() => {
+        const messagesRef = db.database().ref("messages");
+        messagesRef.on('value', snapshot => {
+          const data = snapshot.val();
+          let messages = [];
+          Object.keys(data).forEach(key => {
+            messages.push({
+              id: key,
+              username: data[key].username,
+              content: data[key].content
+            });
+          });
+          console.log(messages);
+          state.messages = messages;
+        });
+      });
+      return {
+        inputUsername,
+        Login,
+        state,
+        inputMessage,
+        SendMessage,
+        Logout
+      }
     }
-}
+  }
+
 </script>
 <template>
     <Navbar />
-    <div class="rounded-lg mt-20">
+    <div class="rounded-lg mt-20" v-if="state.username === '' || state.username === null">
         <div class="p-8 lg:w-1/2 mx-auto mt-10 rounded-lg">
             <div class="bg-gray-100 rounded-lg py-12 px-4 lg:px-24">
                 <p class="text-center text-sm text-gray-500 font-light"> Chat With Oder </p>
@@ -38,11 +93,241 @@ export default {
     </div>
 
 
-    <div class="rounded-lg mt-20">
-        <div class="p-8 lg:w-1/2 mx-auto mt-10 rounded-lg">
-            <div class="bg-gray-100 rounded-lg py-12 px-4 lg:px-24">
-                <p class="text-center text-sm text-gray-500 font-light"> Chat With Oder </p>
+    <div class="view chat" v-else>
+          <header>
+            <button class="bg-red-500 logout hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" @click="Logout">Exit Chat</button>
+            <h1 class="rounded-lg box-content w-fit mt-12 bg-stone-900 text-lg text-white p-3">Welcome, {{ state.username }}</h1>
+          </header>
+          
+          <section class="chat-box ">
+            <div 
+              v-for="message in state.messages" 
+              :key="message.key" 
+              :class="(message.username == state.username ? 'message current-user' : 'message')">
+              <div class="message-inner">
+                <div class="username">{{ message.username }}</div>
+                <div class="content">{{ message.content }}</div>
+              </div>
             </div>
+          </section>
+      
+          <footer>
+            <form @submit.prevent="SendMessage">
+              <input 
+                type="text" 
+                v-model="inputMessage" 
+                placeholder="Write a message..." />
+              <input 
+                type="submit" 
+                value="Send" />
+            </form>
+          </footer>
         </div>
-    </div>
 </template>
+
+<style lang="scss">
+* {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.view {
+    display: flex;
+    justify-content: center;
+  //   min-height: 100vh;
+  //   background-color: #ea526f;
+  // #78350f
+  // #1c1917
+
+    &.login {
+        align-items: center;
+        .login-form {
+            display: block;
+            width: 100%;
+            padding: 30px;
+            
+            .form-inner {
+                display: block;
+                background-color: #1c1917;
+                padding: 50px 15px;
+                border-radius: 16px;
+                box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+                h1 {
+                    color: #FFF;
+                    font-size: 28px;
+                    margin-bottom: 30px;
+                }
+                label {
+                    display: block;
+                    margin-bottom: 5px;
+                    color: #FFF;
+                    font-size: 16px;
+                    transition: 0.4s;
+                }
+                input[type="text"] {
+                    appearance: none;
+                    border: none;
+                    outline: none;
+                    background: none;
+                    display: block;
+                    width: 100%;
+                    padding: 10px 15px;
+                    border-radius: 8px;
+                    margin-bottom: 15px;
+                    
+                    color: #333;
+                    font-size: 18px;
+                    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+                    background-color: #78350f;
+                    transition: 0.4s;
+                    &::placeholder {
+                        color: #FFF;
+                        transition: 0.4s;
+                    }
+                }
+                input[type="submit"] {
+                    appearance: none;
+                    border: none;
+                    outline: none;
+                    background: none;
+                    display: block;
+                    width: 100%;
+                    padding: 10px 15px;
+                    background-color: #ea526f;
+                    border-radius: 8px;
+                    color: #FFF;
+                    font-size: 18px;
+                    font-weight: 700;
+                }
+                &:focus-within {
+                    label {
+                        color: #ea526f;
+                    }
+                    input[type="text"] {
+                        background-color: #FFF;
+                        box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+                        &::placeholder {
+                            color: #666;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &.chat {
+        flex-direction: column;
+        header {
+            position: relative;
+            display: block;
+            width: 100%;
+            padding: 50px 30px 10px;
+            .logout {
+                position: absolute;
+              
+                right: 15px;
+              
+                border: none;
+                border-radius: 15px;
+             
+                font-size: 18px;
+            }
+          //   h1 {
+          //       color: #78350f;
+          //       background-color: #1c1917;
+          //   }
+        }
+        .chat-box {
+            border-radius: 24px 24px 0px 0px;
+            background-color: #1c1917;
+            box-shadow: 0px 0px 12px rgba(100, 100, 100, 0.2);
+            flex: 1 1 100%;
+            padding: 30px;
+            .message {
+                display: flex;
+                margin-bottom: 15px;
+                
+                .message-inner {
+                    .username {
+                        color: #888;
+                        font-size: 16px;
+                        margin-bottom: 5px;
+                        padding-left: 15px;
+                        padding-right: 15px;
+                    }
+                    .content {
+                        display: inline-block;
+                        padding: 10px 20px;
+                        background-color: #78350f;
+                        border-radius: 999px;
+                        color: #FFF;
+                        font-size: 18px;
+                        line-height: 1.2em;
+                        text-align: left;
+                    }
+                }
+                &.current-user {
+                    margin-top: 30px;
+                    justify-content: flex-end;
+                    text-align: right;
+                    .message-inner {
+                        max-width: 75%;
+                        .content {
+                            color: #FFF;
+                            font-weight: 600;
+                            background-color: #ea526f;
+                        }
+                    }
+                }
+            }
+        }
+        footer {
+            position: sticky;
+            bottom: 0px;
+            background-color: #1c1917;
+            padding: 30px;
+            box-shadow: 0px 0px 12px rgba(100, 100, 100, 0.2);
+            form {
+                display: flex;
+                input[type="text"] {
+                    flex: 1 1 100%;
+                    appearance: none;
+                    border: none;
+                    outline: none;
+                    background: none;
+                    display: block;
+                    width: 100%;
+                    padding: 10px 15px;
+                    border-radius: 8px 0px 0px 8px;
+                    
+                    color: #fff;
+                    font-size: 18px;
+                    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+                    background-color: #78350f;
+                    transition: 0.4s;
+                    &::placeholder {
+                        color: #FFF;
+                        transition: 0.4s;
+                    }
+                }
+                
+                input[type="submit"] {
+                    appearance: none;
+                    border: none;
+                    outline: none;
+                    background: none;
+                    display: block;
+                    padding: 10px 15px;
+                    border-radius: 0px 8px 8px 0px;
+                    background-color: #ea526f;
+                    color: #FFF;
+                    font-size: 18px;
+                    font-weight: 700;
+                }
+            }
+        }
+    }
+}
+</style>

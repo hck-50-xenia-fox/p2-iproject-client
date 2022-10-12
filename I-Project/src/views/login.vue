@@ -5,37 +5,41 @@ import { useIprojectStore } from "../stores/index";
 export default {
     name: "Login",
     data() {
-            return {
-                newUser:{
-                    email: '',
-                    password: ''
-                }
+        return {
+            newUser: {
+                email: '',
+                password: ''
             }
-        },
-    components:{
+        }
+    },
+    components: {
         RouterLink
     },
-    methods:{
-        ...mapActions(useIprojectStore,['login','handleCredentialResponse']),
-        loginHandle(){
+    methods: {
+        ...mapActions(useIprojectStore, ['login', 'handleCredentialResponse', 'handleFacebook']),
+        loginHandle() {
             this.login(this.newUser)
         }
     },
-    mounted(){
-            const cb = this.handleCredentialResponse
-            
-            window.onload = function () {
-                google.accounts.id.initialize({
-                    client_id: "653896340625-ciq35qf1df4npj2u99a93409crlg3l26.apps.googleusercontent.com",
-                    callback: cb
-                });
-                    google.accounts.id.renderButton(
+    created() {
+        this.handleFacebook()
+    },
+    mounted() {
+        const cb = this.handleCredentialResponse
+
+        window.onload = function () {
+            google.accounts.id.initialize({
+                client_id: "653896340625-ciq35qf1df4npj2u99a93409crlg3l26.apps.googleusercontent.com",
+                callback: cb
+            });
+            google.accounts.id.renderButton(
                     document.getElementById("google-button-login"),
                     { theme: "outline", size: "large" }  // customization attributes
-                );
-                google.accounts.id.prompt(); // also display the One Tap dialog
-            }
-        },
+                );;
+            google.accounts.id.prompt(); // also display the One Tap dialog
+        }
+
+    },
 }
 </script>
 
@@ -52,14 +56,17 @@ export default {
                                     d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
                                 </path>
                             </svg> Github </button>
-                             <div id="google-button-login"></div>  </div>
+                        <div id="google-button-login"></div>
+                        <div id="status">
+                        </div>
+
+                    </div>
                 </div>
             </div>
             <div class="bg-gray-100 rounded-b-lg py-12 px-4 lg:px-24">
                 <p class="text-center text-sm text-gray-500 font-light"> Or sign in with credentials </p>
                 <form @submit.prevent="loginHandle()" class="mt-6">
-                    <div class="relative"> <input
-                            v-model="newUser.email"
+                    <div class="relative"> <input v-model="newUser.email"
                             class="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
                             id="username" type="text" placeholder="Email" />
                         <div class="absolute left-0 inset-y-0 flex items-center"> <svg
@@ -69,8 +76,7 @@ export default {
                                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                             </svg> </div>
                     </div>
-                    <div class="relative mt-3"> <input
-                        v-model="newUser.password"
+                    <div class="relative mt-3"> <input v-model="newUser.password"
                             class="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
                             id="username" type="text" placeholder="Password" />
                         <div class="absolute left-0 inset-y-0 flex items-center"> <svg
@@ -80,15 +86,16 @@ export default {
                                     d="M10 2a5 5 0 00-5 5v2a2 2 0 00-2 2v5a2 2 0 002 2h10a2 2 0 002-2v-5a2 2 0 00-2-2H7V7a3 3 0 015.905-.75 1 1 0 001.937-.5A5.002 5.002 0 0010 2z" />
                             </svg> </div>
                     </div>
-                    
+
                     <div class="flex items-center gap-2 justify-center mt-8">
-                        <button 
+                        <button
                             class="flex items-center py-2 px-4 text-sm uppercase rounded bg-white hover:bg-gray-100 text-indigo-500 border border-transparent hover:border-transparent hover:text-gray-700 shadow-md hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
-                             <RouterLink to="/register">Register</RouterLink>
-                            </button>
+                            <RouterLink to="/register">Register</RouterLink>
+                        </button>
                         <button
                             class="text-white py-2 px-4 uppercase rounded bg-indigo-500 hover:bg-indigo-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
-                            Sign in  </button> </div>
+                            Sign in </button>
+                    </div>
                 </form>
             </div>
         </div>

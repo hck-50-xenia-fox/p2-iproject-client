@@ -75,6 +75,7 @@ export const useIprojectStore = defineStore("Iproject", {
         } catch (error) {
           console.log(error);
         }
-      },
+    },
+
   },
 });
