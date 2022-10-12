@@ -5,7 +5,7 @@ import App from "./App.vue";
 import router from "./router";
 // const bootstrap = require('bootstrap') 
 import "bootstrap/dist/css/bootstrap.min.css"
-// import bootstrap from 'bootstrap'
+
 
 // import "./assets/main.css";
 

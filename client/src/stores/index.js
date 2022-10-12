@@ -2,11 +2,12 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
 const baseUrl = 'http://localhost:3000'
+import io from 'socket.io-client'
 
 export const useIndexStore = defineStore('index', {
     state: () => {
         return {
-
+            
         }
     },
     getters: {
@@ -29,6 +30,7 @@ export const useIndexStore = defineStore('index', {
             } catch (error) {
                 console.log(error)
             }
-        }
+        },
+         
     }
 })
