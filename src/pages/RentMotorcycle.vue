@@ -1,8 +1,19 @@
 <script>
+import { mapActions, mapState } from 'pinia'
+import { useSewamotorStore } from '../stores/sewamotor.js'
 import MotorcycleCard from '../components/MotorcycleCard.vue';
 
 export default {
-    components: { MotorcycleCard }
+	components: { MotorcycleCard },
+	computed: {
+		...mapState(useSewamotorStore, ['motorcycles'])
+	},
+	methods: {
+		...mapActions(useSewamotorStore, ['getMotorcycles'])
+	},
+	created() {
+		this.getMotorcycles()
+	}
 }
 </script>
 
@@ -16,9 +27,7 @@ export default {
 				</div>
 			</div>
 			<div class="row">
-				<MotorcycleCard />
-				<MotorcycleCard />
-				<MotorcycleCard />
+				<MotorcycleCard v-for="motorcycle in motorcycles" :key="motorcycle._id" :motorcycle="motorcycle" :id="motorcycle._id" />
 			</div>
 		</div>
 	</div>
