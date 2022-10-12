@@ -6,6 +6,7 @@ const baseUrl = 'http://localhost:3000'
 export const useIndexStore = defineStore('index', {
     state: () => {
         return {
+            loginState: false,
 
         }
     },
@@ -25,9 +26,16 @@ export const useIndexStore = defineStore('index', {
                 })
                 localStorage.setItem('access_token', data.access_token)
                 localStorage.setItem('name', data.username)
-                console.log('login sukses')  
+                // console.log('login sukses')
+                this.checkLogin()
+                this.router.push('/')
             } catch (error) {
                 console.log(error)
+            }
+        },
+        async checkLogin() {
+            if(localStorage.getItem('access_token')) {
+                this.loginState = true
             }
         }
     }
