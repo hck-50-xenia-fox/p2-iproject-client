@@ -23,10 +23,10 @@ export default {
           <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
               <li v-if="isLogin" class="nav-item">
-                <a class="nav-link" href="#">Home</a>
+                <a class="nav-link" href="#" @click.prevent="$router.push('/')">Home</a>
               </li>
               <li v-if="isLogin" class="nav-item">
-                <a class="nav-link" href="#">Features</a>
+                <a class="nav-link" href="#" @click.prevent="$router.push('/product')">Product</a>
               </li>
               <li v-if="isLogin" class="nav-item">
                 <a class="nav-link" href="#" @click.prevent="logout">Logout</a>
