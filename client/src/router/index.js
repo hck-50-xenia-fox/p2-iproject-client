@@ -4,6 +4,7 @@ import LoginView from '../views/LoginView.vue'
 import ChatroomView from '../views/ChatroomView.vue'
 import CharactersView from '../views/CharactersView.vue'
 import SummonsView from '../views/SummonsView.vue'
+import RegisterView from '../views/RegisterView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: '/summons',
       name: 'summonView',
       component: SummonsView
+    },
+    {
+      path: '/register',
+      name: 'registerView',
+      component: RegisterView
     }
     // {
     //   path: "/about",

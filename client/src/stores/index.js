@@ -107,6 +107,22 @@ export const useIndexStore = defineStore('index', {
             } catch (error) {
                 console.log(error)
             }
+        },
+        async handleRegister(user) {
+            try {
+                let data = await axios({
+                    url: `${baseUrl}/users/register`,
+                    method: 'post',
+                    data: {
+                        username: user.username,
+                        email: user.email,
+                        password: user.password
+                    }
+                })
+                this.router.push('/login')
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
 })
