@@ -1,5 +1,5 @@
 import { app, database } from "./firebase-sdk"
-import { collection, addDoc, getDocs } from "firebase/firestore"
+import { collection, addDoc, getDocs, doc, updateDoc } from "firebase/firestore"
 
 
 export default function App() {
@@ -28,8 +28,8 @@ export default function App() {
     const getData = () => {
         getDocs(collectionRef)
         .then((response) => {
-            console.log(response.data.map((item) => {
-                return item.data();
+            console.log(response.docs.map((item) => {
+                return {...item.data(), id: item.id}
             }))
         })
     }
