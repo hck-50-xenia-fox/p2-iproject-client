@@ -107,9 +107,11 @@ export const useFoodStore = defineStore("food", {
         this.errorAlert(err.response.data.message);
       }
     },
-    async getRestaurantData() {
+    async getRestaurantData(place) {
       try {
-        let { data } = await axios.get("http://localhost:3000/restaurant");
+        let { data } = await axios.get(
+          "http://localhost:3000/restaurant?place=" + place
+        );
         console.log(data);
         this.restaurant = data;
       } catch (err) {

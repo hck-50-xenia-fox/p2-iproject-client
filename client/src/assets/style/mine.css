@@ -200,15 +200,19 @@
 .form__button {
   display: block;
   margin-left: auto;
-  padding: 0.55rem 2rem;
+  padding: 0.55rem 1.5rem;
   outline: none;
   border: none;
-  background-color: #212121;
-  color: #fff;
+  background-color: #000000;
+  color: #ffffff;
   font-size: 1rem;
   border-radius: 0.5rem;
   cursor: pointer;
   transition: 0.3s;
+}
+.form__button:hover {
+  transition: 0.5s;
+  background-color: #424242;
 }
 
 .form__button__save {

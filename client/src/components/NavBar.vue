@@ -14,38 +14,34 @@ export default {
 };
 </script>
 <template>
-  <nav class="bg-gray-100">
+  <nav class="bg-black">
     <div class="max-w-7xl mx-auto">
       <div class="flex justify-between">
         <div class="flex space-x-4">
           <!--logo-->
           <div>
-            <RouterLink to="/" class="flex items-center py-4 px-2">
-              <img
-                class="h-10 mr-2"
-                src="../assets/logo1.jpeg"
-                alt="AM Resto"
-              />
+            <RouterLink to="/" class="flex py-4 px-2 text-xl text-white">
+              Tisanovat
             </RouterLink>
           </div>
         </div>
         <!--secondary-->
         <div class="hidden md:flex items-center space-x-3">
           <RouterLink
-            to="/signin"
-            class="py-2 px-3 text-mypink hover:bg-gray-900 rounded"
+            to="/signup"
+            class="py-1.5 px-3 hover:bg-myWhite text-sm text-white hover:text-white rounded-full duration-500"
             v-show="!isSignin"
-            >Sign In</RouterLink
+            >Sign up</RouterLink
           >
           <RouterLink
-            to="/signup"
-            class="py-2 px-3 hover:bg-gray-900 hover:text-white rounded"
+            to="/signin"
+            class="py-1.5 font-medium px-3 text-black text-sm bg-white hover:bg-gray-300 duration-500 rounded-full"
             v-show="!isSignin"
-            >Sign Up</RouterLink
+            >Log in</RouterLink
           >
           <a
             href=""
-            class="py-2 px-3 bg-gray-900 text-yellow-50 rounded shadow hover:text-mypink"
+            class="py-2 px-3 bg-gray-900 text-sm text-yellow-50 rounded shadow hover:text-mypink"
             v-show="isSignin"
             @click.prevent="signOut"
             >Sign Out

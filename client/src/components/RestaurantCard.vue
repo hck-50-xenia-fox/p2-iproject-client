@@ -34,10 +34,9 @@ export default {
   >
     <div class="relative w-full h-full">
       <div
-        class="h-56"
+        class="h-56 bg-cover"
         :style="{
           'background-image': 'url(' + resto.image_url + ')',
-          'background-size': 'cover',
         }"
       ></div>
       <div
@@ -56,7 +55,18 @@ export default {
       <h2 class="text-xl">{{ resto.name }}</h2>
       <h2 class="text-sm text-gray-600">25~35·min</h2>
     </div>
-    <div class="flex self-end mt-1 mr-2 mb-2">
+    <div class="flex">
+      <p class="text-gray-500 text-xs">{{ resto.price }}</p>
+      <p v-if="!resto.price" class="text-gray-500 text-xs">$</p>
+      <p
+        class="text-gray-500 text-xs"
+        v-for="el in resto.categories"
+        :key="el.id"
+      >
+        ·{{ el.title }}
+      </p>
+    </div>
+    <div class="flex self-end mt-1 mr-2 mb-5">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="yellow"
@@ -72,6 +82,9 @@ export default {
         />
       </svg>
       <h2 class="text-gray-600">{{ resto.rating }}</h2>
+      <h2 class="text-gray-500 ml-1 mt-px text-sm">
+        ({{ resto.review_count }}+)
+      </h2>
     </div>
   </div>
 </template>

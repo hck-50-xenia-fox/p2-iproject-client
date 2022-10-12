@@ -1,7 +1,7 @@
 <script>
 import { mapActions, mapState } from "pinia";
 import { useFoodStore } from "../stores/food";
-import FoodCard from "../components/FoodCard.vue";
+import FoodCard from "../components/RestaurantCard.vue";
 export default {
   name: "CustomerFav",
   methods: {
