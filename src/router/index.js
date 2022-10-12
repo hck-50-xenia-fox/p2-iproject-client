@@ -3,6 +3,8 @@ import HomePage from '../pages/HomePage.vue'
 import RentMotorcycle from '../pages/RentMotorcycle.vue'
 import AboutUs from '../pages/AboutUs.vue'
 import DetailMotor from '../pages/DetailMotor.vue'
+import LoginPage from '../pages/LoginPage.vue'
+import RegisterPage from '../pages/RegisterPage.vue'
 
 
 const router = createRouter({
@@ -27,6 +29,16 @@ const router = createRouter({
       path: '/motorcycles/:id',
       name: 'detail',
       component: DetailMotor
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginPage
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: RegisterPage
     },
   ]
 })

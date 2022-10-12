@@ -73,5 +73,34 @@ export const useSewamotorStore = defineStore("sewamotor", {
         });
       }
     },
+
+    async login(email, password) {
+        try {
+          const response = await axios.post(`${baseURL}/login`, {
+            email,
+            password,
+          });
+          //SIMPAN DI LOCALE STORAGE
+          localStorage.setItem("access_token", response.data.access_token);
+          localStorage.setItem("username", response.data.name);
+          this.statusLogin = true;
+  
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Successfully logged in",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+  
+          this.router.push({ name: "home" });
+        } catch (err) {
+          console.log(err);
+          Swal.fire({
+            icon: "error",
+            text: `${err.response.data.error}`,
+          });
+        }
+      },
   },
 });
