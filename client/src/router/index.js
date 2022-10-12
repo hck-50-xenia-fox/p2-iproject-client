@@ -1,9 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { HomePage } from '../views/HomePage.vue'
-import { LoginPage } from '../views/LoginPage.vue'
-import { RegisterPage } from '../views/RegisterPage.vue'
-import { PokemonListPage } from '../views/PokemonListPage.vue'
-import { DetailPokemonPage } from '../views/DetailPokemonPage.vue'
+import  HomePage from '../views/HomePage.vue'
+import  LoginPage  from '../views/LoginPage.vue'
+import  RegisterPage  from '../views/RegisterPage.vue'
+import  PokemonListPage  from '../views/PokemonListPage.vue'
+import  DetailPokemonPage  from '../views/DetailPokemonPage.vue'
+import  ProfileDetailPage  from '../views/ProfileDetailPage.vue'
+import  ProfileEditPage from '../views/ProfileEditPage.vue'
+import  QuestionsAddPage from '../views/AddQuestionsPage.vue'
+import MatchmakingPage from '../views/MatchmakingPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,15 +28,35 @@ const router = createRouter({
       component: RegisterPage
     },
     {
+      path: '/profile',
+      name: 'profile',
+      component: ProfileDetailPage
+    },
+    {
+      path: '/profile/:username',
+      name: 'editProfile',
+      component: ProfileEditPage
+    },
+    {
       path: '/pokemons',
       name: 'pokemons',
       component: PokemonListPage
     },
     {
-      path: '/pokemons/:id',
+      path: '/pokemons/:name',
       name: 'DetailPokemon',
       component: DetailPokemonPage
     },
+    {
+      path: '/questions',
+      name: 'AddQuestions',
+      component: QuestionsAddPage
+    },
+    {
+      path: '/matchmaking',
+      name: 'matchmaking',
+      component: MatchmakingPage
+    }
   ]
 })
 
