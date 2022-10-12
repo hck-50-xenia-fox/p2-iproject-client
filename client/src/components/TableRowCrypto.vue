@@ -1,6 +1,12 @@
 <script>
+import { mapActions } from 'pinia';
+import { useIndexStore } from '../stores';
+
   export default {
-    props : ['crypto','index']
+    props : ['crypto','index'],
+    methods: {
+      ...mapActions(useIndexStore,['addWishlist'])
+    },
   }
 </script>
 
@@ -15,6 +21,9 @@
       <td>${{crypto.current_price}}</td>
       <td :class="[crypto.price_change > 0 ? 'text-success' : 'text-danger']">{{crypto.price_change}}%</td>
       <td>${{crypto.volume.toLocaleString()}}</td>
+      <td class="mr-5"><button @click.prevent="addWishlist(crypto.name,crypto.image)" class="bg-yellow">
+        <i class="bi bi-star"></i>
+      </button></td>
     </tr>
     
 </template>

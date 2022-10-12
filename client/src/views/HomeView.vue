@@ -2,21 +2,28 @@
 import { mapActions, mapState } from 'pinia';
 import { useIndexStore } from '../stores';
 import TableRowCrypto from '../components/TableRowCrypto.vue'
+import Navbar from "../components/Navbar.vue";
 
   export default {
     data (){
       return {
-        titles : ['No','Coin','Price','Price Change','24h Volume']
+        titles : ['No','Coin','Price','Price Change','24h Volume','Wishlist']
       }
     },
     components : {
-      TableRowCrypto
+      TableRowCrypto,
+      Navbar
     },
     computed : {
       ...mapState(useIndexStore,['cryptoData'])
     },
     methods : {
-      ...mapActions(useIndexStore,['fetchDataCrypto'])
+      ...mapActions(useIndexStore,['fetchDataCrypto','updateCoins'])
+    },
+    watch : {
+      cryptoData() {
+      this.updateCoins();
+    },
     },
     created (){
       this.fetchDataCrypto()
@@ -25,8 +32,10 @@ import TableRowCrypto from '../components/TableRowCrypto.vue'
 </script>
 
 <template>
+  <Navbar/>
   <!-- <h1>HELLOWORLD</h1> -->
   <div class="container  py-5">
+    <h1 class="text-center mb-4">Eight Crypto List Coin</h1>
     <div class="row">
       <table class="table  table-dark table-hover">
   <thead class="thead-dark">
