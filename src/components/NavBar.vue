@@ -1,13 +1,15 @@
 <script>
+import { RouterLink } from "vue-router";
 export default {
   name: "NavBar",
+  components: RouterLink,
 };
 </script>
 
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container px-5">
-      <a class="navbar-brand" href="">Tuesday.com</a>
+      <RouterLink to="/" class="navbar-brand" href="">Tuesday.com</RouterLink>
       <button
         class="navbar-toggler"
         type="button"
