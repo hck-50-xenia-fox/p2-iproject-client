@@ -8,6 +8,7 @@ export const useIndexStore = defineStore('index', {
     state: () => {
         return {
             loginState: false,
+            characters: []
 
         }
     },
@@ -43,6 +44,17 @@ export const useIndexStore = defineStore('index', {
             localStorage.clear()
             this.loginState = false
             this.router.push('/')
+        },
+        async getCharacters() {
+            try {
+                let {data} = await axios({
+                    method: 'get',
+                    url: `${baseUrl}/characters`
+                })
+                this.characters = data
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
 })
