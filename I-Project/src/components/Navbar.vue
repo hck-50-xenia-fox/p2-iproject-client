@@ -1,12 +1,18 @@
 <script>
+import { mapActions } from 'pinia';
 import { RouterLink } from 'vue-router';
+import { useIprojectStore } from '../stores';
+
+
 
 export default {
     name: "Navbar",
     components: {
-        RouterLink
+        RouterLink,
+        mapActions
     },
     methods: {
+        ...mapActions(useIprojectStore,['logout']),
         selected() {
             var targeted = event.target
             var clicked = targeted.parentElement;
@@ -58,7 +64,7 @@ export default {
                     <div class=" flex space-x-5 justify-center items-center pl-2">
                         <button
                             class="text-white py-2 px-2 uppercase rounded bg-red-500 hover:bg-red-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
-                            <RouterLink to="/login">Log Out</RouterLink> </button>
+                            <RouterLink @click="logout()" to="/login">Log Out</RouterLink> </button>
                     </div>
                 </nav>
             </div>
