@@ -5,9 +5,12 @@ import { useDataStore } from "../stores/dataprocess";
 export default {
   props: ["invoice", "index"],
   methods: {
-    ...mapActions(useDataStore, ["generateInvoice"]),
-    handleGenerateInvoice(page) {
-      this.generateInvoice(page);
+    ...mapActions(useDataStore, ["generateInvoice", "generatePayment"]),
+    handleGenerateInvoice(id) {
+      this.generateInvoice(id);
+    },
+    handlegeneratePayment(id) {
+      this.generatePayment(id);
     },
   },
 };
@@ -25,7 +28,11 @@ export default {
       <button @click.prevent="handleGenerateInvoice(invoice.id)">
         Print Invoice
       </button>
-      || <button>Delete</button>
+      || <button>Delete</button>||<button
+        @click.prevent="handlegeneratePayment(invoice.id)"
+      >
+        Pay!
+      </button>
     </td>
   </tr>
 </template>

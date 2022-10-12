@@ -73,11 +73,48 @@ export const useDataStore = defineStore("data", {
           translate: {},
         };
         easyinvoice.createInvoice(data, async function (result) {
-        //   console.log("PDF base64 string: ", result.pdf);
+          //   console.log("PDF base64 string: ", result.pdf);
           easyinvoice.download(
             `Invoice_No._${generateData.data.informationData.number}.pdf`,
             result.pdf
           );
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async generatePayment(id) {
+      try {
+        let token = await axios.post(
+          `${url}/invoice/payment/${id}`,
+          {},
+          {
+            headers: {
+              access_token: localStorage.access_token,
+            },
+          }
+        );
+        console.log(token.data, "asdsadasd");
+        window.snap.pay(token.data.token, {
+          onSuccess: function (result) {
+            /* You may add your own implementation here */
+            alert("payment success!");
+            console.log(result);
+          },
+          onPending: function (result) {
+            /* You may add your own implementation here */
+            alert("wating your payment!");
+            console.log(result);
+          },
+          onError: function (result) {
+            /* You may add your own implementation here */
+            alert("payment failed!");
+            console.log(result);
+          },
+          onClose: function () {
+            /* You may add your own implementation here */
+            alert("you closed the popup without finishing the payment");
+          },
         });
       } catch (error) {
         console.log(error);
