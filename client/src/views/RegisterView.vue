@@ -74,7 +74,7 @@ import { useIndexStore } from "../stores";
             <!-- <button type="submit" class="btn btn-primary w-100 font-weight-bold mt-2"><i class="fa fa-facebook" aria-hidden="true"></i> Login With Facebook</button> -->
           </div>
           <div class="pt-4 text-center">
-            Already have an account? <a href="#">Login</a>
+            Already have an account? <a @click.prevent="$router.push('/login')" href="#">Login</a>
           </div>
         </div>
       </div>

@@ -4,6 +4,7 @@ import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import NewsView from '../views/NewsView.vue'
 import WishlistView from '../views/WishlistView.vue'
+import LivePriceView from '../views/LivePriceView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,16 +34,21 @@ const router = createRouter({
       name: 'wishlist',
       component: WishlistView
     },
-
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   // route level code-splitting
-    //   // this generates a separate chunk (About.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () => import('../views/AboutView.vue')
-    // }
+    
   ]
 })
 
+router.beforeEach((to,from)=>{
+  if(!localStorage.getItem('access_token') && to.name === 'wishlist'){
+    return ({path : '/login'})
+  }else if (localStorage.getItem('access_token') && to.name === 'login'){
+    return ({path : '/'})
+  }else if (!localStorage.getItem('access_token') && to.name === 'home'){
+    return ({path : '/login'})
+  }else if (!localStorage.getItem('access_token') && localStorage.getItem('status') ==='Free' && to.name === 'news'){
+    return ({path : '/'})
+  }else if (localStorage.getItem('access_token') && to.name === 'register'){
+    return ({path : '/'})
+  }
+})
 export default router

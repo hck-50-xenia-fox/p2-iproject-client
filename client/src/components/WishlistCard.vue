@@ -1,6 +1,12 @@
 <script>
+import { mapActions } from 'pinia';
+import { useIndexStore } from '../stores';
+
 export default {
   props: ["wishlist"],
+  methods : {
+    ...mapActions(useIndexStore,['deleteWishlist'])
+  }
 };
 </script>
 
@@ -11,10 +17,10 @@ export default {
       <div class="card-body">
         <h5 class="card-title">
           {{ wishlist.coin_name }}
-          <span
-            ><button style="padding: 8px; font-size: 14px; border-radius: 8px">
-              <i class="bi bi-trash-fill"></i></button
-          ></span>
+          <a href="" @click.prevent="deleteWishlist(wishlist.id)">
+            <i class="bi bi-trash-fill"></i>
+          >
+          </a>
         </h5>
       </div>
     </div>

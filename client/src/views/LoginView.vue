@@ -110,7 +110,7 @@ export default {
             </a>
           </div>
           <div class="pt-4 text-center">
-            Get Members Benefit. <a href="#">Sign Up</a>
+            Get Members Benefit. <a @click.prevent="$router.push('/register')" href="#">Sign Up</a>
           </div>
         </div>
       </div>

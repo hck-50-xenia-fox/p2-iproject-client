@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 const baseUrl = 'http://localhost:3000'
+
 export const useIndexStore = defineStore('index', {
   state: () => ({
     cryptoData: [],
@@ -8,7 +9,9 @@ export const useIndexStore = defineStore('index', {
     newsData: [],
     userWishlist: [],
     paymentResponse: {},
-    isLogin : false
+    isLogin: false,
+    exchange: '',
+    price: ''
   }),
   getters: {
 
@@ -68,6 +71,18 @@ export const useIndexStore = defineStore('index', {
         console.log(error);
       }
     },
+    async exchangeRate(amount) {
+      try {
+        const { data } = await axios.get(`${baseUrl}/exchange?amount=${amount}`, {
+          headers: {
+            access_token: localStorage.getItem('access_token')
+          }
+        })
+        this.exchange = data.result
+      } catch (error) {
+
+      }
+    },
     async wishListUser() {
       try {
         const { data } = await axios.get(`${baseUrl}/wishlist`, {
@@ -80,16 +95,27 @@ export const useIndexStore = defineStore('index', {
         console.log(error);
       }
     },
-    async addWishlist(name,image){
+    async addWishlist(name, image) {
       try {
-        const {data} = await axios.post(`${baseUrl}/wishlist`,{coin_name : name,coin_image : image},{
+        const { data } = await axios.post(`${baseUrl}/wishlist`, { coin_name: name, coin_image: image }, {
           headers: {
             access_token: localStorage.getItem('access_token')
           }
         })
         this.router.push('/wishlist')
-        console.log('success');
 
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async deleteWishlist(id) {
+      try {
+        await axios.delete(`${baseUrl}/wishlist/${id}`, {
+          headers: {
+            access_token: localStorage.getItem('access_token')
+          }
+        })
+        this.wishListUser()
       } catch (error) {
         console.log(error);
       }
@@ -115,20 +141,20 @@ export const useIndexStore = defineStore('index', {
                   access_token: localStorage.getItem('access_token')
                 }
               })
+              localStorage.clear()
+              // this.userLogout()
             }
-
-
           },
-
-          //? Opsional dipake
           onPending: function (result) { console.log('pending'); console.log(result); },
           onError: function (result) { console.log('error'); console.log(result); },
           onClose: function () { console.log('customer closed the popup without finishing the payment'); }
         })
+        this.checkLogin()
       } catch (err) {
         console.log(err);
       }
     },
+
   },
 
 })
