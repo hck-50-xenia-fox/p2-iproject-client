@@ -1,0 +1,25 @@
+<script>
+import MotorcycleCard from '../components/MotorcycleCard.vue';
+
+export default {
+    components: { MotorcycleCard }
+}
+</script>
+
+<template>
+	<div id="fh5co-blog">
+		<div class="container">
+			<div class="row animate-box">
+				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+					<h2>Our Motorcycles</h2>
+					<p>Motorcycle Models Listed for Rent</p>
+				</div>
+			</div>
+			<div class="row">
+				<MotorcycleCard />
+				<MotorcycleCard />
+				<MotorcycleCard />
+			</div>
+		</div>
+	</div>
+</template>
