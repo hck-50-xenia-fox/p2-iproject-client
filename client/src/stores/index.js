@@ -2,13 +2,16 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
 const baseUrl = 'http://localhost:3000'
-
+import {createClient} from '@supabase/supabase-js'
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN2bHJxbXlmeGZzaXB4b29odXhhIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjU1NjE3MjAsImV4cCI6MTk4MTEzNzcyMH0.sm1Hm8SWvM3o1xHERgs8WutBgEte-tfnNygA-EGO12I'
+const SUPABASE_URL = 'https://cvlrqmyfxfsipxoohuxa.supabase.co'
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
+// const [session, setSession] = useState(null);
 
 export const useIndexStore = defineStore('index', {
     state: () => {
         return {
             loginState: false,
-
         }
     },
     getters: {
@@ -45,12 +48,41 @@ export const useIndexStore = defineStore('index', {
             this.router.push('/')
         },
         async loginTwitter() {
-            const { data, error } = await supabase.auth.signInWithOAuth({
-              provider: 'twitter',
-            })
+            try {
+                const data = await supabase.auth.signIn({
+                    provider: 'twitter',
+                    
+                  }, {
+                    redirectTo: 'http://localhost:5173/login'
+                })
+                  localStorage.setItem('session', JSON.stringify(data))
+                //   localStorage.setItem('user', JSON.stringify(user))
+                  // console.log(data.session.provider_token, '<<>>>')
+                //   console.log(session.provider_token, '<<<<')
+                  // this.useEffect()
+                  // console.log()
+                  console.log('login sukses')
+            } catch(err) {
+                console.log(err)
+            }
         },
         async logoutTwitter() {
             const { error } = await supabase.auth.signOut()
-        }
+        },
+        supabaseAuth() {
+            supabase.auth.onAuthStateChange((_event, session) => {
+                // this.session = session
+                // console.log(session, '<<<<<<<')
+                console.log(localStorage.getItem('supabase.auth.token'), '>>>>')
+            })
+        },
+        // async useEffect() {
+        //     setSession(supabase.auth.session())
+        //     supabase.auth.onAuthStateChange((_event, session) => {
+        //         setSession(session)
+        //         console.log(session, '<<<<<<<')
+        //     })
+        // }
+        
     }
 })

@@ -2,6 +2,7 @@
 import { RouterLink, RouterView } from "vue-router";
 import { mapActions } from "pinia";
 import { useIndexStore } from '../stores'
+import { onMounted } from "vue";
 
 export default {
     name: 'LoginView',
@@ -14,10 +15,13 @@ export default {
         }
     },
     methods: {
-        ...mapActions(useIndexStore, ['handleLogin', 'loginTwitter']),
+        ...mapActions(useIndexStore, ['handleLogin', 'loginTwitter', 'supabaseAuth']),
         login() {
             this.handleLogin(this.loginUser)
         }
+    },
+    mounted() {
+        this.supabaseAuth()
     }
 }
 </script>

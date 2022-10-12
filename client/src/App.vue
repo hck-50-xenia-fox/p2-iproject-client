@@ -8,15 +8,13 @@ export default {
   components: {
     Navbar,
     Twitter
-  }
+  },
 }
 </script>
 
 <template>
 <Navbar />
 <!-- <Twitter /> -->
-
-
   <RouterView />
 </template>
 
