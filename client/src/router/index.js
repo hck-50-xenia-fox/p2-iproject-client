@@ -3,6 +3,7 @@ import HomeView from "../views/HomeView.vue";
 import LoginView from '../views/LoginView.vue'
 import ChatroomView from '../views/ChatroomView.vue'
 import CharactersView from '../views/CharactersView.vue'
+import SummonsView from '../views/SummonsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: '/characters',
       name: 'characterView',
       component: CharactersView
+    },
+    {
+      path: '/summons',
+      name: 'summonView',
+      component: SummonsView
     }
     // {
     //   path: "/about",

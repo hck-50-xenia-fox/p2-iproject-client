@@ -12,8 +12,8 @@ export const useIndexStore = defineStore('index', {
     state: () => {
         return {
             loginState: false,
-            characters: []
-
+            characters: [],
+            summons: []
         }
     },
     getters: {
@@ -93,6 +93,17 @@ export const useIndexStore = defineStore('index', {
                     url: `${baseUrl}/characters`
                 })
                 this.characters = data
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        async getSummons() {
+            try {
+                let {data} = await axios({
+                    method: 'get',
+                    url: `${baseUrl}/summons`
+                })
+                this.summons = data
             } catch (error) {
                 console.log(error)
             }
