@@ -18,9 +18,12 @@ export default {
 </script>
 
 <template>
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col">
+    <div class="container">
+        <div class="d-flex justify-content-center mt-1">
+            <img src="../assets/logo-petshop-re.png" alt="" width="10">
+        </div>
+        <div class="row mt-2">
+            <div class="col-7 mx-auto">
                 <div class="card shadow-lg">
                     <div class="card-body">
                         <h3>Login</h3>
@@ -35,8 +38,8 @@ export default {
                                 <input v-model="dataLogin.password" type="password" class="form-control"
                                     id="password" />
                             </div>
-                            <button type="submit" class="btn btn-danger me-3">
-                                Let's Login! <i class="bi bi-arrow-right-square"></i>
+                            <button type="submit" class="btn btn-warning me-3">
+                                Let's Login! <i class="bi bi-arrow-bar-right"></i>
                             </button>
                             
                             <button @click="$router.push('/register')" type="submit" class="btn btn-secondary">

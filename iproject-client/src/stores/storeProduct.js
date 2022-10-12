@@ -54,7 +54,11 @@ export const useProductStore = defineStore("product", {
         this.$router.push("/product");
         this.fetchProduct();
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+          icon: "warning",
+          title: "Oops...",
+          text: `${error.response.data.msg[0]}`,
+        });
       }
     },
     async payments(price) {
@@ -73,6 +77,12 @@ export const useProductStore = defineStore("product", {
           onSuccess: async function (result) {
             console.log(result);
             this.paymentResponse = result;
+            Swal.fire({
+              icon: "success",
+              title: "Transaction success!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
           },
           onPending: function (result) {
             console.log("pending");

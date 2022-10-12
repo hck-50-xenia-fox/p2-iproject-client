@@ -78,7 +78,7 @@ export default {
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-danger me-3">
-                                Add <i class="bi bi-arrow-right-square"></i>
+                                Add <i class="bi bi-plus-circle"></i>
                             </button>
                         </form>
                     </div>

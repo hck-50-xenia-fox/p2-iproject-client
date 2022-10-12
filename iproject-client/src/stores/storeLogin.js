@@ -48,7 +48,12 @@ export const useLoginStore = defineStore("login", {
                     timer: 1500,
                   });
             } catch (error) {
-                console.log(error)
+                // console.log(error)
+                Swal.fire({
+                    icon: "warning",
+                    title: "Oops...",
+                    text: `${error.response.data.msg}`,
+                  });
             }
         },
         async registerHandler(registerData){
@@ -73,7 +78,11 @@ export const useLoginStore = defineStore("login", {
                   });
                 this.$router.push("/login")
             } catch (error) {
-                console.log(error)
+                Swal.fire({
+                    icon: "warning",
+                    title: "Oops...",
+                    text: `${error.response.data.msg}`,
+                  });
             }
         }
     }

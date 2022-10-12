@@ -18,17 +18,14 @@
     created(){
       this.fetchProduct()
       this.loginCheck()
-
-      if(localStorage.getItem("access_token")){
-        
-      }
     }
   }
 </script>
 
 <template>
-  <div class="container mt-2">
-    <button v-if="role === 'Admin'" class="btn btn-primary" @click.prevent="$router.push('/product/add')">Add</button>
+  <div class="container mt-4">
+    <h3 class="text-center">Product</h3>
+    <button v-if="role === 'Admin'" class="btn btn-warning" @click.prevent="$router.push('/product/add')">Add <i class="bi bi-plus-circle"></i></button>
     <div class="row">
       <CardProduct v-for="product in dataProduct" :key="product.id" :product="product"/>
     </div>

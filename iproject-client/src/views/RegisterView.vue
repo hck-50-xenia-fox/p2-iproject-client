@@ -23,7 +23,7 @@
 <template>
     <div class="container mt-4">
       <div class="row">
-        <div class="col">
+        <div class="col-8 mx-auto">
           <div class="card shadow-lg">
             <div class="card-body">
               <h3>Register</h3>
@@ -49,8 +49,8 @@
                   <textarea v-model="dataRegister.address" class="form-control" placeholder="Leave a comment here" id="address"></textarea>
                   <label for="address" class="form-label">Address</label>
                 </div>
-                <button type="submit" class="btn btn-danger mb-2 me-3">Create Account! <i class="bi bi-person-lines-fill"></i></button>
-                <button @click="$router.push('/login')" type="submit" class="btn btn-secondary mb-2">Login <i class="bi bi-arrow-right-square"></i></button>
+                <button type="submit" class="btn btn-warning mb-2 me-3">Create Account! <i class="bi bi-person-lines-fill"></i></button>
+                <button @click="$router.push('/login')" type="submit" class="btn btn-secondary mb-2">Login <i class="bi bi-arrow-bar-right"></i></button>
                 <h6>Click login if you have already account!</h6>
               </form>
             </div>
