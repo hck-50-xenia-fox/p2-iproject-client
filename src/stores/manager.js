@@ -20,5 +20,16 @@ export const useManagerStore = defineStore("manager", {
         console.log(error);
       }
     },
+    async fireManager(id) {
+      try {
+        await axios.delete(this.baseUrl + "/companies/manager/" + id, {
+          headers: { access_token: localStorage.getItem("access_token") },
+        });
+        this.getManager();
+        this.router.push("/dashboard");
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 });

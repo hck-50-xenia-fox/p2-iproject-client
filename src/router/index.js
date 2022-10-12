@@ -67,10 +67,6 @@ router.beforeEach((to, from) => {
     return {
       path: "/",
     };
-  } else if (localStorage.getItem("access_token") && to.name === "register") {
-    return {
-      path: "/",
-    };
   }
 });
 

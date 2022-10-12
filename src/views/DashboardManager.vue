@@ -56,9 +56,6 @@ export default {
         <RouterLink to="/managers/tasks">
           <button class="btn btn-secondary">View Tasks</button>
         </RouterLink>
-        <RouterLink to="/managers/forums">
-          <button class="btn btn-secondary">Forums</button>
-        </RouterLink>
       </div>
       <form @submit.prevent="addTaskHandler">
         <div class="d-flex justify-content-center text-center gap-4">
@@ -79,8 +76,8 @@ export default {
       <div class="container">
         <div class="row justify-content-center m-5 gap-4">
           <EmployeeCard
-            v-for="employee in employees"
-            :key="employee.id"
+            v-for="(employee, i) in employees"
+            :key="i"
             :employee="employee"
           />
         </div>

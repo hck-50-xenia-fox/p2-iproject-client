@@ -29,13 +29,13 @@ export default {
   >
     <div class="container px-5">
       <div class="row gx-5 justify-content-center">
-        <div class="col-lg-6">
+        <div class="col-lg-6 text-center">
           <div class="text-center my-5">
             <h1 class="display-5 fw-bolder text-white mb-5">
               Manage your business with an easy way !
             </h1>
             <h3 class="display-flex justify-content-center text-white mb-5">
-              Login
+              Login as
             </h3>
             <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
               <RouterLink
@@ -58,21 +58,22 @@ export default {
               >
             </div>
           </div>
+          <RouterLink to="/managers/forums">
+            <button class="btn btn-primary mb-3" style="width: 300px">
+              Forums
+            </button>
+          </RouterLink>
         </div>
       </div>
     </div>
   </div>
-
   <!-- Features section-->
   <section class="py-5 border-bottom" id="features">
     <div class="container px-5 my-5">
       <div class="row gx-5">
         <div class="col-lg-12 text-center mb-5">
-          <div
-            class="bg-secondary bg-gradient text-white rounded"
-            style="height: 50px"
-          >
-            <h3 class="bi bi-building"></h3>
+          <div class="bg-secondary bg-gradient text-white rounded p-2">
+            <h3 class="bi bi-building m-2"></h3>
           </div>
           <h2 class="h4 fw-bolder">Getting started with your own Company</h2>
           <p>

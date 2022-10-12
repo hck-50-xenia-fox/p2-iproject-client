@@ -1,5 +1,5 @@
 <script>
-import { mapActions, mapState } from "pinia";
+import { mapActions, mapWritableState } from "pinia";
 import { RouterLink } from "vue-router";
 import { useIndexStore } from "../stores";
 export default {
@@ -9,7 +9,12 @@ export default {
     ...mapActions(useIndexStore, ["logout"]),
   },
   computed: {
-    ...mapState(useIndexStore, ["loginStatus"]),
+    ...mapWritableState(useIndexStore, ["loginStatus"]),
+  },
+  created() {
+    if (localStorage.getItem("access_token")) {
+      this.loginStatus = true;
+    }
   },
 };
 </script>
@@ -31,11 +36,6 @@ export default {
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-2">
-          <li>
-            <RouterLink to="/managers/forums">
-              <button class="btn btn-secondary">Forums</button>
-            </RouterLink>
-          </li>
           <li class="nav-item" v-if="loginStatus">
             <a class="nav-link" @click.prevent="logout" href="">Logout</a>
           </li>
