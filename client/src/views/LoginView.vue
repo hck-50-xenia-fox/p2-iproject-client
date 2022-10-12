@@ -15,10 +15,13 @@ export default {
         }
     },
     methods: {
-        ...mapActions(useIndexStore, ['handleLogin', 'loginTwitter', 'supabaseAuth']),
+        ...mapActions(useIndexStore, ['handleLogin', 'loginTwitter', 'supabaseAuth', 'handleCredentialResponse']),
         login() {
             this.handleLogin(this.loginUser)
-        }
+        },
+        callback(response) {
+        this.handleCredentialResponse(response)
+      }
     },
     mounted() {
         this.supabaseAuth()
@@ -68,7 +71,7 @@ export default {
             <p>Not a member? <Router-link to="/">Register</Router-link> </p>
             <p>or sign up with:</p>
             <!-- JANGAN LUPA TAMBAHIN TOMBOL GUGEL LOGIN -->
-            <!-- <GoogleLogin :callback="callback"/> -->
+            <GoogleLogin :callback="callback"/>
           </div>
         </div>
       </form>

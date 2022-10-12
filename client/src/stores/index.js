@@ -123,6 +123,23 @@ export const useIndexStore = defineStore('index', {
             } catch (error) {
                 console.log(error)
             }
-        }
+        },
+        async handleCredentialResponse(response) {
+            try {
+              const dataGoogle = await axios({
+                url: `${baseUrl}/users/google-login`,
+                method: "POST",
+                headers: {
+                  google_token: response.credential,
+                },
+              });
+              localStorage.setItem("access_token", dataGoogle.data.access_token);
+              localStorage.setItem("name", dataGoogle.data.username);
+              this.checkLogin()
+              this.router.push('/')
+            } catch (error) {
+              console.log(error)
+            }
+          },
     }
 })
