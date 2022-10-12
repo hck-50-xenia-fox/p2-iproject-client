@@ -18,6 +18,12 @@ export const useLoginStore = defineStore("login", {
             this.isLogin = false
             localStorage.clear()
             this.$router.push("/login")
+            Swal.fire({
+                icon: "success",
+                title: "You have logout! Bye",
+                showConfirmButton: false,
+                timer: 1500,
+              });
         },
         async loginHandler(loginData){
             try {
@@ -30,7 +36,9 @@ export const useLoginStore = defineStore("login", {
                     }
                 })
                 let access_token = data.access_token
+                let role = data.dataUser.role
                 localStorage.setItem("access_token", access_token)
+                localStorage.setItem("role", role)
                 this.isLogin = true
                 this.$router.push("/")
                 Swal.fire({

@@ -1,11 +1,14 @@
 <script>
-import { mapActions } from "pinia";
+import { mapActions, mapState } from "pinia";
 import { useProductStore } from "../stores/storeProduct";
 export default {
   name: "CardProduct",
   props: ["product"],
+  methods: {
+    ...mapActions(useProductStore, ["payments", "deleteProduct"]),
+  },
   computed: {
-    ...mapActions(useProductStore, ["payments"]),
+    ...mapState(useProductStore, ["role"]),
   },
 };
 </script>
@@ -17,8 +20,20 @@ export default {
       <div class="card-body">
         <h6 class="card-title">{{ product.name }}</h6>
         <p>Rp.{{ product.price }}</p>
-        <button @click.prevent="this.payments()" id="pay-button" class="btn btn-primary">
+        <button
+          v-if="role === 'Customer'"
+          @click.prevent="this.payments(product.price)"
+          id="pay-button"
+          class="btn btn-primary"
+        >
           Buy
+        </button>
+        <button
+          v-if="role === 'Admin'"
+          class="btn btn-primary"
+          @click="deleteProduct(product.id)"
+        >
+          Delete
         </button>
       </div>
     </div>
