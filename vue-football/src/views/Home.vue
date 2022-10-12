@@ -13,5 +13,5 @@
 
 <template>
   <NavBar />
-  <Card />>
+  <Card />
 </template>

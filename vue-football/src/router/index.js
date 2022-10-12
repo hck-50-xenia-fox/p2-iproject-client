@@ -30,4 +30,21 @@ const router = createRouter({
   ],
 });
 
+router.beforeEach((to, from) => {
+  let token = localStorage.getItem("access_token");
+  if (token && to.name === "login") {
+    return {
+      path: "/football",
+    };
+  } else if (token && to.name === "register") {
+    return {
+      path: "/football",
+    };
+  } else if (!token && to.name === "home") {
+    return {
+      path: "/login",
+    };
+  }
+});
+
 export default router;

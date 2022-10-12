@@ -1,12 +1,31 @@
 <script>
-  import { RouterLink } from 'vue-router'
+  import { mapActions } from 'pinia';
+import { RouterLink } from 'vue-router'
+import { useFootballStore } from '../stores/football';
 
   export default {
     name: "login",
 
+    data() {
+      return {
+        userLogin: {
+          email: "",
+          password: ""
+        }
+      }
+    },
+
     components: {
       RouterLink
+    },
+
+    methods: {
+      ...mapActions(useFootballStore, ["doLogin"]),
+      loginHandle() {
+        this.doLogin(this.userLogin);
+      }
     }
+    
   }
 </script>
 
@@ -21,15 +40,15 @@
               <div class="card-body">
                 <h5 class="card-title d-flex justify-content-center"><i class="bi bi-shield-lock-fill"></i>&nbsp;Login</h5>
                 <hr>
-                <form class="px-4 py-3">
+                <form @submit.prevent="loginHandle" class="px-4 py-3">
                   <div class="form-group">
                     <label>Email</label>
-                    <input type="email" class="form-control" placeholder="email@example.com"
+                    <input v-model="userLogin.email" type="email" class="form-control" placeholder="email@example.com"
                       required>
                   </div><br>
                   <div class="form-group">
                     <label>Password</label>
-                    <input type="password" class="form-control" placeholder="type password"
+                    <input v-model="userLogin.password" type="password" class="form-control" placeholder="type password"
                       required>
                   </div><br><br>
                   <div class="d-flex justify-content-center">

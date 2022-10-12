@@ -1,11 +1,30 @@
 <script>
-  import { RouterLink } from 'vue-router'
+  import { mapActions } from 'pinia';
+import { RouterLink } from 'vue-router'
+import { useFootballStore } from '../stores/football';
 
   export default {
     name: "register",
 
+    data() {
+      return {
+        userRegister: {
+          username: "",
+          email: "",
+          password: "",
+        }
+      }
+    },
+
     components: {
       RouterLink
+    },
+
+    methods: {
+      ...mapActions(useFootballStore, ["doRegister"]),
+      registerHandle() {
+        this.doRegister(this.userRegister);
+      }
     }
   }
 </script>
@@ -21,20 +40,20 @@
                 <h5 class="card-title d-flex justify-content-center"><i class="bi bi-shield-fill-plus"></i>&nbsp;Register
                 </h5>
                 <hr>
-                <form class="px-4 py-3">
+                <form @submit.prevent="registerHandle" class="px-4 py-3">
                   <div class="form-group">
                     <label>Username</label>
-                    <input type="text" class="form-control" placeholder="type username"
+                    <input v-model="userRegister.username" type="text" class="form-control" placeholder="type username"
                       required>
                   </div><br>
                   <div class="form-group">
                     <label>Email</label>
-                    <input type="email" class="form-control"
+                    <input v-model="userRegister.email" type="email" class="form-control"
                       placeholder="email@example.com" required>
                   </div><br>
                   <div class="form-group">
                     <label>Password</label>
-                    <input type="password" class="form-control"
+                    <input v-model="userRegister.password" type="password" class="form-control"
                       placeholder="type password" required>
                   </div><br><br>
                   <div class="d-flex justify-content-center">

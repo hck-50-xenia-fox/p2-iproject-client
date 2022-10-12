@@ -1,7 +1,14 @@
 <script>
-  import { RouterLink } from 'vue-router'
+  import { mapActions } from 'pinia';
+import { RouterLink } from 'vue-router'
+import { useFootballStore } from '../stores/football';
   export default {
-    name: "navbar"
+    name: "navbar",
+
+    methods: {
+      ...mapActions(useFootballStore, ["doLogout"])
+    },
+
   }
 </script>
 
@@ -42,7 +49,7 @@
               </RouterLink>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#"><i class="bi bi-arrow-left-square-fill"></i></a>
+              <a @click.prevent="doLogout" class="nav-link" href="#"><i class="bi bi-arrow-left-square-fill"></i></a>
             </li>
           </ul>
         </div>
