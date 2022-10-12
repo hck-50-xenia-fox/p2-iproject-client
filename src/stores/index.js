@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "@/apis/axios-instance.js";
 import { createClient } from "@supabase/supabase-js";
+import socket from "../apis/socket";
 
 const supabaseUrl = "https://imqbfsulurhrhklxfzdj.supabase.co";
 const supabase = createClient(
@@ -14,6 +15,16 @@ export const useIndexStore = defineStore("index", {
   }),
 
   actions: {
+    //etc
+
+    socketError() {
+      socket.on("connect_error", (err) => {
+        if (err.message === "invalid username") {
+          this.usernameAlreadySelected = false;
+        }
+      });
+    },
+
     async signInWithFacebook() {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "facebook",
@@ -55,6 +66,8 @@ export const useIndexStore = defineStore("index", {
         localStorage.setItem("UserId", data.userId);
         localStorage.setItem("name", data.name);
 
+        socket.auth = data.name;
+        socket.connect();
         this.router.push("/");
       } catch (err) {
         console.log(err);
