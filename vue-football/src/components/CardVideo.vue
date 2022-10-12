@@ -13,7 +13,7 @@
           day: "numeric",
           hour: "2-digit",
           minute: "2-digit",
-          second: "2-digit",
+          // second: "2-digit",
         });
       }
     }
@@ -28,7 +28,7 @@
       <hr>
       <img :src="highlight.thumbnail" style="width: 100%; height: 15em;" class="rounded float-start" alt="match-highlight">
       <br>
-      <h6 class="card-title" style="text-align: center;">{{highlight.date}}</h6>
+      <h6 class="card-title" style="text-align: center;">{{toLocalDate(highlight.date)}}</h6>
       <div style="text-align: center;">
         <a :href="highlight.url" target="_blank" class="btn btn-outline-secondary">Play Video</a>
       </div>

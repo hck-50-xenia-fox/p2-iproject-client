@@ -10,6 +10,7 @@ export const useFootballStore = defineStore("football", {
       liveData: [],
       premierLeagueData: [],
       highlightData: [],
+      championsLeagueData: [],
     };
   },
 
@@ -117,6 +118,22 @@ export const useFootballStore = defineStore("football", {
           // this.isLogin = false;
         }
       });
+    },
+
+    async fetchChampionsLeague() {
+      try {
+        const { data } = await axios.get(
+          `${baseURL}/football/champions-league`,
+          {
+            headers: {
+              access_token: localStorage.getItem("access_token"),
+            },
+          }
+        );
+        this.championsLeagueData = data;
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 });

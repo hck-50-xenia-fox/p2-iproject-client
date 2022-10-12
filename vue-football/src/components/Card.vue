@@ -13,7 +13,7 @@
           day: "numeric",
           hour: "2-digit",
           minute: "2-digit",
-          second: "2-digit",
+          // second: "2-digit",
         });
       }
     }
@@ -55,7 +55,7 @@
 
         <div class="row">
           <div class="col-2 mx-auto">
-            <h6 class="card-title" style="text-align: center;">{{football.minutes}}'</h6>
+            <h6 class="card-title" style="text-align: center;"><i class="bi bi-clock-fill"></i>&nbsp;{{football.minutes}}'</h6>
           </div>
         </div>
 

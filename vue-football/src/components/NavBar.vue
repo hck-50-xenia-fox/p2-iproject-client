@@ -1,9 +1,13 @@
 <script>
   import { mapActions } from 'pinia';
-import { RouterLink } from 'vue-router'
-import { useFootballStore } from '../stores/football';
+  import { RouterLink } from 'vue-router'
+  import { useFootballStore } from '../stores/football';
   export default {
     name: "navbar",
+
+    components: {
+      RouterLink
+    },  
 
     methods: {
       ...mapActions(useFootballStore, ["doLogout"])
@@ -37,19 +41,19 @@ import { useFootballStore } from '../stores/football';
                 <a class="nav-link" href="#">Premier League</a>
               </RouterLink>
             </li>
-            <!-- <li class="nav-item">
-              <RouterLink to="/" style="color:black; text-decoration: none;">
-                <a class="nav-link" href="#">LaLiga</a>
+            <li class="nav-item">
+              <RouterLink to="/champions-league" style="color:black; text-decoration: none;">
+                <a class="nav-link" href="#">Champions League</a>
               </RouterLink>
             </li>
-            <li class="nav-item">            
-              <RouterLink to="/" style="color:black; text-decoration: none;">
-                <a class="nav-link" href="#">Seria A</a>
-              </RouterLink>
-            </li> -->
             <li class="nav-item">
               <RouterLink to="/highlight" style="color:black; text-decoration: none;">
                 <a class="nav-link" href="#">Highlights</a>
+              </RouterLink>
+            </li>
+            <li class="nav-item">
+              <RouterLink to="/chat-room" style="color:black; text-decoration: none;">
+                <a class="nav-link" href="#">Chat</a>
               </RouterLink>
             </li>
             <li class="nav-item">

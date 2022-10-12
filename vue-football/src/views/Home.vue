@@ -30,6 +30,9 @@
     <div style="margin-top: 4.5em">
       <h3 class="text-center">Live Score</h3>
     </div>
+    <hr>
+    <!-- <pre>{{liveData}}</pre> -->
+    <h4 v-if="liveData.length === 0" class="card-title" style="text-align: center;">Sorry, there is no live match now <i class="bi bi-emoji-frown"></i></h4>
     <div class="row mb-4">
       <Card 
         v-for="football in liveData"
