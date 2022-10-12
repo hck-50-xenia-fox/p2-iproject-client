@@ -135,5 +135,33 @@ export const useFootballStore = defineStore("football", {
         console.log(err);
       }
     },
+
+    async handleCredentialResponse(response) {
+      try {
+        const dataGoogle = await axios.post(
+          `${baseURL}/login-google`,
+          {},
+          {
+            headers: {
+              google_token: response.credential,
+            },
+          }
+        );
+        console.log(dataGoogle);
+        localStorage.setItem("access_token", dataGoogle.data.accessToken);
+
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "success login",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+        this.$router.push("/football");
+      } catch (err) {
+        console.log(err);
+      }
+    },
   },
 });

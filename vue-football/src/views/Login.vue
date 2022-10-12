@@ -1,7 +1,7 @@
 <script>
   import { mapActions } from 'pinia';
-import { RouterLink } from 'vue-router'
-import { useFootballStore } from '../stores/football';
+  import { RouterLink } from 'vue-router'
+  import { useFootballStore } from '../stores/football';
 
   export default {
     name: "login",
@@ -20,10 +20,37 @@ import { useFootballStore } from '../stores/football';
     },
 
     methods: {
-      ...mapActions(useFootballStore, ["doLogin"]),
+      ...mapActions(useFootballStore, ["doLogin", "handleCredentialResponse"]),
       loginHandle() {
         this.doLogin(this.userLogin);
       }
+    },
+
+    mounted() {
+      let googleHandle = this.handleCredentialResponse;
+      window.onload = async function () {
+        google.accounts.id.initialize({
+          client_id:
+            "798596101287-hq2u90ih8fgr8qg2sa8hjthti136hjd1.apps.googleusercontent.com",
+          callback: googleHandle
+        });
+        google.accounts.id.renderButton(
+          document.getElementById("buttonDiv"),
+          { theme: "outline", size: "large" } // customization attributes
+        );
+        google.accounts.id.prompt(); // also display the One Tap dialog
+      };
+      window.onclick = async function () {
+        google.accounts.id.initialize({
+          client_id:
+            "798596101287-hq2u90ih8fgr8qg2sa8hjthti136hjd1.apps.googleusercontent.com",
+          callback: googleHandle
+        });
+        google.accounts.id.renderButton(
+          document.getElementById("buttonDiv"),
+          { theme: "outline", size: "large" } // customization attributes
+        );
+      };
     }
     
   }
@@ -36,9 +63,9 @@ import { useFootballStore } from '../stores/football';
       <div class="container">
         <div class="row">
           <div class="col-6 mx-auto">
-            <div class="card shadow p-3 mb-5 bg-white rounded" style="margin-top: 4.4em">
+            <div class="card shadow p-3 mb-5 bg-white rounded" style="margin-top: 3.5em">
               <div class="card-body">
-                <h5 class="card-title d-flex justify-content-center"><i class="bi bi-shield-lock-fill"></i>&nbsp;Login</h5>
+                <h5 class="card-title d-flex justify-content-center"><i class="bi bi-file-lock-fill"></i>&nbsp;Login</h5>
                 <hr>
                 <form @submit.prevent="loginHandle" class="px-4 py-3">
                   <div class="form-group">
