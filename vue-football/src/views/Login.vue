@@ -12,12 +12,12 @@
 
 <template>
   <section id="login">
-    <div style="width: 100%; height: 100%; background-image: url('https://wallsbazar.com/wp-content/uploads/2022/03/Black-And-White-Photos.jpg'); width: 100%; height: 100%;">
+    <div class="full-cover">
 
-      <div class="container mb-4" style="margin-top: 4.5em;" >
+      <div class="container">
         <div class="row">
           <div class="col-6 mx-auto">
-            <div class="card shadow p-3 mb-5 bg-white rounded">
+            <div class="card shadow p-3 mb-5 bg-white rounded" style="margin-top: 4.4em">
               <div class="card-body">
                 <h5 class="card-title d-flex justify-content-center"><i class="bi bi-shield-lock-fill"></i>&nbsp;Login</h5>
                 <hr>
@@ -58,3 +58,10 @@
     </div>
   </section>
 </template>
+
+<style>
+.full-cover {
+    height: 100vh;
+    background-image: url("../assets/image_s.jpg");
+  }
+</style>
