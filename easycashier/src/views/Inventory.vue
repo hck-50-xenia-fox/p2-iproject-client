@@ -33,6 +33,15 @@ export default {
 
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <h2>Inventory List</h2>
+        <button>
+          <RouterLink
+            class="text-dark"
+            style="text-decoration: none"
+            to="/InventoryAddForm"
+          >
+            Inventory</RouterLink
+          >
+        </button>
         <div class="table-responsive">
           <table class="table table-striped table-sm">
             <thead>

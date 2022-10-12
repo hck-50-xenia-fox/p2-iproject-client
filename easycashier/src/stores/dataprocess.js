@@ -43,6 +43,37 @@ export const useDataStore = defineStore("data", {
         });
       }
     },
+    async addInventory(inventory) {
+      try {
+        let { productName, supplierName, quantity, pricePerItem, rev } =
+          inventory;
+        await axios.post(
+          `${url}/stock`,
+          {
+            productName,
+            supplierName,
+            quantity,
+            pricePerItem,
+            rev,
+          },
+          {
+            headers: {
+              access_token: localStorage.access_token,
+            },
+          }
+        );
+        Swal.fire({
+          icon: "success",
+          text: `Inventory Success Added`,
+        });
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          text: `${error.response.data.message}`,
+        });
+      }
+    },
+
     async generateInvoice(id) {
       try {
         let generateData = await axios.get(`${url}/invoice/generate/${id}`, {
@@ -55,8 +86,8 @@ export const useDataStore = defineStore("data", {
           customize: {},
           images: {
             logo: "https://public.easyinvoice.cloud/img/logo_en_original.png",
-            background:
-              "https://public.easyinvoice.cloud/img/watermark-draft.jpg",
+            // background:
+            //   "https://public.easyinvoice.cloud/img/watermark-draft.jpg",
           },
           sender: generateData.data.senderData,
 
@@ -80,7 +111,10 @@ export const useDataStore = defineStore("data", {
           );
         });
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+          icon: "error",
+          text: `${error.response.data.message}`,
+        });
       }
     },
     async generatePayment(id) {
@@ -117,7 +151,10 @@ export const useDataStore = defineStore("data", {
           },
         });
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+          icon: "error",
+          text: `${error.response.data.message}`,
+        });
       }
     },
   },

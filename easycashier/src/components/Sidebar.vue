@@ -49,7 +49,7 @@ export default {
         <li class="nav-item">
           <a class="nav-link" href="#">
             <span data-feather="users"></span>
-            <RouterLink to="/" class="text-dark" style="text-decoration: none"
+            <RouterLink to="/history" class="text-dark" style="text-decoration: none"
               >History</RouterLink
             >
           </a>
