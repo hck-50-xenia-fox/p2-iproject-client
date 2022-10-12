@@ -29,9 +29,24 @@ export default {
         <RouterLink @click="changeLoginType('employee')" to="/register">
           <button class="btn btn-secondary">Add Employee</button>
         </RouterLink>
-        <button class="btn btn-secondary">Add Task</button>
-        <button class="btn btn-secondary">View Tasks</button>
+        <RouterLink to="/managers/addEmployeeTasks">
+          <button class="btn btn-secondary">Add EmployeeTask</button>
+        </RouterLink>
+        <RouterLink to="/managers/tasks">
+          <button class="btn btn-secondary">View Tasks</button>
+        </RouterLink>
       </div>
+      <form>
+        <div class="d-flex justify-content-center text-center gap-4">
+          <div class="card p-3">
+            <label>Title</label>
+            <input type="text" />
+            <label>Description</label>
+            <input type="text" /><br />
+            <button type="submit" class="btn btn-secondary">Add Task</button>
+          </div>
+        </div>
+      </form>
       <div class="card-manager col-3 shadow">
         <div class="card-title">
           <h2>Employee Name</h2>

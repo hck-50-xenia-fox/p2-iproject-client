@@ -1,7 +1,7 @@
 <script>
 import NavBar from "../components/NavBar.vue";
 import Footer from "../components/Footer.vue";
-import { mapState } from "pinia";
+import { mapActions, mapState } from "pinia";
 import { useIndexStore } from "../stores";
 export default {
   name: "RegisterPage",
@@ -16,10 +16,47 @@ export default {
   },
   components: { NavBar, Footer },
   methods: {
+    ...mapActions(useIndexStore, [
+      "registerCompany",
+      "registerManager",
+      "registerEmployee",
+    ]),
     doRegister() {
       if (this.loginType === "company") {
-      } else if (this.loginType === "manager") {
+        this.registerCompany({
+          name: this.firstName,
+          email: this.email,
+          password: this.password,
+        });
+        this.firstName = "";
+        this.email = "";
+        this.password = "";
+      } else if (this.loginType === "companyManager") {
+        this.registerManager({
+          firstName: this.firstName,
+          lastName: this.lastName,
+          role: this.role,
+          email: this.email,
+          password: this.password,
+        });
+        this.firstName = "";
+        this.lastName = "";
+        this.role = "";
+        this.email = "";
+        this.password = "";
       } else if (this.loginType === "employee") {
+        this.registerEmployee({
+          firstName: this.firstName,
+          lastName: this.lastName,
+          role: this.role,
+          email: this.email,
+          password: this.password,
+        });
+        this.firstName = "";
+        this.lastName = "";
+        this.role = "";
+        this.email = "";
+        this.password = "";
       }
     },
   },
@@ -69,13 +106,14 @@ export default {
           <div class="col-lg-6 mb-5 mb-lg-0">
             <div class="card">
               <div class="card-body py-5 px-md-5">
-                <form>
+                <form @submit.prevent="doRegister">
                   <!-- 2 column grid layout with text inputs for the first and last names -->
-                  <div v-if="loginType !== 'company'" class="row">
-                    <div class="col-md-6 mb-4">
+                  <div class="row">
+                    <div v-if="loginType !== 'company'" class="col-md-6 mb-4">
                       <div class="form-outline">
                         <input
                           type="text"
+                          v-model="firstName"
                           id="form3Example1"
                           class="form-control"
                         />
@@ -84,10 +122,11 @@ export default {
                         >
                       </div>
                     </div>
-                    <div class="col-md-6 mb-4">
+                    <div v-if="loginType !== 'company'" class="col-md-6 mb-4">
                       <div class="form-outline">
                         <input
                           type="text"
+                          v-model="lastName"
                           id="form3Example2"
                           class="form-control"
                         />
@@ -96,9 +135,25 @@ export default {
                         >
                       </div>
                     </div>
-                    <div class="form-outline mb-4">
+                    <div v-else class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <input
+                          type="text"
+                          v-model="firstName"
+                          class="form-control"
+                        />
+                        <label class="form-label" for="form3Example2"
+                          >Company Name</label
+                        >
+                      </div>
+                    </div>
+                    <div
+                      v-if="loginType !== 'company'"
+                      class="form-outline mb-4"
+                    >
                       <input
                         type="text"
+                        v-model="role"
                         id="form3Example3"
                         class="form-control"
                       />
@@ -108,11 +163,7 @@ export default {
 
                   <!-- Email input -->
                   <div class="form-outline mb-4">
-                    <input
-                      type="email"
-                      id="form3Example3"
-                      class="form-control"
-                    />
+                    <input type="email" v-model="email" class="form-control" />
                     <label class="form-label" for="form3Example3"
                       >Email address</label
                     >
@@ -122,6 +173,7 @@ export default {
                   <div class="form-outline mb-4">
                     <input
                       type="password"
+                      v-model="password"
                       id="form3Example4"
                       class="form-control"
                     />
@@ -130,7 +182,6 @@ export default {
                     >
                   </div>
 
-                  <!-- Submit button -->
                   <button type="submit" class="btn btn-primary btn-block mb-4">
                     Sign up
                   </button>

@@ -15,7 +15,26 @@ export default {
   computed: {
     ...mapState(useIndexStore, ["loginType"]),
   },
-  methods: {},
+  methods: {
+    ...mapActions(useIndexStore, ["loginCompany", "loginManager"]),
+    doLogin() {
+      if (this.loginType === "company") {
+        this.loginCompany({
+          email: this.email,
+          password: this.password,
+        });
+        this.email = "";
+        this.password = "";
+      } else if (this.loginType === "manager") {
+        this.loginManager({
+          email: this.email,
+          password: this.password,
+        });
+        this.email = "";
+        this.password = "";
+      }
+    },
+  },
 };
 </script>
 
@@ -41,7 +60,7 @@ export default {
           <div class="mb-5 mb-lg-0">
             <div class="card">
               <div class="card-body py-5 px-md-5">
-                <form>
+                <form @submit.prevent="doLogin">
                   <!-- 2 column grid layout with text inputs for the first and last names -->
 
                   <!-- Email input -->
@@ -49,6 +68,7 @@ export default {
                     <input
                       type="email"
                       id="form3Example3"
+                      v-model="email"
                       class="form-control"
                     />
                     <label class="form-label" for="form3Example3"
@@ -61,6 +81,7 @@ export default {
                     <input
                       type="password"
                       id="form3Example4"
+                      v-model="password"
                       class="form-control"
                     />
                     <label class="form-label" for="form3Example4"
