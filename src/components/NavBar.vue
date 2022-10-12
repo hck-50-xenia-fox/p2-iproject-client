@@ -1,8 +1,16 @@
 <script>
+import { mapActions, mapState } from "pinia";
 import { RouterLink } from "vue-router";
+import { useIndexStore } from "../stores";
 export default {
   name: "NavBar",
   components: RouterLink,
+  methods: {
+    ...mapActions(useIndexStore, ["logout"]),
+  },
+  computed: {
+    ...mapState(useIndexStore, ["loginStatus"]),
+  },
 };
 </script>
 
@@ -22,12 +30,15 @@ export default {
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="">Home</a>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-2">
+          <li>
+            <RouterLink to="/managers/forums">
+              <button class="btn btn-secondary">Forums</button>
+            </RouterLink>
           </li>
-          <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
-          <li class="nav-item"><a class="nav-link" href="#!">Services</a></li>
+          <li class="nav-item" v-if="loginStatus">
+            <a class="nav-link" @click.prevent="logout" href="">Logout</a>
+          </li>
         </ul>
       </div>
     </div>

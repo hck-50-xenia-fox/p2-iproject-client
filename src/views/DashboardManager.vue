@@ -2,18 +2,42 @@
 import NavBar from "../components/NavBar.vue";
 import Footer from "../components/Footer.vue";
 import { RouterLink } from "vue-router";
-import { mapWritableState } from "pinia";
+import { mapActions, mapState, mapWritableState } from "pinia";
 import { useIndexStore } from "../stores";
+import { useTaskStore } from "../stores/task";
+import { useEmployeeStore } from "../stores/employee";
+import EmployeeCard from "../components/EmployeeCard.vue";
 export default {
   name: "DashboardManager",
-  components: { NavBar, Footer, RouterLink },
+  data() {
+    return {
+      title: "",
+      description: "",
+    };
+  },
+  components: { NavBar, Footer, RouterLink, EmployeeCard },
   methods: {
+    ...mapActions(useTaskStore, ["addTask", "addEmployeeTask"]),
+    ...mapActions(useEmployeeStore, ["getEmployees"]),
+
     changeLoginType(page) {
       this.loginType = page;
+    },
+    addTaskHandler() {
+      this.addTask({
+        title: this.title,
+        description: this.description,
+      });
+      this.title = "";
+      this.description = "";
     },
   },
   computed: {
     ...mapWritableState(useIndexStore, ["loginType"]),
+    ...mapState(useEmployeeStore, ["employees"]),
+  },
+  created() {
+    this.getEmployees();
   },
 };
 </script>
@@ -29,122 +53,37 @@ export default {
         <RouterLink @click="changeLoginType('employee')" to="/register">
           <button class="btn btn-secondary">Add Employee</button>
         </RouterLink>
-        <RouterLink to="/managers/addEmployeeTasks">
-          <button class="btn btn-secondary">Add EmployeeTask</button>
-        </RouterLink>
         <RouterLink to="/managers/tasks">
           <button class="btn btn-secondary">View Tasks</button>
         </RouterLink>
+        <RouterLink to="/managers/forums">
+          <button class="btn btn-secondary">Forums</button>
+        </RouterLink>
       </div>
-      <form>
+      <form @submit.prevent="addTaskHandler">
         <div class="d-flex justify-content-center text-center gap-4">
-          <div class="card p-3">
-            <label>Title</label>
-            <input type="text" />
-            <label>Description</label>
-            <input type="text" /><br />
-            <button type="submit" class="btn btn-secondary">Add Task</button>
+          <div class="card bg-dark p-3">
+            <label class="text-white m-1">Title</label>
+            <input type="text" v-model="title" />
+            <label class="text-white m-1">Description</label>
+            <textarea
+              class="mb-2"
+              v-model="description"
+              cols="15"
+              rows="5"
+            ></textarea>
+            <button type="submit" class="btn btn-success">Add Task</button>
           </div>
         </div>
       </form>
-      <div class="card-manager col-3 shadow">
-        <div class="card-title">
-          <h2>Employee Name</h2>
-          <div class="d-flex justify-content-end align-items-center">
-            <h3 class="bi bi-fire icon"></h3>
-          </div>
-          <medium>Role</medium><br />
-          <small>Completed Task</small>
+      <div class="container">
+        <div class="row justify-content-center m-5 gap-4">
+          <EmployeeCard
+            v-for="employee in employees"
+            :key="employee.id"
+            :employee="employee"
+          />
         </div>
-        <div class="card-body"></div>
-      </div>
-      <div class="card-manager col-3 shadow">
-        <div class="card-title">
-          <h2>Employee Name</h2>
-          <div class="d-flex justify-content-end align-items-center">
-            <h3 class="bi bi-fire icon"></h3>
-          </div>
-          <medium>Role</medium><br />
-          <small>Completed Task</small>
-        </div>
-        <div class="card-body"></div>
-      </div>
-      <div class="card-manager col-3 shadow">
-        <div class="card-title">
-          <h2>Employee Name</h2>
-          <div class="d-flex justify-content-end align-items-center">
-            <h3 class="bi bi-fire icon"></h3>
-          </div>
-          <medium>Role</medium><br />
-          <small>Completed Task</small>
-        </div>
-        <div class="card-body"></div>
-      </div>
-      <div class="card-manager col-3 shadow">
-        <div class="card-title">
-          <h2>Employee Name</h2>
-          <div class="d-flex justify-content-end align-items-center">
-            <h3 class="bi bi-fire icon"></h3>
-          </div>
-          <medium>Role</medium><br />
-          <small>Completed Task</small>
-        </div>
-        <div class="card-body"></div>
-      </div>
-      <div class="card-manager col-3 shadow">
-        <div class="card-title">
-          <h2>Employee Name</h2>
-          <div class="d-flex justify-content-end align-items-center">
-            <h3 class="bi bi-fire icon"></h3>
-          </div>
-          <medium>Role</medium><br />
-          <small>Completed Task</small>
-        </div>
-        <div class="card-body"></div>
-      </div>
-      <div class="card-manager col-3 shadow">
-        <div class="card-title">
-          <h2>Employee Name</h2>
-          <div class="d-flex justify-content-end align-items-center">
-            <h3 class="bi bi-fire icon"></h3>
-          </div>
-          <medium>Role</medium><br />
-          <small>Completed Task</small>
-        </div>
-        <div class="card-body"></div>
-      </div>
-      <div class="card-manager col-3 shadow">
-        <div class="card-title">
-          <h2>Employee Name</h2>
-          <div class="d-flex justify-content-end align-items-center">
-            <h3 class="bi bi-fire icon"></h3>
-          </div>
-          <medium>Role</medium><br />
-          <small>Completed Task</small>
-        </div>
-        <div class="card-body"></div>
-      </div>
-      <div class="card-manager col-3 shadow">
-        <div class="card-title">
-          <h2>Employee Name</h2>
-          <div class="d-flex justify-content-end align-items-center">
-            <h3 class="bi bi-fire icon"></h3>
-          </div>
-          <medium>Role</medium><br />
-          <small>Completed Task</small>
-        </div>
-        <div class="card-body"></div>
-      </div>
-      <div class="card-manager col-3 shadow">
-        <div class="card-title">
-          <h2>Employee Name</h2>
-          <div class="d-flex justify-content-end align-items-center">
-            <h3 class="bi bi-fire icon"></h3>
-          </div>
-          <medium>Role</medium><br />
-          <small>Completed Task</small>
-        </div>
-        <div class="card-body"></div>
       </div>
     </div>
   </section>
@@ -154,7 +93,11 @@ export default {
 .icon:hover {
   color: darkred;
 }
+.card-manager {
+  background-color: white;
+}
+
 .card-manager:hover {
-  background-color: rgb(243, 243, 243);
+  background-color: rgb(207, 207, 207);
 }
 </style>

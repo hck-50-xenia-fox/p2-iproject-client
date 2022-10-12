@@ -16,7 +16,11 @@ export default {
     ...mapState(useIndexStore, ["loginType"]),
   },
   methods: {
-    ...mapActions(useIndexStore, ["loginCompany", "loginManager"]),
+    ...mapActions(useIndexStore, [
+      "loginCompany",
+      "loginManager",
+      "loginEmployee",
+    ]),
     doLogin() {
       if (this.loginType === "company") {
         this.loginCompany({
@@ -27,6 +31,13 @@ export default {
         this.password = "";
       } else if (this.loginType === "manager") {
         this.loginManager({
+          email: this.email,
+          password: this.password,
+        });
+        this.email = "";
+        this.password = "";
+      } else if (this.loginType === "employee") {
+        this.loginEmployee({
           email: this.email,
           password: this.password,
         });
@@ -93,6 +104,13 @@ export default {
                   <button type="submit" class="btn btn-primary btn-block mb-5">
                     Login
                   </button>
+                  <div class="d-flex justify-content-center mb-3">
+                    <RouterLink v-if="loginType === 'employee'" to="/managers"
+                      ><button class="btn btn-secondary">
+                        Back
+                      </button></RouterLink
+                    >
+                  </div>
                 </form>
               </div>
             </div>

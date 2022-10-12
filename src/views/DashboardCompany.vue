@@ -2,18 +2,25 @@
 import NavBar from "../components/NavBar.vue";
 import Footer from "../components/Footer.vue";
 import { RouterLink } from "vue-router";
-import { mapWritableState } from "pinia";
+import { mapActions, mapState, mapWritableState } from "pinia";
 import { useIndexStore } from "../stores";
+import ManagerCard from "../components/ManagerCard.vue";
+import { useManagerStore } from "../stores/manager";
 export default {
   name: "DashboardCompany",
-  components: { NavBar, Footer, RouterLink },
+  components: { NavBar, Footer, RouterLink, ManagerCard },
   methods: {
+    ...mapActions(useManagerStore, ["getManager"]),
     changeLoginType(page) {
       this.loginType = page;
     },
   },
   computed: {
     ...mapWritableState(useIndexStore, ["loginType"]),
+    ...mapState(useManagerStore, ["managers"]),
+  },
+  created() {
+    this.getManager();
   },
 };
 </script>
@@ -28,66 +35,11 @@ export default {
           ><button class="btn btn-secondary">Add Managers</button></RouterLink
         >
       </div>
-      <div class="card-manager col-3 shadow">
-        <div class="card-title">
-          <h2>Manager Name</h2>
-          <div class="d-flex justify-content-end align-items-center">
-            <h3 class="bi bi-fire icon"></h3>
-          </div>
-          <medium>Manager Role</medium><br />
-          <small>Total Subordinate</small>
-        </div>
-      </div>
-      <div class="card-manager col-3 shadow">
-        <div class="card-title">
-          <h2>Manager Name</h2>
-          <div class="d-flex justify-content-end align-items-center">
-            <h3 class="bi bi-fire icon"></h3>
-          </div>
-          <medium>Manager Role</medium><br />
-          <small>Total Subordinate</small>
-        </div>
-      </div>
-      <div class="card col-3 shadow">
-        <div class="card-title">
-          <h2>Manager Name</h2>
-          <div class="d-flex justify-content-end align-items-center">
-            <h3 class="bi bi-fire icon"></h3>
-          </div>
-          <medium>Manager Role</medium><br />
-          <small>Total Subordinate</small>
-        </div>
-      </div>
-      <div class="card col-3 shadow">
-        <div class="card-title">
-          <h2>Manager Name</h2>
-          <div class="d-flex justify-content-end align-items-center">
-            <h3 class="bi bi-fire icon"></h3>
-          </div>
-          <medium>Manager Role</medium><br />
-          <small>Total Subordinate</small>
-        </div>
-      </div>
-      <div class="card col-3 shadow">
-        <div class="card-title">
-          <h2>Manager Name</h2>
-          <div class="d-flex justify-content-end align-items-center">
-            <h3 class="bi bi-fire icon"></h3>
-          </div>
-          <medium>Manager Role</medium><br />
-          <small>Total Subordinate</small>
-        </div>
-      </div>
-      <div class="card col-3 shadow">
-        <div class="card-title">
-          <h2>Manager Name</h2>
-          <div class="d-flex justify-content-end align-items-center">
-            <h3 class="bi bi-fire icon"></h3>
-          </div>
-          <medium>Manager Role</medium><br />
-          <small>Total Subordinate</small>
-        </div>
-      </div>
+      <ManagerCard
+        v-for="manager in managers"
+        :key="manager.id"
+        :manager="manager"
+      />
     </div>
   </section>
   <Footer />

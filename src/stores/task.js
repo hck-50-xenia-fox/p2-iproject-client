@@ -7,6 +7,7 @@ export const useTaskStore = defineStore("task", {
       baseUrl: "http://localhost:3000",
       access_token: localStorage.getItem("access_token"),
       tasks: [],
+      mytasks: [],
     };
   },
   actions: {
@@ -18,6 +19,16 @@ export const useTaskStore = defineStore("task", {
           },
         });
         this.tasks = data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async fetchMyTask() {
+      try {
+        const { data } = await axios.get(this.baseUrl + "/employees/mytasks", {
+          headers: { access_token: localStorage.getItem("access_token") },
+        });
+        this.mytasks = data;
       } catch (error) {
         console.log(error);
       }
@@ -35,30 +46,45 @@ export const useTaskStore = defineStore("task", {
             headers: { access_token: localStorage.getItem("access_token") },
           }
         );
-        this.router.push("/managers");
+        this.router.push("/managers/tasks");
         console.log("berhasil nambah beban");
       } catch (error) {
         console.log(error);
       }
     },
-  },
-  async addTask(input) {
-    try {
-      const { title, description } = input;
-      await axios.post(
-        this.baseUrl + "/managers/postTask",
-        {
-          title,
-          description,
-        },
-        {
-          headers: { access_token: localStorage.getItem("access_token") },
-        }
-      );
-      this.router.push("/managers");
-      console.log("berhasil nambah task");
-    } catch (error) {
-      console.log(error);
-    }
+    async addTask(input) {
+      try {
+        const { title, description } = input;
+        await axios.post(
+          this.baseUrl + "/managers/postTask",
+          {
+            title,
+            description,
+          },
+          {
+            headers: { access_token: localStorage.getItem("access_token") },
+          }
+        );
+        this.router.push("/managers");
+        console.log("berhasil nambah task");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async updateTask(id) {
+      try {
+        await axios.patch(
+          this.baseUrl + "/employees/mytasks/" + id,
+          {},
+          {
+            headers: { access_token: localStorage.getItem("access_token") },
+          }
+        );
+        this.fetchMyTask();
+        this.router.push("/employee");
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 });

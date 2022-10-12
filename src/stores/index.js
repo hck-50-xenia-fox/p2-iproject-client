@@ -19,8 +19,8 @@ export const useIndexStore = defineStore("index", {
           companyPassword: password,
         });
         localStorage.setItem("access_token", data.access_token);
-        this.loginStatus = "company";
         this.router.push("/dashboard");
+        this.loginStatus = true;
         console.log("berhasil login");
       } catch (error) {
         console.log(error);
@@ -73,6 +73,7 @@ export const useIndexStore = defineStore("index", {
         });
         localStorage.setItem("access_token", data.access_token);
         this.router.push("/managers");
+        this.loginStatus = true;
         console.log("berhasil login manager");
       } catch (error) {
         console.log(error);
@@ -95,8 +96,8 @@ export const useIndexStore = defineStore("index", {
             headers: { access_token: localStorage.getItem("access_token") },
           }
         );
-        this.router.push("/managers");
         this.loginType = "manager";
+        this.router.push("/managers");
         console.log("berhasil register employee");
       } catch (error) {
         console.log(error);
@@ -111,10 +112,16 @@ export const useIndexStore = defineStore("index", {
         });
         localStorage.setItem("access_token", data.access_token);
         this.router.push("/employee");
+        this.loginStatus = true;
         console.log("berhasil login employee");
       } catch (error) {
         console.log(error);
       }
+    },
+    logout() {
+      localStorage.clear();
+      this.router.push("/");
+      this.loginStatus = false;
     },
   },
 });

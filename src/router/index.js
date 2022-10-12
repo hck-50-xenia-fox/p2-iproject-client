@@ -38,7 +38,7 @@ const router = createRouter({
     },
     {
       path: "/employee",
-      name: "",
+      name: "employee",
       component: EmployeeTask,
     },
     {
@@ -52,6 +52,26 @@ const router = createRouter({
       component: RegisterView,
     },
   ],
+});
+
+router.beforeEach((to, from) => {
+  if (localStorage.getItem("access_token") && to.name === "login") {
+    return {
+      path: "/",
+    };
+  } else if (
+    (!localStorage.getItem("access_token") && to.name === "employee") ||
+    (!localStorage.getItem("access_token") && to.name === "manager") ||
+    (!localStorage.getItem("access_token") && to.name === "dashboard")
+  ) {
+    return {
+      path: "/",
+    };
+  } else if (localStorage.getItem("access_token") && to.name === "register") {
+    return {
+      path: "/",
+    };
+  }
 });
 
 export default router;

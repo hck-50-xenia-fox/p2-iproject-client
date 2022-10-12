@@ -29,6 +29,8 @@ export default {
           password: this.password,
         });
         this.firstName = "";
+        this.lastName = "";
+        this.role = "";
         this.email = "";
         this.password = "";
       } else if (this.loginType === "companyManager") {
@@ -100,7 +102,6 @@ export default {
               Add your employee <br />
               <span class="text-primary">for your business</span>
             </h1>
-            <p style="color: white">Register Your Employee Or Manager</p>
           </div>
 
           <div class="col-lg-6 mb-5 mb-lg-0">
@@ -182,9 +183,31 @@ export default {
                     >
                   </div>
 
-                  <button type="submit" class="btn btn-primary btn-block mb-4">
-                    Sign up
-                  </button>
+                  <div class="d-flex justify-content-center mb-3 gap-4">
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-block mb-4"
+                    >
+                      Sign up
+                    </button>
+                    <RouterLink v-if="loginType === 'employee'" to="/managers"
+                      ><button class="btn btn-secondary">
+                        Back
+                      </button></RouterLink
+                    >
+                    <RouterLink
+                      v-if="loginType === 'companyManager'"
+                      to="/dashboard"
+                      ><button class="btn btn-secondary">
+                        Back
+                      </button></RouterLink
+                    >
+                    <RouterLink v-if="loginType === 'company'" to="/"
+                      ><button class="btn btn-secondary">
+                        Back
+                      </button></RouterLink
+                    >
+                  </div>
                 </form>
               </div>
             </div>
