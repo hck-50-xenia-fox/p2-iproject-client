@@ -12,6 +12,8 @@ export const useIndexStore = defineStore('index', {
     state: () => {
         return {
             loginState: false,
+            characters: []
+
         }
     },
     getters: {
@@ -84,5 +86,16 @@ export const useIndexStore = defineStore('index', {
         //     })
         // }
         
+        async getCharacters() {
+            try {
+                let {data} = await axios({
+                    method: 'get',
+                    url: `${baseUrl}/characters`
+                })
+                this.characters = data
+            } catch (error) {
+                console.log(error)
+            }
+        }
     }
 })
