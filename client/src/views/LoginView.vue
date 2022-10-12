@@ -14,7 +14,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(useIndexStore, ['handleLogin']),
+        ...mapActions(useIndexStore, ['handleLogin', 'loginTwitter']),
         login() {
             this.handleLogin(this.loginUser)
         }
@@ -69,6 +69,7 @@ export default {
         </div>
       </form>
     </div>
+    <a href="" @click.prevent="loginTwitter">login twitter</a>
   </section>
 
 </template>

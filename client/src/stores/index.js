@@ -43,6 +43,14 @@ export const useIndexStore = defineStore('index', {
             localStorage.clear()
             this.loginState = false
             this.router.push('/')
+        },
+        async loginTwitter() {
+            const { data, error } = await supabase.auth.signInWithOAuth({
+              provider: 'twitter',
+            })
+        },
+        async logoutTwitter() {
+            const { error } = await supabase.auth.signOut()
         }
     }
 })
