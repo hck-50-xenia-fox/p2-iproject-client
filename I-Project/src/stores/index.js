@@ -55,5 +55,26 @@ export const useIprojectStore = defineStore("Iproject", {
           })
       }
     },
+
+    async handleCredentialResponse(response) {
+        try {
+          console.log("Encoded JWT ID token: " + response.credential);
+          const { credential } = response;
+          const data = await axios({
+            method: "POST",
+            url: baseUrl + `/google-sign-in`,
+            headers: {
+              google_token: credential,
+            },
+          });
+          localStorage.setItem("access_token", data.data.access_token);
+          localStorage.setItem("username",data.data.username)
+          this.isLogin = true;
+          this.$router.push("/");
+         
+        } catch (error) {
+          console.log(error);
+        }
+      },
   },
 });
