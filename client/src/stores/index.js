@@ -2,7 +2,7 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
 const baseUrl = 'http://localhost:3000'
-import io from 'socket.io-client'
+
 
 export const useIndexStore = defineStore('index', {
     state: () => {
@@ -38,6 +38,11 @@ export const useIndexStore = defineStore('index', {
             if(localStorage.getItem('access_token')) {
                 this.loginState = true
             }
+        },
+        async handleLogout() {
+            localStorage.clear()
+            this.loginState = false
+            this.router.push('/')
         }
     }
 })

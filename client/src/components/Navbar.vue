@@ -1,6 +1,25 @@
 <script>
+import { mapActions, mapState, mapWritableState } from "pinia";
+import { useIndexStore } from "../stores";
 export default {
-    name: 'Navbar'
+    name: 'Navbar',
+    data() {
+        return {
+
+        }
+    },
+    methods: {
+        ...mapActions(useIndexStore, ['handleLogout', 'checkLogin']),
+        logout() {
+            this.handleLogout()
+        }
+    },
+    computed: {
+        ...mapState(useIndexStore, ['loginState'])
+    },
+    created() {
+        this.checkLogin()
+    }
 }
 </script>
 
@@ -37,12 +56,12 @@ export default {
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav" >
           <li class="nav-item" >
-            <a class="nav-link" href="" >
+            <a class="nav-link" href="" @click.prevent="logout" v-if="loginState === true" >
                 Logout
             </a>
           </li>
           <li class="nav-link" >
-            <router-link to="/login">
+            <router-link to="/login" v-if="loginState === false">
                 Have an account? Login now
             </router-link>
           </li>
