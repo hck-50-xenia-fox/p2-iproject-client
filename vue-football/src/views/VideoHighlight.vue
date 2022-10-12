@@ -1,42 +1,45 @@
 <script>
   import NavBar from '../components/NavBar.vue';
-  import CardLeague from '../components/CardLeague.vue';
+  import CardVideo from '../components/CardVideo.vue';
   import { mapActions, mapState } from 'pinia';
   import { useFootballStore } from '../stores/football';
 
   export default {
-    name: "premierLeague",
+    name: "video-highlight",
 
     components: {
       NavBar,
-      CardLeague
+      CardVideo
     },
 
     methods: {
-      ...mapActions(useFootballStore, ["fetchPremierLeague"])
+      ...mapActions(useFootballStore, ["fetchHighlightVideo"])
     },
     computed: {
-      ...mapState(useFootballStore, ["premierLeagueData"])
+      ...mapState(useFootballStore, ["highlightData"])
     },
     created() {
-      this.fetchPremierLeague();
+      this.fetchHighlightVideo();
     }
   }
 </script>
 
 <template>
   <NavBar />
+
   <div class="container mb-4">
     <div style="margin-top: 4.5em">
-      <h3 class="text-center">Premier League</h3>
-      <hr>
+      <h3 class="text-center">Football Highlights</h3>
     </div>
+    <hr>
     <div class="row mb-4">
-      <CardLeague
-        v-for="league in premierLeagueData"
-        :key="league.id"
-        :league="league"
-       />
+      <CardVideo
+        v-for="highlight in highlightData"
+        :key="highlight.id"
+        :highlight="highlight"
+      />
     </div>
   </div>
+
+
 </template>

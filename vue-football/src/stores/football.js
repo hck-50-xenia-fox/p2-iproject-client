@@ -7,6 +7,9 @@ export const useFootballStore = defineStore("football", {
   state: () => {
     return {
       access_token: localStorage.getItem("access_token"),
+      liveData: [],
+      premierLeagueData: [],
+      highlightData: [],
     };
   },
 
@@ -55,6 +58,45 @@ export const useFootballStore = defineStore("football", {
           title: "Oops...",
           text: err.response.data.message,
         });
+      }
+    },
+
+    async fetchLiveFootball() {
+      try {
+        const { data } = await axios.get(`${baseURL}/football/live-score`, {
+          headers: {
+            access_token: localStorage.getItem("access_token"),
+          },
+        });
+        this.liveData = data;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async fetchPremierLeague() {
+      try {
+        const { data } = await axios.get(`${baseURL}/football/premier-league`, {
+          headers: {
+            access_token: localStorage.getItem("access_token"),
+          },
+        });
+        this.premierLeagueData = data;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async fetchHighlightVideo() {
+      try {
+        const { data } = await axios.get(`${baseURL}/football/highlight`, {
+          headers: {
+            access_token: localStorage.getItem("access_token"),
+          },
+        });
+        this.highlightData = data;
+      } catch (err) {
+        console.log(err);
       }
     },
 

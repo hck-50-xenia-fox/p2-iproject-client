@@ -3,6 +3,7 @@ import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import Home from "../views/Home.vue";
 import PremierLeague from "../views/PremierLeague.vue";
+import VideoHighlight from "../views/VideoHighlight.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,6 +28,11 @@ const router = createRouter({
       name: "premierLeague",
       component: PremierLeague,
     },
+    {
+      path: "/highlight",
+      name: "highlight",
+      component: VideoHighlight,
+    },
   ],
 });
 
@@ -40,7 +46,15 @@ router.beforeEach((to, from) => {
     return {
       path: "/football",
     };
+  } else if (!token && to.name === "premierLeague") {
+    return {
+      path: "/login",
+    };
   } else if (!token && to.name === "home") {
+    return {
+      path: "/login",
+    };
+  } else if (!token && to.name === "highlight") {
     return {
       path: "/login",
     };

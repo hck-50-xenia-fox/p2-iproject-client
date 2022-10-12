@@ -37,15 +37,19 @@ import { useFootballStore } from '../stores/football';
                 <a class="nav-link" href="#">Premier League</a>
               </RouterLink>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <RouterLink to="/" style="color:black; text-decoration: none;">
                 <a class="nav-link" href="#">LaLiga</a>
               </RouterLink>
             </li>
-            <li class="nav-item">
-              
+            <li class="nav-item">            
               <RouterLink to="/" style="color:black; text-decoration: none;">
                 <a class="nav-link" href="#">Seria A</a>
+              </RouterLink>
+            </li> -->
+            <li class="nav-item">
+              <RouterLink to="/highlight" style="color:black; text-decoration: none;">
+                <a class="nav-link" href="#">Highlights</a>
               </RouterLink>
             </li>
             <li class="nav-item">
