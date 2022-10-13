@@ -2,8 +2,7 @@ import axios from "axios";
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 
-// const baseURL = "http://localhost:3000";
-const baseURL = "https://sewa-motor.herokuapp.com"
+const baseURL = "http://localhost:3000";
 
 export const useSewamotorStore = defineStore("sewamotor", {
   state: () => ({

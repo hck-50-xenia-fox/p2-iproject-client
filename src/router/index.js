@@ -1,46 +1,55 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomePage from '../pages/HomePage.vue'
-import RentMotorcycle from '../pages/RentMotorcycle.vue'
-import AboutUs from '../pages/AboutUs.vue'
-import DetailMotor from '../pages/DetailMotor.vue'
-import LoginPage from '../pages/LoginPage.vue'
-import RegisterPage from '../pages/RegisterPage.vue'
-
+import { createRouter, createWebHistory } from "vue-router";
+import HomePage from "../pages/HomePage.vue";
+import RentMotorcycle from "../pages/RentMotorcycle.vue";
+import AboutUs from "../pages/AboutUs.vue";
+import DetailMotor from "../pages/DetailMotor.vue";
+import LoginPage from "../pages/LoginPage.vue";
+import RegisterPage from "../pages/RegisterPage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: HomePage
+      path: "/",
+      name: "home",
+      component: HomePage,
     },
     {
-      path: '/rental',
-      name: 'rent',
-      component: RentMotorcycle
+      path: "/rental",
+      name: "rent",
+      component: RentMotorcycle,
     },
     {
-      path: '/about',
-      name: 'about',
-      component: AboutUs
+      path: "/about",
+      name: "about",
+      component: AboutUs,
     },
     {
-      path: '/motorcycles/:id',
-      name: 'detail',
-      component: DetailMotor
+      path: "/motorcycles/:id",
+      name: "detail",
+      component: DetailMotor,
     },
     {
-      path: '/login',
-      name: 'login',
-      component: LoginPage
+      path: "/login",
+      name: "login",
+      component: LoginPage,
     },
     {
-      path: '/register',
-      name: 'register',
-      component: RegisterPage
+      path: "/register",
+      name: "register",
+      component: RegisterPage,
     },
-  ]
-})
+  ],
+});
 
-export default router
+//NAVIGATION GUARD
+router.beforeEach((to, from) => {
+  if (
+    (localStorage.getItem("access_token") && to.name === "login") ||
+    (localStorage.getItem("access_token") && to.name === "register")
+  ) {
+    return { name: "home" };
+  }
+});
+
+export default router;

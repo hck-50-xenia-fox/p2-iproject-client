@@ -7,13 +7,14 @@ export default {
         ...mapState(useSewamotorStore, ['currentMotorcycle'])
     },
     methods: {
-        ...mapActions(useSewamotorStore, ['getMotorcycleById'])
+        ...mapActions(useSewamotorStore, ['getMotorcycleById', 'changeStatus']),
+        payNow(id) {
+            this.currentMotorcycle.status = `Rented`
+            this.changeStatus(id)
+        }
     },
     created() {
         this.getMotorcycleById(this.$route.params.id)
-        // Nambah comment buat branch test-git-flow
-        // Ini untuk test lagi
-        // Satu lagi terakhir
     }
 }
 </script>
@@ -45,6 +46,12 @@ export default {
                 </div>
                 <div class="col-md-7 animate-box">
                     <img :src="currentMotorcycle.imageUrl" style="height: 450px;" />
+                    <button v-if="currentMotorcycle.status === `Available`" @click.prevent="payNow(currentMotorcycle.id)" class="btn-block btn-success btn-outline:hover">
+                        Pay Now
+                    </button>
+                    <button v-else class="btn-block btn-block btn-danger">
+                        Pay Now
+                    </button>
                 </div>
             </div>
         </div>

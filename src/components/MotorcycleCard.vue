@@ -15,7 +15,6 @@ export default {
                 <h3><a href="#">{{motorcycle.model}}</a></h3>
                 <p>Rp{{motorcycle.price}} /day</p>
                 <ul class="stuff">
-                    <button>Rent Now</button>
                     <li><a @click.prevent="$router.push(`/motorcycles/${id}`)" href="#">See Details<i class="icon-arrow-right22"></i></a></li>
                 </ul>
             </div>
