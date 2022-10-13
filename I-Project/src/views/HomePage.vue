@@ -59,7 +59,6 @@ export default {
 
 
     <div class="flex w-full justify-center items-center grid grid-cols-3 gap-10 mt-20 pt-10 mx-10 pl-10">
-        <h2>bambang</h2>
         <!-- card -->
         <card 
         v-for="n in nearby"

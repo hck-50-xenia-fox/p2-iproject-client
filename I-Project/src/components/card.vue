@@ -21,9 +21,9 @@ export default {
           class="w-8 h-8 rounded-full bg-gray-800 text-white flex items-center justify-center"
         >
           <img
-            src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference={{data.photos[0].photo_reference
+            src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photo_reference=data.photos[0].photo_reference
 }}&key=653896340625-ciq35qf1df4npj2u99a93409crlg3l26.apps.googleusercontent.com"
-            alt=""
+            alt="Development"
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"
