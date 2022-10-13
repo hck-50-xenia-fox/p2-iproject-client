@@ -5,6 +5,7 @@ import ChatroomView from '../views/ChatroomView.vue'
 import CharactersView from '../views/CharactersView.vue'
 import SummonsView from '../views/SummonsView.vue'
 import RegisterView from '../views/RegisterView.vue'
+import MediaView from '../views/MediaView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +39,11 @@ const router = createRouter({
       path: '/register',
       name: 'registerView',
       component: RegisterView
+    },
+    {
+      path: '/media',
+      name: 'mediaView',
+      component: MediaView
     }
     // {
     //   path: "/about",

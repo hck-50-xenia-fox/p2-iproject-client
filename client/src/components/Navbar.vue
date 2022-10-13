@@ -38,8 +38,8 @@ export default {
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Story</a></li>
-            <li><a class="dropdown-item" href="#">Characters</a></li>
-            <li><a class="dropdown-item" href="#">Summons</a></li>
+            <li><router-link to="/characters" class="dropdown-item">Characters</router-link></li>
+            <li><router-link to="/summons" class="dropdown-item" >Summons</router-link></li>
           </ul>
         </li>
         <li class="nav-item">
@@ -49,7 +49,7 @@ export default {
           <a class="nav-link" href="#">Hall of Fame</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Media</a>
+          <router-link to="/media" class="nav-link">Media</router-link>
         </li>
       </ul>
       
