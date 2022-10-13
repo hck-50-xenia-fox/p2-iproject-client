@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import axios from 'axios'
-let baseUrl = "http://localhost:3000/"
+let baseUrl = "https://petshop-app-22.herokuapp.com/"
 
 export const useHomeStore = defineStore("home", {
     state: () => {
@@ -18,7 +18,11 @@ export const useHomeStore = defineStore("home", {
                 })
                 this.dataFact = data
             } catch (error) {
-                console.log(error)
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: `${error.response.data.msg}`,
+                  });
             }
         },
         async fetchImageRandom(){
@@ -29,7 +33,11 @@ export const useHomeStore = defineStore("home", {
                 })
                 this.dataImage = data[0]
             } catch (error) {
-                console.log(error)
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: `${error.response.data.msg}`,
+                });
             }
         }
     }

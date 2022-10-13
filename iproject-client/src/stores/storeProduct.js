@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-let baseUrl = "http://localhost:3000/";
+let baseUrl = "https://petshop-app-22.herokuapp.com/";
 
 export const useProductStore = defineStore("product", {
   state: () => {
@@ -24,7 +24,11 @@ export const useProductStore = defineStore("product", {
         this.dataProduct = data;
         this.role = localStorage.getItem("role");
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${error.response.data.msg}`,
+        });
       }
     },
     async addProduct(productData) {
@@ -71,8 +75,6 @@ export const useProductStore = defineStore("product", {
           },
           data: { price },
         });
-        console.log(data);
-
         snap.pay(`${data.transactionToken}`, {
           onSuccess: async function (result) {
             console.log(result);
@@ -99,7 +101,11 @@ export const useProductStore = defineStore("product", {
           },
         });
       } catch (err) {
-        console.log(err);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${err.response.data.msg}`,
+        });
       }
     },
     async fetchCategory() {
@@ -133,7 +139,11 @@ export const useProductStore = defineStore("product", {
           timer: 1500,
         });
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${error.response.data.msg}`,
+        });
       }
     },
   },
