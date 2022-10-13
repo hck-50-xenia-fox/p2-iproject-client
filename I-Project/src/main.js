@@ -1,5 +1,7 @@
 import { createApp, markRaw } from 'vue'
 import { createPinia } from 'pinia'
+import Vue3Geolocation from 'vue3-geolocation'
+
 
 import App from './App.vue'
 import router from './router'
@@ -14,4 +16,5 @@ pinia.use(({ store }) => {
 })
 app.use(pinia)
 app.use(router)
+app.use(Vue3Geolocation)
 app.mount('#app')
