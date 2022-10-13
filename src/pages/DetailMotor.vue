@@ -12,6 +12,7 @@ export default {
     created() {
         this.getMotorcycleById(this.$route.params.id)
         // Nambah comment buat branch test-git-flow
+        // Ini untuk test lagi
     }
 }
 </script>
