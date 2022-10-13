@@ -42,7 +42,6 @@ export default {
       />
     </div>
   </section>
-  <Footer />
 </template>
 <style>
 .icon:hover {
