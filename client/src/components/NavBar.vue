@@ -47,7 +47,7 @@ export default {
 
           <li class="navbar-item">
             <router-link
-              to="/courses"
+              to="/course"
               class="nav-link px-4 text-center col-4"
               data-nav-toggler
               >Courses</router-link
@@ -69,7 +69,7 @@ export default {
         <router-link to="/login" class="header-action-btn login-btn">
           <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
 
-          <span class="span">Login / Register</span>
+          <span class="span">Login</span>
         </router-link>
 
         <router-link to="/" class="header-action-btn login-btn">

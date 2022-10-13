@@ -12,16 +12,16 @@ const toggleElem = function (elem) {
  * navbar toggle
  */
 
-const navbar = document.querySelector("[data-navbar]");
-const navTogglers = document.querySelectorAll("[data-nav-toggler]");
-const overlay = document.querySelector("[data-overlay]");
+// const navbar = document.querySelector("[data-navbar]");
+// const navTogglers = document.querySelectorAll("[data-nav-toggler]");
+// const overlay = document.querySelector("[data-overlay]");
 
-for (let i = 0; i < navTogglers.length; i++) {
-  navTogglers[i].addEventListener("click", function () {
-    toggleElem(navbar);
-    toggleElem(overlay);
-  });
-}
+// for (let i = 0; i < navTogglers.length; i++) {
+//   navTogglers[i].addEventListener("click", function () {
+//     toggleElem(navbar);
+//     toggleElem(overlay);
+//   });
+// }
 
 /**
  * header sticky & back to top button

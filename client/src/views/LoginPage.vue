@@ -23,7 +23,6 @@ export default {
 <template>
   <div class="form__field">
     <!-- <input type="submit" value="Sign In" /> -->
-    <section class="container">
     <div class="grid">
       <form @submit.prevent="logIn" method="post" class="form login">
         <div class="form__field">
@@ -60,22 +59,14 @@ export default {
           </button>
         </div>
       </form>
-
-      <p class="text--center">
-        Not a member?
-        <a @click="router.push('/register')" href="#">Sign up now</a>
-        <svg class="icon">
-          <use xlink:href="#icon-arrow-right"></use>
-        </svg>
-      </p>
     </div>
-  </section>
-    <button
+    <GoogleLogin :callback="callback" />
+    <!-- <button
       class="btn btn-md btn-primary"
       type="button"
       @click.prevent="signInWithFacebook"
     >
       Sign In
-    </button>
+    </button> -->
   </div>
 </template>

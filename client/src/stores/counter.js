@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import swal from "sweetalert2";
-const baseUrl = "http://localhost:3000";
+const baseUrl = "http://localhost:3001";
+// const baseUrl = `https://desolate-wave-18945.herokuapp.com/`
 import axios from "axios";
 import { createClient } from "@supabase/supabase-js";
 
@@ -16,7 +17,6 @@ export const useCounterStore = defineStore("counter", {
     dataLogin: "",
     courseData: [],
     myCourse: [],
-    isPage: "",
     paymentResponse: {},
   }),
   actions: {
@@ -102,7 +102,7 @@ export const useCounterStore = defineStore("counter", {
     },
     async fetchCourse() {
       try {
-        const dataCourse = await axios({
+        const response = await axios({
           url: baseUrl + "/course",
           method: "GET",
           headers: {
