@@ -95,7 +95,7 @@ export default {
           <RouterLink v-else-if="loginType === 'manager'" to="/managers"
             ><button class="btn btn-secondary">BACK</button></RouterLink
           >
-          <RouterLink v-else -if="loginType === 'employee'" to="/employee"
+          <RouterLink v-else-if="loginType === 'employee'" to="/employee"
             ><button class="btn btn-secondary">BACK</button></RouterLink
           >
           <RouterLink v-else to="/"
