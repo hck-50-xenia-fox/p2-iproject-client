@@ -1,6 +1,7 @@
 <script>
 import NavBar from "../components/NavBar.vue";
 import Footer from "../components/Footer.vue";
+import { RouterLink } from "vue-router";
 import { mapActions, mapState } from "pinia";
 import { useTaskStore } from "../stores/task";
 import { useEmployeeStore } from "../stores/employee";
@@ -68,6 +69,11 @@ export default {
           <div class="card rounded-1 mt-5">
             <div class="col col-lg-12 col-xl-12">
               <div class="card bg-secondary rounded m-3 text-center text-white">
+                <RouterLink to="/managers/forums"
+                  ><button class="btn btn-primary mt-3">
+                    Forum
+                  </button></RouterLink
+                >
                 <div class="card-body p-4"></div>
                 <b>Today's quotes</b>
                 <p class="mb-2 mt-2">
