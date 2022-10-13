@@ -1,6 +1,28 @@
 <script>
-export default {
+import { mapActions, mapState } from 'pinia'
+import { useSewamotorStore } from '../stores/sewamotor.js'
 
+export default {
+    data() {
+        return {
+            name: "",
+            email: "",
+            password: "",
+            phoneNumber: "",
+        }
+    }, methods: {
+        ...mapActions(useSewamotorStore, ['register', 'checkLogin']),
+        handleRegister(name, email, password, phoneNumber) {
+            this.register(name, email, password, phoneNumber)
+            this.name = ""
+            this.email = ""
+            this.password = ""
+            this.phoneNumber = ""
+        }
+    },
+    created() {
+        this.checkLogin()
+    }
 }
 </script>
 
@@ -17,8 +39,7 @@ export default {
                     </p>
 
 
-                    <form @submit.prevent="register(username, email, password, phoneNumber, address)"
-                        class="p-4 p-md-5 border rounded-3 bg-light">
+                    <form class="p-4 p-md-5 border rounded-3 bg-light">
                         <div class="form-floating mb-3">
                             <input v-model="name" type="text" class="form-control" style="height: 60px"
                                 id="register-name" placeholder="Your name">
@@ -47,7 +68,7 @@ export default {
                         </small>
                         <div class="d-flex justify-content-center mt-4 mb-3">
                             <p>
-                                <a @click.prevent="" class="btn btn-primary btn-lg btn-demo" href="#">Register</a>
+                                <a  @click.prevent="handleRegister(name, email, password, phoneNumber)" class="btn btn-primary btn-lg btn-demo" href="">Register</a>
                             </p>
                         </div>
                     </form>

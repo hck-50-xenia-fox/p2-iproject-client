@@ -13,13 +13,16 @@ export default {
         ...mapState(useSewamotorStore, [''])
     },
     methods: {
-        ...mapActions(useSewamotorStore, ['login']),
+        ...mapActions(useSewamotorStore, ['login', 'checkLogin']),
         handleLogin(email, password) {
             this.login(email, password)
             this.email = ""
             this.password = ""
         }
     },
+    created() {
+        this.checkLogin()
+    }
 }
 </script>
 

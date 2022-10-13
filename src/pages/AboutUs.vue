@@ -1,6 +1,14 @@
 <script>
-export default {
+import { mapActions, mapState } from 'pinia'
+import { useSewamotorStore } from '../stores/sewamotor.js'
 
+export default {
+	methods: {
+		...mapActions(useSewamotorStore, ['checkLogin'])
+	},
+	created() {
+		this.checkLogin()
+	}
 }
 </script>
 

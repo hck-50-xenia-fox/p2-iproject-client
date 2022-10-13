@@ -13,9 +13,12 @@ export const useSewamotorStore = defineStore("sewamotor", {
   actions: {
     async checkLogin() {
       try {
-        this.statusLogin = true;
+        const token = localStorage.getItem("access_token")
+        if(token) {
+            this.statusLogin = true;
+        }
       } catch {
-        console.log(err);
+        this.statusLogin = false
       }
     },
 
@@ -63,8 +66,8 @@ export const useSewamotorStore = defineStore("sewamotor", {
             access_token: localStorage.getItem("access_token"),
           },
         });
-        console.log(response)
-        this.currentMotorcycle = response.data
+        console.log(response);
+        this.currentMotorcycle = response.data;
       } catch (err) {
         console.log(err);
         Swal.fire({
@@ -75,25 +78,52 @@ export const useSewamotorStore = defineStore("sewamotor", {
     },
 
     async login(email, password) {
+      try {
+        const response = await axios.post(`${baseURL}/login`, {
+          email,
+          password,
+        });
+
+        localStorage.setItem("access_token", response.data.access_token);
+        localStorage.setItem("username", response.data.name);
+        this.statusLogin = true;
+
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Successfully logged in",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+        this.router.push({ name: "home" });
+      } catch (err) {
+        console.log(err);
+        Swal.fire({
+          icon: "error",
+          text: `${err.response.data.error}`,
+        });
+      }
+    },
+
+    async register(name, email, password, phoneNumber) {
         try {
-          const response = await axios.post(`${baseURL}/login`, {
+          await axios.post(`${baseURL}/register`, {
+            name,
             email,
             password,
+            phoneNumber,
           });
-          //SIMPAN DI LOCALE STORAGE
-          localStorage.setItem("access_token", response.data.access_token);
-          localStorage.setItem("username", response.data.name);
-          this.statusLogin = true;
   
           Swal.fire({
             position: "center",
             icon: "success",
-            title: "Successfully logged in",
+            title: "Your account has been successfully registered",
             showConfirmButton: false,
             timer: 1500,
           });
   
-          this.router.push({ name: "home" });
+          this.router.push({ name: "login" });
         } catch (err) {
           console.log(err);
           Swal.fire({
@@ -102,5 +132,6 @@ export const useSewamotorStore = defineStore("sewamotor", {
           });
         }
       },
+
   },
 });
