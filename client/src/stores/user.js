@@ -16,6 +16,7 @@ export const useUserStore = defineStore("user", {
       choice3: "",
       choice4: "",
       answer: "",
+      questionsData: ""
     };
   },
   actions: {
@@ -128,5 +129,29 @@ export const useUserStore = defineStore("user", {
         });
       }
     },
+    async showQuestion() {
+      try {
+
+        let data = await axios({
+          url: `${baseUrl}/questions`,
+          method : 'GET',
+          headers: {
+            access_token : localStorage.getItem('access_token')
+          }
+        })
+        console.log(data, 'ini datanya')
+
+        this.questions = data.data
+
+        console.log(this.questions, 'ini abis reasign')
+        
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${error.response.data.message}`,
+        });
+      }
+    }
   },
 });

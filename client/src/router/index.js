@@ -60,4 +60,12 @@ const router = createRouter({
   ]
 })
 
+router.beforeEach((to, from) => {
+  if (!localStorage.getItem('access_token') && to.name === 'matchmaking' || !localStorage.getItem('access_token') && to.name === 'AddQuestions' || !localStorage.getItem('access_token') && to.name === 'DetailPokemon' || !localStorage.getItem('access_token') && to.name === 'pokemons' || !localStorage.getItem('access_token') && to.name === 'editProfile' || !localStorage.getItem('access_token') && to.name === 'profile' || !localStorage.getItem('access_token') && to.name === 'home') {
+    return { path : '/login'}
+  } else if (localStorage.getItem('access_token') && to.name === 'login' || localStorage.getItem('access_token') && to.name === 'register') {
+    return { path : '/'}
+  }
+})
+
 export default router
