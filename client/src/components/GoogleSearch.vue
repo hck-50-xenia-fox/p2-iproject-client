@@ -1,51 +1,36 @@
 <script>
-// import VueGoogleAutocomplete from "vue-google-autocomplete";
-
+import VueGoogleAutocomplete from "vue-google-autocomplete";
 import { mapActions } from "pinia";
 import { useFoodStore } from "../stores/food";
 
-// export default {
-//   components: { VueGoogleAutocomplete },
-
-//   data: function () {
-//     return {
-//       address: "",
-//     };
-//   },
-
-//   mounted() {
-//     this.$refs.address.focus();
-//   },
-
-//   methods: {
-//     /**
-//      * When the location found
-//      * @param {Object} addressData Data of the found location
-//      * @param {Object} placeResultData PlaceResult object
-//      * @param {String} id Input container ID
-//      */
-//     getAddressData: function (addressData) {
-//       this.address = addressData;
-//     },
-//   },
-// };
 export default {
-  data: () => ({
-    place: "",
-  }),
+  components: { VueGoogleAutocomplete },
+  data: function () {
+    return {
+      address: "",
+      place: "",
+    };
+  },
   methods: {
     ...mapActions(useFoodStore, ["getRestaurantData"]),
     getRestaurant() {
       this.getRestaurantData(this.place);
     },
+    getAddressData: function (addressData) {
+      this.address = addressData;
+      this.getRestaurantData(this.address.route);
+    },
   },
   computed: {},
+  mounted() {
+    this.$refs.address.focus();
+  },
 };
 </script>
 
 <template>
-  <div class="max-w-md mx-auto">
-    <form
+  <div class="max-w-7xl mx-auto">
+    <div
       class="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-black overflow-hidden mt-5 shadow-md"
       @submit.prevent="getRestaurant"
     >
@@ -65,26 +50,14 @@ export default {
           />
         </svg>
       </div>
-      <input
-        class="peer h-full w-full outline-none text-sm text-gray-700 pr-2"
-        type="text"
-        id="search"
-        placeholder=" Search something.."
-        v-model="place"
-      />
-    </form>
+      <vue-google-autocomplete
+        ref="address"
+        id="map"
+        class="form-control peer h-full w-full outline-none text-gray-700 pr-2 hadow focus:outline-none focus:shadow-lg focus:shadow-slate-500 duration-100 shadow-gray-600"
+        placeholder=" Search for restaurant or cuisine"
+        v-on:placechanged="getAddressData"
+      >
+      </vue-google-autocomplete>
+    </div>
   </div>
-  <!-- <div>
-    <h2>Your Address</h2>
-    <pre>{{ address }}</pre>
-    <vue-google-autocomplete
-      ref="address"
-      id="map"
-      classname="form-control "
-      placeholder="Please type your address"
-      v-on:placechanged="getAddressData"
-      country="sg"
-    >
-    </vue-google-autocomplete>
-  </div> -->
 </template>

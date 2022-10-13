@@ -1,10 +1,6 @@
 <script>
-import { mapActions, mapState } from "pinia";
-import { useFoodStore } from "../stores/food";
-import FoodPage from "./FoodPage.vue";
-import PaginationBar from "../components/PaginationBar.vue";
-import GoogleSearch from "../components/GoogleSearch.vue";
 import ButtonTemplate from "../components/ButtonTemplate.vue";
+import NavBar from "../components/NavBar.vue";
 export default {
   data: () => ({
     search: {
@@ -12,41 +8,81 @@ export default {
       price: "",
       category: "",
     },
-    status: "eat",
+    status: "deliver",
   }),
   methods: {
-    ...mapActions(useFoodStore, [
-      "getCategories",
-      "getFood",
-      "getCustomerFavorite",
-    ]),
-    getAllFood() {
-      this.getFood(1, this.search);
+    changePage(val) {
+      this.status = val;
     },
   },
-  computed: {
-    ...mapState(useFoodStore, ["categories", "food"]),
-  },
+  computed: {},
   components: {
-    FoodPage,
-    PaginationBar,
-    GoogleSearch,
     ButtonTemplate,
+    NavBar,
   },
-  created() {
-    this.getCategories();
-    if (localStorage.getItem("access_token")) this.getCustomerFavorite();
+  mounted() {
+    let map = new google.maps.Map(document.getElementById("googlemap"), {
+      center: { lat: 6.96667, lng: 110.41667 },
+      zoom: 7,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+    });
+    let directionsService = new google.maps.DirectionsService();
+    let directionsDisplay = new google.maps.DirectionsRenderer();
+    directionsDisplay.setMap(map);
+    // let request = {
+    //   origin: document.getElementById("from").value,
+    //   destination: document.getElementById("to").value,
+    //   travelMode: google.maps.TravelMode.DRIVING,
+    //   unitSystem: google.maps.UnitSystem.IMPERIAL,
+    // };
+    // directionsService.route(request, (result, status) => {
+    //   if (status == google.maps.DirectionsStatus.OK) {
+    //     const output = document.querySelector("#outpu");
+    //     output.innerHTML =
+    //       "<div class='alert-info'> From:" +
+    //       document.getElementById("from").value +
+    //       ".<br/>To:" +
+    //       document.getElementById("to").value +
+    //       ". <br/> Driving distance:" +
+    //       result.routes[0].legs[0].distance.text +
+    //       ".<br/>Duration:" +
+    //       result.routes[0].legs[0].duration.text +
+    //       ". </div>";
+    //     directionsDisplay.setDirections(result);
+    //   } else {
+    //     directionsDisplay.setDirections({ routes: [] });
+    //     map.setCenter({ lat: 6.96667, lng: 110.41667 });
+    //     output.innerHTML =
+    //       "<div class='alert-danger'> Could not retrieve driving distance.";
+    //   }
+    // });
+    // new google.maps.places.Autocomplate(document.getElementById("from"), {
+    //   type: ["(cities)"],
+    // });
+    // new google.maps.places.Autocomplate(document.getElementById("to"), {
+    //   type: ["(cities)"],
+    // });
   },
 };
 </script>
 
 <template>
-  <div class="flex bg-bg_4 h-screen bg-cover">
-    <div class="flex flex-col ml-80 mt-12 h-52 bg-white" style="width: 500px">
-      <div class="flex justify-between h-28 px-12 shadow-md">
-        <button>
+  <NavBar />
+  <div
+    class="flex h-screen bg-cover"
+    :class="
+      status === 'deliver'
+        ? 'bg-bg_4'
+        : status === 'eat'
+        ? 'bg-bg_5'
+        : 'bg-bg_6'
+    "
+  >
+    <div class="flex flex-col ml-80 mt-12 h-54 bg-white" style="width: 500px">
+      <div class="flex justify-between h-32 px-12 shadow-md">
+        <button @click="changePage('deliver')">
           <div
-            class="flex flex-col items-center py-6 hover:text-gray-700 font-medium"
+            class="flex flex-col items-center py-6 w-14 hover:text-gray-700 font-medium"
             :style="
               status === 'deliver' ? { 'border-bottom': '5px solid black' } : ''
             "
@@ -66,7 +102,7 @@ export default {
             <p class="text-sm tex ml-1">deliver</p>
           </div>
         </button>
-        <button>
+        <button @click="changePage('eat')">
           <div
             class="flex flex-col items-center py-6 w-14 hover:text-gray-700 font-medium"
             :style="
@@ -85,9 +121,10 @@ export default {
               ></path>
             </svg>
             <p class="text-sm mt-2">Eat</p>
+            <p class="text-sm text-white">""</p>
           </div>
         </button>
-        <button>
+        <button @click="changePage('ride')">
           <div
             class="flex flex-col items-center py-6 w-14 hover:text-gray-700 font-medium"
             :style="
@@ -106,6 +143,7 @@ export default {
               ></path>
             </svg>
             <p class="text-sm mt-2">Ride</p>
+            <p class="text-sm text-white">""</p>
           </div>
         </button>
       </div>
@@ -119,8 +157,9 @@ export default {
             Drive on the platform with the largest network of active riders.
           </p>
         </div>
-        <div class="flex flex-col mt-10">
+        <div class="flex flex-col mt-5">
           <ButtonTemplate
+            @click="$router.push('/signupdriver')"
             :btn="{
               name: 'Sign up to drive',
               style: 'form__button',
@@ -142,8 +181,9 @@ export default {
         </div>
         <div class="flex flex-col mt-5">
           <ButtonTemplate
+            @click="$router.push('/resto')"
             :btn="{
-              name: 'Sign up to drive',
+              name: 'Order now',
               style: 'form__button',
               styleDiv: 'form__div__button',
             }"
@@ -156,34 +196,38 @@ export default {
       <!-- component page #3-->
       <div v-if="status === 'ride'" class="flex flex-col p-10">
         <div class="flex flex-col">
-          <h1 class="text-5xl font-bold leading-tight">
-            Get in the driver's seat and get paid
-          </h1>
-          <p class="text-sm py-3">
-            Drive on the platform with the largest network of active riders.
-          </p>
+          <h1 class="text-5xl font-bold leading-tight">Request a ride now</h1>
         </div>
-        <div class="flex flex-col mt-10">
+        <div>
+          <form class="flex flex-col">
+            <input
+              class="mt-8 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-200 dark:placeholder-gray-500"
+              type="text"
+              placeholder="Enter pickup location"
+              id="from"
+            />
+            <input
+              class="mt-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-200 dark:placeholder-gray-500"
+              type="text"
+              placeholder="Enter destination"
+              id="to"
+            />
+          </form>
+        </div>
+        <div class="flex flex-col mt-5">
           <ButtonTemplate
             :btn="{
-              name: 'Sign up to drive',
+              name: 'Request now',
               style: 'form__button',
               styleDiv: 'form__div__button',
             }"
           />
-          <p class="text-sm py-5 underline underline-offset-8">
-            Learn more about driving and delivering
-          </p>
         </div>
       </div>
     </div>
   </div>
-  <GoogleSearch />
-  <div class="max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 mt-5">
-    <h2 class="text-3xl tracking-widest text-black text-left">
-      <span class="block">Food Delivery in New York City</span>
-    </h2>
+  <div class="h-96 w-full">
+    <div class="h-full w-full" id="googlemap"></div>
+    <div id="output"></div>
   </div>
-  <FoodPage />
-  <PaginationBar :search="search" />
 </template>

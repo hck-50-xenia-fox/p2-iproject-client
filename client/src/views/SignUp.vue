@@ -2,17 +2,16 @@
 import { mapActions } from "pinia";
 import { useFormStore } from "../stores/form";
 import { useUserStore } from "../stores/user";
-import ButtonTemplate from "../components/ButtonTemplate.vue";
+import NavBar from "../components/NavBar.vue";
 
 export default {
   name: "SignUp",
   data: () => ({
     account: {
-      username: "",
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
-      phoneNumber: null,
-      address: "",
     },
   }),
   methods: {
@@ -22,17 +21,17 @@ export default {
       this.signupNewCustomer(this.account);
     },
   },
-  components: { ButtonTemplate },
+  components: { NavBar },
 };
 </script>
 
 <template>
+  <NavBar />
   <!-- sign up -->
   <div class="l-form" id="signup_div">
-    <form class="form2" @submit.prevent="handleSignUp">
+    <form class="form" @submit.prevent="handleSignUp">
       <div class="signup_div">
-        <img class="img_signin" src="../assets/logo1.jpeg" alt="Am Food" />
-        <p>Create your AM Food Account</p>
+        <h1 class="text-2xl">What's your email enter below?</h1>
       </div>
       <div class="form__div">
         <input
@@ -40,10 +39,21 @@ export default {
           id="username"
           class="form__input"
           placeholder=" "
-          v-model="account.username"
+          v-model="account.firstName"
           autocomplete="off"
         />
-        <label for="" class="form__label">Username</label>
+        <label for="" class="form__label">First Name</label>
+      </div>
+      <div class="form__div">
+        <input
+          type="text"
+          id="username"
+          class="form__input"
+          placeholder=" "
+          v-model="account.lastName"
+          autocomplete="off"
+        />
+        <label for="" class="form__label">Last Name</label>
       </div>
       <div class="form__div">
         <input
@@ -71,37 +81,9 @@ export default {
         Show Password
       </span>
       <br /><br />
-      <div class="form__div">
-        <input
-          type="number"
-          id="phoneNumber"
-          class="form__input"
-          placeholder=" "
-          v-model="account.phoneNumber"
-          autocomplete="off"
-        />
-        <label for="" class="form__label">Phone Number</label>
-      </div>
-      <div class="form__div__2">
-        <textarea
-          id="address"
-          class="form__input"
-          placeholder=" "
-          v-model="account.address"
-          autocomplete="off"
-        ></textarea>
-        <label for="" class="form__label">Address</label>
-      </div>
-      <div class="form__div__a">
-        <RouterLink to="/signin">Sign in instead</RouterLink>
-      </div>
-      <ButtonTemplate
-        :btn="{
-          name: 'Sign Up',
-          style: 'form__button',
-          styleDiv: 'form__div__button',
-        }"
-      />
+      <button class="bg-black text-white rounded-md px-36 w-full py-3">
+        Sign up
+      </button>
     </form>
   </div>
 </template>

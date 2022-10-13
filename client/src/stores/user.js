@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 export const useUserStore = defineStore("user", {
   state: () => ({
     isSignin: false,
+    statusDriver: "",
   }),
   actions: {
     errorAlert(msg) {
@@ -41,6 +42,7 @@ export const useUserStore = defineStore("user", {
     },
     async signinHendler(account) {
       try {
+        console.log(account);
         let { data } = await axios.post("/signin", account);
         this.setLocalStorage(
           data.accessToken,
@@ -48,6 +50,7 @@ export const useUserStore = defineStore("user", {
           data.user.username,
           data.user.role
         );
+        console.log(data);
         this.isSignin = true;
         this.router.push("/");
         this.successAlert("center", "Sign in succes...");
@@ -57,9 +60,12 @@ export const useUserStore = defineStore("user", {
     },
     async signupNewCustomer(account) {
       try {
+        console.log(account);
         let { data } = await axios.post("/signup", account);
-        this.router.push("/signin");
+        console.log(data);
+        if (!account.role) this.router.push("/signin");
         this.successAlert(data.message);
+        this.statusDriver = "next";
       } catch (err) {
         this.errorAlert(err.response.data.message);
       }

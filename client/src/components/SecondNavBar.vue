@@ -1,5 +1,5 @@
 <script>
-import { mapActions, mapState } from "pinia";
+import { mapActions } from "pinia";
 import { useUserStore } from "../stores/user";
 export default {
   name: "NavBar",
@@ -10,20 +10,18 @@ export default {
       menu.classList.toggle("hidden");
     },
   },
-  computed: {
-    ...mapState(useUserStore, ["isSignin"]),
-  },
+  props: ["isSignin"],
 };
 </script>
 <template>
-  <nav class="bg-black">
+  <nav class="bg-white shadow-md">
     <div class="max-w-7xl mx-auto">
       <div class="flex justify-between">
         <div class="flex space-x-4">
           <!--logo-->
           <div>
-            <RouterLink to="/" class="flex py-4 px-2 text-2xl text-white">
-              Tisanovat
+            <RouterLink to="/resto" class="flex py-4 px-2 text-2xl">
+              Tisanovat<span class="ml-2 text-emerald-400">Eats</span>
             </RouterLink>
           </div>
         </div>
@@ -31,7 +29,7 @@ export default {
         <div class="hidden md:flex items-center space-x-3">
           <RouterLink
             to="/signup"
-            class="py-1.5 px-3 hover:bg-myWhite text-sm text-white hover:text-white rounded-full duration-500"
+            class="py-1.5 font-medium px-3 text-black text-sm bg-white hover:bg-gray-300 duration-500 rounded-full"
             v-show="!isSignin"
             >Sign up</RouterLink
           >
@@ -43,7 +41,7 @@ export default {
           >
           <a
             href=""
-            class="py-2 px-3 text-sm text-yellow-50 hover:text-red-600"
+            class="py-2 px-3 bg-gray-900 text-sm text-yellow-50 rounded shadow hover:text-mypink"
             v-show="isSignin"
             @click.prevent="signOut"
             >Sign Out

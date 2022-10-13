@@ -5,6 +5,10 @@ import SignUp from "../views/SignUp.vue";
 import Favorite from "../views/CustomerFavorite.vue";
 import DetailFood from "../views/DetailFood.vue";
 import NotFound from "../views/NotFound.vue";
+import RestoPage from "../views/RestoPage.vue";
+import FoodPage from "../views/FoodPage.vue";
+import PaymentPage from "../views/PaymentPage.vue";
+import SignUpDriver from "../views/SignUpDriver.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -25,6 +29,26 @@ const router = createRouter({
       path: "/signup",
       name: "signup",
       component: SignUp,
+    },
+    {
+      path: "/signupdriver",
+      name: "signupdriver",
+      component: SignUpDriver,
+    },
+    {
+      path: "/resto",
+      name: "resto",
+      component: RestoPage,
+    },
+    {
+      path: "/food/:id",
+      name: "food",
+      component: FoodPage,
+    },
+    {
+      path: "/payment",
+      name: "payment",
+      component: PaymentPage,
     },
     {
       path: "/favorites",

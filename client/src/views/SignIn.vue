@@ -2,7 +2,7 @@
 import { mapActions } from "pinia";
 import { useFormStore } from "../stores/form";
 import { useUserStore } from "../stores/user";
-import ButtonTemplate from "../components/ButtonTemplate.vue";
+import NavBar from "../components/NavBar.vue";
 export default {
   name: "SignIn",
   data: () => ({
@@ -18,18 +18,19 @@ export default {
       this.signinHendler(this.account);
     },
   },
-  components: { ButtonTemplate },
+  components: { NavBar },
 };
 </script>
 
 <template>
+  <NavBar />
   <!-- sign in -->
   <div class="l-form" id="signin_div">
     <form @submit.prevent="mySigninHendler" class="form">
       <div class="signin_div">
-        <img class="img_signin" src="../assets/logo1.jpeg" alt="Am Food" />
-        <h1 class="form__title">Sign In</h1>
-        <p>Use your AM Food Account</p>
+        <h1 class="text-2xl">
+          Fill the form below to start the journey with us!
+        </h1>
       </div>
       <div class="form__div">
         <input
@@ -57,16 +58,9 @@ export default {
       <br />
       <div id="buttonDiv"></div>
       <br />
-      <div class="form__div__a">
-        <RouterLink to="/signup" class="text-mypink">Create account</RouterLink>
-      </div>
-      <ButtonTemplate
-        :btn="{
-          name: 'Sign In',
-          style: 'form__button',
-          styleDiv: 'form__div__button',
-        }"
-      />
+      <button class="bg-black text-white rounded-md px-40 py-3 w-full">
+        Log in
+      </button>
     </form>
   </div>
 </template>

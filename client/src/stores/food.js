@@ -10,40 +10,22 @@ export const useFoodStore = defineStore("food", {
     categories: [],
     favorites: [],
     restaurant: [],
+    theRestaurant: {},
     favoritesIds: [],
     theFood: {},
-    query: "",
-    pages: 0,
+    idResto: "",
     // url: "https://amrestokw.web.app/detailfood",
     url: "http://localhost:3000",
     theQrCode: {},
   }),
   actions: {
     ...mapActions(useUserStore, ["errorAlert", "successAlert"]),
-    async getFood(page, search) {
+    async getFood() {
       try {
-        console.log(page, search);
-        if (!search || (!search.name && !search.category && !search.price))
-          this.query = `page=${page}`;
-        else {
-          if (search.name) {
-            if (search.category) {
-              if (search.price)
-                this.query = `page=${page}&name=${search.name}&category=${search.category}&price=${search.price}`;
-              else
-                this.query = `page=${page}&name=${search.name}&category=${search.category}`;
-            } else this.query = `page=${page}&name=${search.name}`;
-          } else if (search.category) {
-            if (search.price)
-              this.query = `page=${page}&category=${search.category}&price=${search.price}`;
-            else this.query = `page=${page}&category=${search.category}`;
-          } else if (search.price)
-            this.query = `page=${page}&price=${search.price}`;
-        }
-        console.log(this.query);
-        let { data } = await axios.get(`/food?${this.query}`);
-        this.food = data.food;
-        this.pages = data.pages;
+        let { data } = await axios.get(`/food`);
+        console.log("Masuk bang");
+        console.log(data);
+        this.food = data;
       } catch (err) {
         this.errorAlert(err.response.data.message);
       }
@@ -109,11 +91,23 @@ export const useFoodStore = defineStore("food", {
     },
     async getRestaurantData(place) {
       try {
-        let { data } = await axios.get(
-          "http://localhost:3000/restaurant?place=" + place
-        );
+        console.log("masuk kak");
+        console.log(place);
+        let { data } = await axios.get(`/restaurant?place=${place}`);
         console.log(data);
         this.restaurant = data;
+      } catch (err) {
+        this.errorAlert(err.response.data.message);
+      }
+    },
+    async getTheRestaurantDetail(id) {
+      try {
+        this.idResto = id;
+        console.log("masuk kak");
+        console.log(id);
+        let { data } = await axios.get(`/restaurant/${id}`);
+        console.log(data);
+        this.theRestaurant = data;
       } catch (err) {
         this.errorAlert(err.response.data.message);
       }
