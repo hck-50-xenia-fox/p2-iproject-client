@@ -34,7 +34,7 @@ import { useCounterStore } from '../stores/counter';
     <div class="cards">
       <a @click.prevent="$router.push('/heroes')" href="">
         <figure class="card">
-          <img src="https://mrreiha.keybase.pub/codepen/hover-fx/1.jpg" />
+          <img src="../assets/2642.jpg" />
 
           <figcaption>Heroes</figcaption>
         </figure>
@@ -54,7 +54,7 @@ import { useCounterStore } from '../stores/counter';
     <div class="news">
       <a @click.prevent="$router.push('/matches')" href="">
         <figure class="article">
-          <img src="https://mrreiha.keybase.pub/codepen/hover-fx/news1.jpg" />
+          <img src="../assets/imgonline-com-ua-resize-LBUadgVeZymPv5u.jpg" />
 
           <figcaption>
             <h3 style="margin-bottom: 10px;">Next Matches</h3>
@@ -68,7 +68,7 @@ import { useCounterStore } from '../stores/counter';
       </a>
       <a @click.prevent="$router.push('/tournaments')" href="">
         <figure class="article">
-          <img src="https://mrreiha.keybase.pub/codepen/hover-fx/news2.png" />
+          <img src="../assets/the-5-most-popular-dota-2-heroes_vkjw.png" />
 
           <figcaption>
             <h3 style="margin-bottom: 10px;">Next tournaments</h3>
