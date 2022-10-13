@@ -20,10 +20,11 @@ import { useIndexStore } from "../stores";
 
 <template>
   <div class="container">
+    <h1 class="text-center mt-4">Eight Crypto</h1>
     <div class="row m-5 no-gutters shadow-lg">
       <div class="col-md-6 d-none d-md-block">
         <img
-          src="https://images.unsplash.com/photo-1566888596782-c7f41cc184c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=2134&q=80"
+          src="https://images.unsplash.com/photo-1614533422330-396d7dde96b5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fGNyeXB0b3xlbnwwfDF8MHx8&auto=format&fit=crop&w=500&q=60"
           class="img-fluid"
           style="min-height: 100%"
         />

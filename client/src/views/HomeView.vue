@@ -15,10 +15,10 @@ import Navbar from "../components/Navbar.vue";
       Navbar
     },
     computed : {
-      ...mapState(useIndexStore,['cryptoData'])
+      ...mapState(useIndexStore,['cryptoData',"isLogin"])
     },
     methods : {
-      ...mapActions(useIndexStore,['fetchDataCrypto','updateCoins'])
+      ...mapActions(useIndexStore,['fetchDataCrypto','updateCoins','checkLogin'])
     },
     watch : {
       cryptoData() {
@@ -27,6 +27,7 @@ import Navbar from "../components/Navbar.vue";
     },
     created (){
       this.fetchDataCrypto()
+      this.checkLogin()
     }
   }
 </script>

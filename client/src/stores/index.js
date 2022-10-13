@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
-const baseUrl = 'http://localhost:3000'
+const baseUrl = 'https://eight-crypto.herokuapp.com'
 
 export const useIndexStore = defineStore('index', {
   state: () => ({
@@ -24,14 +24,34 @@ export const useIndexStore = defineStore('index', {
         localStorage.setItem('status', data.status)
         this.isLogin = true
         this.router.push('/')
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Login Success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       } catch (error) {
         console.log(error);
+        Swal.fire({
+          icon: "warning",
+          title: error.response.data.message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
     },
     async userRegister(userRegister) {
       try {
         const { data } = await axios.post(`${baseUrl}/register`, userRegister)
         this.router.push('/login')
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: `success Register with email ${data.email}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
       } catch (error) {
         console.log(error)
       }
@@ -102,6 +122,13 @@ export const useIndexStore = defineStore('index', {
             access_token: localStorage.getItem('access_token')
           }
         })
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: `Success add to wishlist`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
         this.router.push('/wishlist')
 
       } catch (error) {

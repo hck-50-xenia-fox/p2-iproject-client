@@ -1,5 +1,5 @@
 <script>
-import { mapActions } from 'pinia';
+import { mapActions, mapState } from 'pinia';
 import { useIndexStore } from '../stores';
 
   export default {
@@ -7,6 +7,9 @@ import { useIndexStore } from '../stores';
     methods: {
       ...mapActions(useIndexStore,['addWishlist'])
     },
+    computed : {
+      ...mapState(useIndexStore,['isLogin'])
+    }
   }
 </script>
 
@@ -21,7 +24,7 @@ import { useIndexStore } from '../stores';
       <td>${{crypto.current_price}}</td>
       <td :class="[crypto.price_change > 0 ? 'text-success' : 'text-danger']">{{crypto.price_change}}%</td>
       <td>${{crypto.volume.toLocaleString()}}</td>
-      <td class="mr-5"><button @click.prevent="addWishlist(crypto.name,crypto.image)" class="bg-yellow">
+      <td  class="mr-5"><button @click.prevent="addWishlist(crypto.name,crypto.image)" class="bg-yellow">
         <i class="bi bi-star"></i>
       </button></td>
     </tr>

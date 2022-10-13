@@ -31,11 +31,12 @@ export default {
   
   <div class="container mx-auto mt-4">
     <h1 class="text-center mb-4">My Wishlist</h1>
+    <label for="">Currency Exchange</label>
     <form action="">
       <input v-model="amount" type="text" placeholder=""> <span>IDR TO USD </span>
-      <button @click.prevent="exchangeRate(amount)" type="submit">SUBMIT</button>
+      <button @click.prevent="exchangeRate(amount)" type="button" class="btn btn-primary">SUBMIT</button>
     </form>
-    <p>Result : <span>{{exchange}}$</span></p> 
+    <p>Result : <span class="text-danger">{{exchange}}</span>$</p>
     <div class="row">
      <WishlistCard v-for="wishlist in userWishlist" :key="wishlist" :wishlist="wishlist"/>
     </div>

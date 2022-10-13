@@ -4,7 +4,6 @@ import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import NewsView from '../views/NewsView.vue'
 import WishlistView from '../views/WishlistView.vue'
-import LivePriceView from '../views/LivePriceView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -43,8 +42,6 @@ router.beforeEach((to,from)=>{
     return ({path : '/login'})
   }else if (localStorage.getItem('access_token') && to.name === 'login'){
     return ({path : '/'})
-  }else if (!localStorage.getItem('access_token') && to.name === 'home'){
-    return ({path : '/login'})
   }else if (!localStorage.getItem('access_token') && localStorage.getItem('status') ==='Free' && to.name === 'news'){
     return ({path : '/'})
   }else if (localStorage.getItem('access_token') && to.name === 'register'){

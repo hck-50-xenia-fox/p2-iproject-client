@@ -20,51 +20,19 @@ export default {
 
   methods: {
     ...mapActions(useIndexStore, ["userLogin"]),
-    async logInWithFacebook() {
-      await this.loadFacebookSDK(document, "script", "facebook-jssdk");
-      await this.initFacebook();
-      await window.FB.login(function(response) {
-        if (response.authResponse) {
-          console.log(response.authResponse);
-          // alert("You are logged in &amp; cookie set!");
-          // Now you can redirect the user or do an AJAX request to
-          // a PHP script that grabs the signed request from the cookie.
-        } else {
-          // alert("User cancelled login or did not fully authorize.");
-        }
-      });
-      return false;
-    },
-    async initFacebook() {
-      window.fbAsyncInit = function() {
-        window.FB.init({
-          appId: "650369569800276", //You will need to change this
-          cookie: true, // This is important, it's not enabled by default
-          version: "v13.0"
-        });
-      };
-    },
-    async loadFacebookSDK(d, s, id) {
-      var js,
-        fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {
-        return;
-      }
-      js = d.createElement(s);
-      js.id = id;
-      js.src = "https://connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    }
+   
+    
   },
 };
 </script>
 
 <template>
   <div class="container">
+    <h1 class="text-center mt-4">Eight Crypto</h1>
     <div class="row m-5 no-gutters shadow-lg">
       <div class="col-md-6 d-none d-md-block">
         <img
-          src="https://images.unsplash.com/photo-1566888596782-c7f41cc184c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=2134&q=80"
+          src="https://images.unsplash.com/photo-1614533422330-396d7dde96b5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fGNyeXB0b3xlbnwwfDF8MHx8&auto=format&fit=crop&w=500&q=60"
           class="img-fluid"
           style="min-height: 100%"
         />
@@ -103,12 +71,12 @@ export default {
               </button>
             </div>
           </form>
-          <div class="sideline">OR</div>
+          <!-- <div class="sideline">OR</div>
           <div>
             <a @click.prevent="logInWithFacebook">
               <button type="submit" class="btn btn-primary w-100 font-weight-bold mt-2"><i class="fa fa-facebook" aria-hidden="true"></i> Login With Facebook</button>
             </a>
-          </div>
+          </div> -->
           <div class="pt-4 text-center">
             Get Members Benefit. <a @click.prevent="$router.push('/register')" href="#">Sign Up</a>
           </div>
