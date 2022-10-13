@@ -154,6 +154,7 @@ export const useCounterStore = defineStore("counter", {
         }).then((result) => {
           if (result.isConfirmed) {
             localStorage.clear();
+            this.router.push("/");
             Swal.fire({
               position: "center",
               icon: "success",
