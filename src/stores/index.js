@@ -46,14 +46,6 @@ export const useIndexStore = defineStore("index", {
             console.log(result);
             this.router.push("/chat");
           },
-          // onPending: function (result) {
-          //   console.log("pending");
-          //   console.log(result);
-          // },
-          // onError: function (result) {
-          //   console.log("error");
-          //   console.log(result);
-          // },
           onClose: function () {
             console.log(
               "customer closed the popup without finishing the payment"
