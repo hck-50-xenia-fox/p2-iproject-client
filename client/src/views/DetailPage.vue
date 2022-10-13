@@ -1,4 +1,5 @@
 <script>
+let baseUrl = ` https://youtube-alex-chandra-hanif.herokuapp.com/`
 import { mapActions, mapState } from 'pinia';
 import YouTube from 'vue3-youtube'
 import HeaderPage from '../components/HeaderPage.vue';

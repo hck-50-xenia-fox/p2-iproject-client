@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-
+let baseUrl = `https://youtube-alex-chandra-hanif.herokuapp.com`;
+// let baseUrl = `http://localhost:3000`;
 export const useCounterStore = defineStore("counter", {
   state: () => ({
     dataTrailerMovie: [],
@@ -16,7 +17,7 @@ export const useCounterStore = defineStore("counter", {
     async register(username, email, password) {
       try {
         let data = await axios({
-          url: `http://localhost:3000/users/register`,
+          url: `${baseUrl}/users/register`,
           method: "POST",
           data: {
             username,
@@ -46,7 +47,7 @@ export const useCounterStore = defineStore("counter", {
       try {
         let data = await axios({
           method: "POST",
-          url: `http://localhost:3000/users/login`,
+          url: `${baseUrl}/users/login`,
           data: {
             email,
             password,
@@ -76,7 +77,7 @@ export const useCounterStore = defineStore("counter", {
       try {
         let data = await axios({
           method: "GET",
-          url: `http://localhost:3000/youtube/movieTrailer`,
+          url: `${baseUrl}/youtube/movieTrailer`,
         });
         // console.log(data.data);
         this.dataTrailerMovie = data.data.filter((el, i) => i < 15);
@@ -93,7 +94,7 @@ export const useCounterStore = defineStore("counter", {
         }
         let data = await axios({
           method: "GET",
-          url: `http://localhost:3000/youtube/search/${search}`,
+          url: `${baseUrl}/youtube/search/${search}`,
         });
         console.log(data.data);
         this.dataSearch = data.data.filter((el, i) => i < 18);
@@ -107,7 +108,7 @@ export const useCounterStore = defineStore("counter", {
       try {
         let data = await axios({
           method: "GET",
-          url: `http://localhost:3000/youtube/videoDetail/${id}`,
+          url: `${baseUrl}/youtube/videoDetail/${id}`,
         });
         this.dataDetailVideo = data.data;
       } catch (error) {
@@ -120,7 +121,7 @@ export const useCounterStore = defineStore("counter", {
       try {
         let data = await axios({
           method: "GET",
-          url: `http://localhost:3000/youtube/channelDetail/${id}`,
+          url: `${baseUrl}/youtube/channelDetail/${id}`,
         });
         this.dataChannelDetail = data.data;
         console.log("berhasil");
@@ -134,7 +135,7 @@ export const useCounterStore = defineStore("counter", {
       try {
         let data = await axios({
           method: "GET",
-          url: `http://localhost:3000/youtube/channelVideos/${id}`,
+          url: `${baseUrl}/youtube/channelVideos/${id}`,
         });
         console.log("berhasil fatch video");
         this.dataChannelVideos = data.data.filter((el, i) => i < 12);
@@ -146,7 +147,7 @@ export const useCounterStore = defineStore("counter", {
     async getHistory() {
       try {
         let data = await axios({
-          url: `http://localhost:3000/users/getHistory`,
+          url: `${baseUrl}/users/getHistory`,
           method: "GET",
         });
         this.dataHistory = data.data;
@@ -158,7 +159,7 @@ export const useCounterStore = defineStore("counter", {
     async getComment(id) {
       try {
         let data = await axios({
-          url: `http://localhost:3000/youtube/comments/${id}`,
+          url: `${baseUrl}/youtube/comments/${id}`,
           method: "GET",
         });
         this.dataComment = data.data.content.filter((el, i) => i < 8);
