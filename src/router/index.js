@@ -36,10 +36,9 @@ const router = createRouter({
 router.beforeEach((to, from) => {
   if (!localStorage.getItem("access_token") && to.path === "/") {
     return { path: "/login" };
+  } else if (localStorage.getItem("access_token") && to.path === "/login") {
+    return { path: "/" };
   }
-  // else if (localStorage.getItem("access_token") && to.path === "/login") {
-  //   return { path: "/" };
-  // }
 });
 
 export default router;

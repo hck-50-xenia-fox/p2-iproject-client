@@ -1,24 +1,50 @@
 <script>
 import { useIndexStore } from "@/stores/index.js";
-import { mapActions } from "pinia";
+import { mapActions, mapState } from "pinia";
 import PayButton from "./PayButton.vue";
 
 export default {
-  methods: {
-    ...mapActions(useIndexStore, ["logout", "signout"]),
+  data() {
+    return {
+      status: localStorage.getItem("status"),
+    };
   },
+  methods: {
+    ...mapActions(useIndexStore, ["logout", "signout", "loginCheck"]),
+  },
+
+  computed: {
+    ...mapState(useIndexStore, ["isLoggedIn"]),
+  },
+
   components: { PayButton },
+
+  created() {
+    this.loginCheck();
+  },
 };
 </script>
+
 <template>
-  <div class="navbar bg-base-100">
-    <a class="text-xl normal-case btn btn-ghost">Libraari</a>
-    <button @click="logout()">Logout</button>
+  <div class="flex justify-between navbar bg-base-100">
+    <RouterLink to="/" class="text-xl normal-case btn btn-ghost"
+      >Libraari</RouterLink
+    >
     <!-- <button @click="signout()">fblogout</button> -->
-    <div>
-      <p>Become a gold member to join book club</p>
-      <PayButton/>
+
+    <RouterLink
+      v-if="status === 'Gold' && this.isLoggedIn"
+      to="/chat"
+      class="btn btn-sm"
+      >Go to Club</RouterLink
+    >
+
+    <div v-if="status === 'Free'">
+      <p class="mr-4">Become a gold member to join book club</p>
+      <PayButton class="mr-4" />
     </div>
+
+    <button v-if="this.isLoggedIn" @click="logout()">Logout</button>
   </div>
 </template>
 <style></style>

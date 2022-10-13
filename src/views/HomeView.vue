@@ -4,7 +4,7 @@ import { mapActions, mapState } from "pinia";
 import { useIndexStore } from "../stores";
 export default {
   methods: {
-    ...mapActions(useIndexStore, ["fetchBook"]),
+    ...mapActions(useIndexStore, ["fetchBook", "loginCheck"]),
   },
 
   computed: {
@@ -13,6 +13,7 @@ export default {
 
   async created() {
     await this.fetchBook();
+    this.loginCheck();
   },
   components: { Card },
 };

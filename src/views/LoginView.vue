@@ -13,6 +13,7 @@ export default {
   },
   methods: {
     ...mapActions(useIndexStore, [
+      "loginCheck",
       "login",
       "handleCredentialResponse",
       "signInWithFacebook",
@@ -35,6 +36,7 @@ export default {
   },
   created() {
     this.googleBtn();
+    this.loginCheck();
   },
 };
 </script>
@@ -138,7 +140,7 @@ export default {
             </div>
 
             <span id="google-btn"></span>
-
+            <!-- 
             <button
               @click.prevent="signInWithFacebook"
               class="flex items-center justify-center w-full px-4 py-2 mt-5 space-x-3 text-sm text-center text-white transition-colors duration-200 transform bg-blue-500 border rounded-lg dark:text-gray-300 dark:border-gray-300 hover:bg-gray-600 dark:hover:bg-gray-700"
@@ -158,7 +160,7 @@ export default {
               <span class="text-sm text-white dark:text-gray-200"
                 >Login with facebook</span
               >
-            </button>
+            </button> -->
           </div>
         </div>
       </div>

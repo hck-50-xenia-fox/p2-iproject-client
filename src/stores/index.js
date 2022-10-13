@@ -41,9 +41,10 @@ export const useIndexStore = defineStore("index", {
         });
         // console.log(data);
         snap.pay(data.token, {
-          onSuccess:  (result) => {
+          onSuccess: (result) => {
             console.log("success");
             console.log(result);
+            this.router.push("/chat");
           },
           // onPending: function (result) {
           //   console.log("pending");
@@ -53,14 +54,22 @@ export const useIndexStore = defineStore("index", {
           //   console.log("error");
           //   console.log(result);
           // },
-          // onClose: function () {
-          //   console.log(
-          //     "customer closed the popup without finishing the payment"
-          //   );
-          // },
+          onClose: function () {
+            console.log(
+              "customer closed the popup without finishing the payment"
+            );
+          },
         });
       } catch (err) {
         console.log(err);
+      }
+    },
+
+    loginCheck() {
+      if (localStorage.getItem("access_token")) {
+        this.isLoggedIn = true;
+      } else if (!localStorage.getItem("access_token")) {
+        this.isLoggedIn = false;
       }
     },
 
@@ -81,6 +90,7 @@ export const useIndexStore = defineStore("index", {
         localStorage.setItem("role", data.role);
         localStorage.setItem("UserId", data.userId);
         localStorage.setItem("name", data.name);
+        localStorage.setItem("status", data.status);
 
         this.router.push("/");
       } catch (err) {
@@ -105,6 +115,7 @@ export const useIndexStore = defineStore("index", {
         localStorage.setItem("role", data.role);
         localStorage.setItem("UserId", data.userId);
         localStorage.setItem("name", data.name);
+        localStorage.setItem("status", data.status);
 
         this.router.push("/");
       } catch (err) {
@@ -115,6 +126,7 @@ export const useIndexStore = defineStore("index", {
     logout() {
       localStorage.clear();
       this.router.push("/login");
+      this.isLoggedIn = false;
     },
 
     //book

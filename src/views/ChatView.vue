@@ -56,32 +56,13 @@ export default {
 
 <template>
   <div
-    class="container flex flex-col justify-between flex-1 w-3/4 h-screen mx-auto mt-20 p:2 sm:p-6 cont-chat"
+    class="container flex flex-col justify-between flex-1 w-3/4 h-screen mx-auto p:2 sm:p-6 cont-chat"
   >
     <div
       class="flex justify-between py-3 border-b-2 border-gray-200 sm:items-center"
     >
-      <div class="relative flex items-center space-x-4">
-        <div class="relative">
-          <span class="absolute bottom-0 right-0 text-green-500">
-            <svg width="20" height="20">
-              <circle cx="8" cy="8" r="8" fill="currentColor"></circle>
-            </svg>
-          </span>
-          <img
-            src="https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"
-            alt=""
-            class="w-10 h-10 rounded-full sm:w-16 sm:h-16"
-          />
-        </div>
-        <div class="flex flex-col leading-tight">
-          <div class="flex items-center mt-1 text-2xl">
-            <span class="mr-3 text-gray-700">{{ this.fullName }}</span>
-          </div>
-          <span class="text-lg text-gray-600">Junior Developer</span>
-        </div>
-      </div>
-      <div class="flex items-center space-x-2">
+      <h2 class="text-3xl text-center">Book Club</h2>
+      <!-- <div class="flex items-center space-x-2">
         <button
           type="button"
           class="inline-flex items-center justify-center w-10 h-10 text-gray-500 transition duration-500 ease-in-out border rounded-lg hover:bg-gray-300 focus:outline-none"
@@ -120,7 +101,7 @@ export default {
             ></path>
           </svg>
         </button>
-      </div>
+      </div> -->
     </div>
 
     <!-- chat bubble -->
