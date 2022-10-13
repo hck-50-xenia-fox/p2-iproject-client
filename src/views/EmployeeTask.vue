@@ -2,9 +2,10 @@
 import NavBar from "../components/NavBar.vue";
 import Footer from "../components/Footer.vue";
 import { RouterLink } from "vue-router";
-import { mapActions, mapState } from "pinia";
+import { mapActions, mapState, mapWritableState } from "pinia";
 import { useTaskStore } from "../stores/task";
 import { useEmployeeStore } from "../stores/employee";
+import { useIndexStore } from "../stores";
 export default {
   name: "EmployeeTask",
   data() {
@@ -43,9 +44,13 @@ export default {
       this.subject = "";
       this.body = "";
     },
+    changeLoginType(page) {
+      this.loginType = page;
+    },
   },
   computed: {
     ...mapState(useTaskStore, ["mytasks"]),
+    ...mapWritableState(useIndexStore, ["loginType"]),
     ...mapState(useEmployeeStore, ["memes", "quotesOftheDay"]),
   },
   created() {
@@ -69,7 +74,9 @@ export default {
           <div class="card rounded-1 mt-5">
             <div class="col col-lg-12 col-xl-12">
               <div class="card bg-secondary rounded m-3 text-center text-white">
-                <RouterLink to="/managers/forums"
+                <RouterLink
+                  @click="changeLoginType('employee')"
+                  to="/managers/forums"
                   ><button class="btn btn-primary mt-3">
                     Forum
                   </button></RouterLink
