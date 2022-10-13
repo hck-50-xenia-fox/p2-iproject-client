@@ -31,7 +31,10 @@ export default {
                             Fuel: {{currentMotorcycle.fuel}}
                             Price: {{currentMotorcycle.price}}
                         </p>
-                        <button class="btn-block btn-success">
+                        <button v-if="currentMotorcycle.status === `Available`" class="btn-block btn-success btn-outline:hover">
+                            {{currentMotorcycle.status}}
+                        </button>
+                        <button v-else class="btn-block btn-danger">
                             {{currentMotorcycle.status}}
                         </button>
                     </div>

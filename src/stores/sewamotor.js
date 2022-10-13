@@ -13,12 +13,12 @@ export const useSewamotorStore = defineStore("sewamotor", {
   actions: {
     async checkLogin() {
       try {
-        const token = localStorage.getItem("access_token")
-        if(token) {
-            this.statusLogin = true;
+        const token = localStorage.getItem("access_token");
+        if (token) {
+          this.statusLogin = true;
         }
       } catch {
-        this.statusLogin = false
+        this.statusLogin = false;
       }
     },
 
@@ -107,31 +107,42 @@ export const useSewamotorStore = defineStore("sewamotor", {
     },
 
     async register(name, email, password, phoneNumber) {
-        try {
-          await axios.post(`${baseURL}/register`, {
-            name,
-            email,
-            password,
-            phoneNumber,
-          });
-  
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Your account has been successfully registered",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-  
-          this.router.push({ name: "login" });
-        } catch (err) {
-          console.log(err);
-          Swal.fire({
-            icon: "error",
-            text: `${err.response.data.error}`,
-          });
-        }
-      },
+      try {
+        await axios.post(`${baseURL}/register`, {
+          name,
+          email,
+          password,
+          phoneNumber,
+        });
 
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Your account has been successfully registered",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+        this.router.push({ name: "login" });
+      } catch (err) {
+        console.log(err);
+        Swal.fire({
+          icon: "error",
+          text: `${err.response.data.error}`,
+        });
+      }
+    },
+
+    async changeStatus(id) {
+      try {
+        await axios.patch(
+          `${baseURL}/motorcycles/${id}`,
+          {},
+          { headers: { access_token: localStorage.getItem("access_token") } }
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    },
   },
 });
