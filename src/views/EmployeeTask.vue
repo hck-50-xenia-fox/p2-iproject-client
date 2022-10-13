@@ -182,7 +182,6 @@ export default {
       </div>
     </div>
   </section>
-  <Footer />
 </template>
 
 <style>
