@@ -2,7 +2,8 @@ import { defineStore } from "pinia";
 import axios from "axios";
 import Swal from 'sweetalert2'
 
-const baseUrl = "http://localhost:3000";
+// const baseUrl = "http://localhost:3000";
+const baseUrl = "https://project-individual-hck8.herokuapp.com"
 
 export const useIprojectStore = defineStore("Iproject", {
   state: () => ({
@@ -12,7 +13,7 @@ export const useIprojectStore = defineStore("Iproject", {
   actions: {
     async fetchDataNearby(lat, lng){
         try {
-          const response = await axios.get(`${baseUrl}/nearby?lat=${lat}&lng=${lng}`)
+          const response = await axios.get(`${baseUrl}/nearby`,{ params: { lat,lng } })
           this.nearby = response.data
           console.log(response.data);
         } catch (err) {
