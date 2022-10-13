@@ -13,7 +13,8 @@ export const useIndexStore = defineStore('index', {
         return {
             loginState: false,
             characters: [],
-            summons: []
+            summons: [],
+            youtubeVideo: []
         }
     },
     getters: {
@@ -140,6 +141,25 @@ export const useIndexStore = defineStore('index', {
             } catch (error) {
               console.log(error)
             }
-          },
+        },
+        async getYoutubeVideo() {
+            try {
+                const video = await axios({
+                    url: 'https://www.googleapis.com/youtube/v3/search',
+                    method: 'get',
+                    params: {
+                        key: 'AIzaSyA6cHUr5XB9JFgtPpRZ2w5OfxrbjaaTAcM',
+                        q: 'djsalt',
+                        type: 'video',
+                        part: 'snippet'
+                    }
+                })
+                console.log(video.data.items, '<<<<<<<<')
+                this.youtubeVideo = video.data.items
+                console.log(this.youtubeVideo[0], '********')
+            } catch (error) {
+                console.log(error)
+            }
+        }
     }
 })

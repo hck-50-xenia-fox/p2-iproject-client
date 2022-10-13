@@ -6,6 +6,7 @@ import CharactersView from '../views/CharactersView.vue'
 import SummonsView from '../views/SummonsView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import MediaView from '../views/MediaView.vue'
+import HallOfFameView from '../views/HallOfFameView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,6 +45,11 @@ const router = createRouter({
       path: '/media',
       name: 'mediaView',
       component: MediaView
+    },
+    {
+      path: '/halloffame',
+      name: 'hallOfFame',
+      component: HallOfFameView
     }
     // {
     //   path: "/about",

@@ -46,7 +46,7 @@ export default {
           <router-link to="/chatroom" class="nav-link" >Chat Room</router-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Hall of Fame</a>
+          <router-link to="/halloffame" class="nav-link">Hall of Fame</router-link>
         </li>
         <li class="nav-item">
           <router-link to="/media" class="nav-link">Media</router-link>
