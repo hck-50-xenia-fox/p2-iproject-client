@@ -1,31 +1,69 @@
 <script>
-import PayButton from "../components/PayButton.vue";
-import ChatButton from "../components/ChatButton.vue";
-import { useIndexStore } from "@/stores/index.js";
-
-import { mapActions } from "pinia";
+import Card from "../components/Card.vue";
+import { mapActions, mapState } from "pinia";
+import { useIndexStore } from "../stores";
 export default {
   methods: {
-    ...mapActions(useIndexStore, ["logout", "signout"]),
+    ...mapActions(useIndexStore, ["fetchBook"]),
   },
-  computed: {},
-  components: { PayButton, ChatButton },
+
+  computed: {
+    ...mapState(useIndexStore, ["books"]),
+  },
+
+  async created() {
+    await this.fetchBook();
+  },
+  components: { Card },
 };
 </script>
+
 <template>
-  <div class="ml-4">
-    <PayButton />
-  </div>
-
-  <ChatButton />
-
-  <div>
-    <RouterLink to="/login">Login</RouterLink>
-  </div>
-
-  <div>
-    <button @click="logout()">Logout</button>
-    <button @click="signout()">fblogout</button>
+  <!-- <ChatButton /> -->
+  <div class="flex flex-col mx-auto cont min-w-max">
+    <section id="home-section" class="flex justify-center mb-20 mt-14">
+      <section class="text-right">
+        <div class="justify-end mb-4 btn-group"></div>
+        <!-- grid -->
+        <div class="grid grid-cols-3 grid-rows-3 gap-6 mb-6">
+          <Card
+            :book="book"
+            :key="`book-${i}`"
+            v-for="(book, i) in books.items"
+          />
+          <div class="grid grid-cols-2 btn-group">
+            <button
+              @click="
+                this.fetchBook(
+                  `?start=${
+                    books.currentPage > 1
+                      ? books.currentPage - 1
+                      : (books.currentPage = 1)
+                  }`
+                )
+              "
+              class="btn btn-xs btn-outline"
+            >
+              previous
+            </button>
+            <button
+              @click="
+                this.fetchBook(
+                  `?start=${
+                    books.currentPage < Math.ceil(books.totalItems / 6)
+                      ? books.currentPage + 1
+                      : (books.currentPage = 1)
+                  }`
+                )
+              "
+              class="btn btn-xs btn-outline"
+            >
+              next
+            </button>
+          </div>
+        </div>
+      </section>
+    </section>
   </div>
 </template>
 <style></style>

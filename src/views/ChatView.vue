@@ -1,30 +1,63 @@
 <script>
-import { mapActions, mapState } from "pinia";
 import ChatBubble from "@/components/ChatBubble.vue";
-import { useIndexStore } from "../stores/";
+import db from "../apis/db";
 
 export default {
-  data() {
-    return {
-      msg: {
-        input: "",
-        username: localStorage.getItem("name"),
-      },
-    };
-  },
-
   components: {
     ChatBubble,
   },
 
-  created() {
+  data() {
+    return {
+      messages: [],
+      fullName: "",
+      name: "",
+      inputUsername: "",
+      inputMessage: "",
+    };
+  },
+
+  methods: {
+    sendMessage() {
+      const messagesRef = db.database().ref("messages");
+      if (this.inputMessage === "" || this.inputMessage === null) return;
+
+      const message = {
+        username: this.name,
+        content: this.inputMessage,
+      };
+
+      messagesRef.push(message);
+      this.inputMessage = "";
+    },
+  },
+
+  mounted() {
+    const messagesRef = db.database().ref("messages");
+    messagesRef.on("value", (snapshot) => {
+      const msgData = snapshot.val();
+      const messages = [];
+
+      Object.keys(msgData).forEach((key) => {
+        messages.push({
+          id: key,
+          username: msgData[key].username,
+          content: msgData[key].content,
+        });
+      });
+
+      this.messages = messages;
+      this.name = localStorage.getItem("name");
+      this.fullName = localStorage.getItem("fullName");
+    });
   },
 };
 </script>
 
 <template>
-  <!-- parent -->
-  <div class="flex flex-col justify-between flex-1 h-screen p:2 sm:p-6">
+  <div
+    class="container flex flex-col justify-between flex-1 w-3/4 h-screen mx-auto mt-20 p:2 sm:p-6 cont-chat"
+  >
     <div
       class="flex justify-between py-3 border-b-2 border-gray-200 sm:items-center"
     >
@@ -43,31 +76,12 @@ export default {
         </div>
         <div class="flex flex-col leading-tight">
           <div class="flex items-center mt-1 text-2xl">
-            <span class="mr-3 text-gray-700">Anderson Vanhron</span>
+            <span class="mr-3 text-gray-700">{{ this.fullName }}</span>
           </div>
           <span class="text-lg text-gray-600">Junior Developer</span>
         </div>
       </div>
       <div class="flex items-center space-x-2">
-        <button
-          type="button"
-          class="inline-flex items-center justify-center w-10 h-10 text-gray-500 transition duration-500 ease-in-out border rounded-lg hover:bg-gray-300 focus:outline-none"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            class="w-6 h-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            ></path>
-          </svg>
-        </button>
         <button
           type="button"
           class="inline-flex items-center justify-center w-10 h-10 text-gray-500 transition duration-500 ease-in-out border rounded-lg hover:bg-gray-300 focus:outline-none"
@@ -109,111 +123,35 @@ export default {
       </div>
     </div>
 
-    <!-- All messages -->
+    <!-- chat bubble -->
     <div
       id="messages"
       class="flex flex-col p-3 space-y-4 overflow-y-auto scrolling-touch scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2"
     >
-      <ChatBubble />
+      <ChatBubble
+        v-for="message in this.messages"
+        :name="name"
+        :key="message.key"
+        :message="message"
+        :dbMsg="this.messages"
+      />
     </div>
+    <!-- chat bubble end -->
 
-    <!-- All messages end -->
-    <div class="px-4 pt-4 mb-2 border-t-2 border-gray-200 sm:mb-0">
+    <!-- message input -->
+    <form
+      @submit.prevent="sendMessage"
+      class="px-4 pt-4 mb-2 border-t-2 border-gray-200 sm:mb-0"
+    >
       <div class="relative flex">
-        <span class="absolute inset-y-0 flex items-center">
-          <button
-            type="button"
-            class="inline-flex items-center justify-center w-12 h-12 text-gray-500 transition duration-500 ease-in-out rounded-full hover:bg-gray-300 focus:outline-none"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              class="w-6 h-6 text-gray-600"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
-              ></path>
-            </svg>
-          </button>
-        </span>
-        <!-- input message -->
-        <form @submit.prevent="sendMessage(msg)" class="w-full">
-          <input
-            v-model="msg.input"
-            type="text"
-            placeholder="Write your message!"
-            class="w-full py-3 pl-12 text-gray-600 placeholder-gray-600 bg-gray-200 rounded-md focus:outline-none focus:placeholder-gray-400"
-          />
-        </form>
+        <input
+          v-model="inputMessage"
+          type="text"
+          placeholder="Write your message!"
+          class="w-full py-3 pl-12 text-gray-600 placeholder-gray-600 bg-gray-200 rounded-md focus:outline-none focus:placeholder-gray-400"
+        />
+
         <div class="absolute inset-y-0 right-0 items-center hidden sm:flex">
-          <button
-            type="button"
-            class="inline-flex items-center justify-center w-10 h-10 text-gray-500 transition duration-500 ease-in-out rounded-full hover:bg-gray-300 focus:outline-none"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              class="w-6 h-6 text-gray-600"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"
-              ></path>
-            </svg>
-          </button>
-          <button
-            type="button"
-            class="inline-flex items-center justify-center w-10 h-10 text-gray-500 transition duration-500 ease-in-out rounded-full hover:bg-gray-300 focus:outline-none"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              class="w-6 h-6 text-gray-600"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
-              ></path>
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
-              ></path>
-            </svg>
-          </button>
-          <button
-            type="button"
-            class="inline-flex items-center justify-center w-10 h-10 text-gray-500 transition duration-500 ease-in-out rounded-full hover:bg-gray-300 focus:outline-none"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              class="w-6 h-6 text-gray-600"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              ></path>
-            </svg>
-          </button>
           <button
             type="submit"
             class="inline-flex items-center justify-center px-4 py-3 text-white transition duration-500 ease-in-out bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none"
@@ -232,35 +170,14 @@ export default {
           </button>
         </div>
       </div>
-    </div>
+    </form>
   </div>
+
+  <RouterView />
 </template>
 
 <style>
-.scrollbar-w-2::-webkit-scrollbar {
-  width: 0.25rem;
-  height: 0.25rem;
-}
-
-.scrollbar-track-blue-lighter::-webkit-scrollbar-track {
-  --bg-opacity: 1;
-  background-color: #f7fafc;
-  background-color: rgba(247, 250, 252, var(--bg-opacity));
-}
-
-.scrollbar-thumb-blue::-webkit-scrollbar-thumb {
-  --bg-opacity: 1;
-  background-color: #edf2f7;
-  background-color: rgba(237, 242, 247, var(--bg-opacity));
-}
-
-.scrollbar-thumb-rounded::-webkit-scrollbar-thumb {
-  border-radius: 0.25rem;
+.cont-chat {
+  height: 30vh;
 }
 </style>
-
-<!-- handling autoscroll -->
-<!-- <script>
-	const el = document.getElementById('messages')
-	el.scrollTop = el.scrollHeight
-</script> -->

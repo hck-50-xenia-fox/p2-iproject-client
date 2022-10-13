@@ -11,6 +11,6 @@ export default {
 };
 </script>
 <template>
-  <button @click="payButton" id="pay-button">Pay</button>
+  <button class="btn btn-sm" @click="payButton" id="pay-button">Join</button>
 </template>
 <style></style>

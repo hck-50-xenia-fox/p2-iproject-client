@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "@/apis/axios-instance.js";
 import { createClient } from "@supabase/supabase-js";
-import socket from "../apis/socket";
 
 const supabaseUrl = "https://imqbfsulurhrhklxfzdj.supabase.co";
 const supabase = createClient(
@@ -12,24 +11,19 @@ const supabase = createClient(
 export const useIndexStore = defineStore("index", {
   state: () => ({
     isLoggedIn: false,
+    books: [],
+    book: {},
   }),
 
   actions: {
     //etc
-
-    socketError() {
-      socket.on("connect_error", (err) => {
-        if (err.message === "invalid username") {
-          this.usernameAlreadySelected = false;
-        }
-      });
-    },
-
     async signInWithFacebook() {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "facebook",
       });
-      console.log(data, error);
+
+      this.route.push("/");
+      this.isLoggedIn = true;
     },
 
     async signout() {
@@ -41,8 +35,30 @@ export const useIndexStore = defineStore("index", {
         const { data } = await axios({
           method: "post",
           url: "/midtrans/pay",
+          headers: {
+            access_token: localStorage.getItem("access_token"),
+          },
         });
-        snap.pay(data.token);
+        // console.log(data);
+        snap.pay(data.token, {
+          onSuccess:  (result) => {
+            console.log("success");
+            console.log(result);
+          },
+          // onPending: function (result) {
+          //   console.log("pending");
+          //   console.log(result);
+          // },
+          // onError: function (result) {
+          //   console.log("error");
+          //   console.log(result);
+          // },
+          // onClose: function () {
+          //   console.log(
+          //     "customer closed the popup without finishing the payment"
+          //   );
+          // },
+        });
       } catch (err) {
         console.log(err);
       }
@@ -66,8 +82,6 @@ export const useIndexStore = defineStore("index", {
         localStorage.setItem("UserId", data.userId);
         localStorage.setItem("name", data.name);
 
-        socket.auth = data.name;
-        socket.connect();
         this.router.push("/");
       } catch (err) {
         console.log(err);
@@ -100,7 +114,33 @@ export const useIndexStore = defineStore("index", {
 
     logout() {
       localStorage.clear();
-      this.router.push("/");
+      this.router.push("/login");
+    },
+
+    //book
+    async fetchBook(q) {
+      console.log(q);
+      try {
+        const { data } = await axios({
+          method: "get",
+          url: `/books/${q ? q : ""}`,
+        });
+        this.books = data;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async bookById(id) {
+      try {
+        const { data } = await axios({
+          method: "get",
+          url: `/books/${id}`,
+        });
+        this.book = data;
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 });

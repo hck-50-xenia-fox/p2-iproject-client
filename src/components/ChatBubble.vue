@@ -1,27 +1,46 @@
 <script>
-import { mapActions, mapState } from "pinia";
+export default {
+  // data() {
+  //   return {
+  //     name: '',
+  //   };
+  // },
+  // 'name
+  props: ["message", "name", "dbMsg"],
 
-export default {};
+  created() {
+    // this.name = localStorage.getItem('name');
+    // console.log(...this.dbMsg.username);
+    // this.dbMsg.forEach(el => el.username);
+  },
+};
 </script>
 
 <template>
-  <!-- gray-message -->
+  <!-- class="flex items-end" -->
   <div class="chat-message">
-    <div class="flex items-end">
+    <div
+      :class="
+        this.message.username === this.name
+          ? 'flex justify-start items-end flex-row-reverse text-right'
+          : 'flex items-end text-left'
+      "
+    >
       <div
-        class="flex flex-col items-start order-2 max-w-xs mx-2 space-y-2 text-xs"
+        class="flex flex-col items-end order-2 max-w-xs mx-2 space-y-2 text-xs"
       >
-        <div>
+        <div class="flex flex-col gap-2">
+          <span class="">{{ this.message.username }} </span>
           <span
-            class="inline-block px-4 py-2 text-gray-600 bg-gray-300 rounded-lg rounded-bl-none"
-          ></span>
+            :class="
+              this.message.username === this.name
+                ? 'px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600'
+                : 'px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white'
+            "
+            >{{ this.message.content }}</span
+          >
         </div>
       </div>
-      <img
-        src="https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"
-        alt="My profile"
-        class="order-1 w-6 h-6 rounded-full"
-      />
     </div>
   </div>
 </template>
