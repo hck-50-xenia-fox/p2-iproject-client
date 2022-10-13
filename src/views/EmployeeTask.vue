@@ -100,11 +100,11 @@ export default {
       </div>
       <div class="row d-flex justify-content-end align-items-center">
         <div class="col col-lg-4 col-xl-6">
-          <div class="card bg-light rounded-1 mt-2">
+          <div class="card bg-light rounded-1 mt-2 mb-5">
             <span class="h2 m-4 text-center">Today's Memes</span>
-            <div class="card-body p-4">
+            <div class="card-body p-4 mb-5">
               <h4 class="text-center">For You</h4>
-              <p class="mb-4 text-center">
+              <p class="mb-5 text-center">
                 <img
                   :src="memes[Math.floor(Math.random(20))].image"
                   style="width: 100%"
