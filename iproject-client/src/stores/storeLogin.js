@@ -97,6 +97,7 @@ export const useLoginStore = defineStore("login", {
                   google_token : credential
                 }            
               })
+              localStorage.setItem("role", data.data.role)
               localStorage.setItem("access_token", data.data.access_token);
               Swal.fire({
                 icon: "success",

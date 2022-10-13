@@ -27,7 +27,7 @@ export default {
 <template>
     <div class="container">
         <div class="d-flex justify-content-center mt-1">
-            <img src="../assets/logo-petshop-re.png" alt="" width="10">
+            <img src="../assets/logo-petshop-re.png" alt="" height="150">
         </div>
         <div class="row mt-2">
             <div class="col-7 mx-auto">
@@ -35,7 +35,7 @@ export default {
                     <div class="card-body">
                         <h3>Login</h3>
                         <p>Welcome to Petshop App!</p>
-                        <form method="post" @submit.prevent="loginHandler(dataLogin)">
+                        <form method="post" @submit.prevent="loginHandler(dataLogin)" class="mb-3">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email Address</label>
                                 <input v-model="dataLogin.email" type="email" class="form-control" id="email" />
@@ -53,7 +53,8 @@ export default {
                                 I'm a new user <i class="bi bi-person-lines-fill"></i>
                             </button>
                         </form>
-                        <GoogleLogin :callback="callback" class="mt-4"/>
+                        <h6>You can also login with your <b>Google Account!</b></h6>
+                        <GoogleLogin :callback="callback" />
                     </div>
                 </div>
             </div>
