@@ -25,13 +25,13 @@ export default {
       <main class="form-signin" style="background-color: whitesmoke">
         <form @submit.prevent="handleLogin">
           <div class="d-flex justify-content-center">
-            <img
+            <!-- <img
               class="mb-10"
               src="../assets/slave_logo.jpg"
               alt=""
               width="120"
               style="align-items: center"
-            />
+            /> -->
           </div>
           <h1 class="h3 mb-3 fw-normal text-center">Please sign in</h1>
 
