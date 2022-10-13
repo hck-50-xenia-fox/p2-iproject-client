@@ -20,7 +20,7 @@ export default {
   <div class="row justify-content-end mt-2" >
   </div>
   <div class="card-body">
-    <h5 class="card-title"> <a href="https://www.youtube.com/watch?v=${video.id.videoId}">{{video.snippet.title}}</a></h5>
+    <h5 class="card-title"> <a :href='"www.youtube.com/watch?v="+video.id.videoId'>{{video.snippet.title}}</a></h5>
     <!-- <p class="card-text">Element: <br>{{summon.element}}</p> -->
     <!-- masukkin link video, jadi ketika tamnel di klik, akan ke redirect ke : https://www.youtube.com/watch?v=${items.id.videoId} -->
     <!-- link: https://www.youtube.com/watch?v=${video.id.videoId}  -->

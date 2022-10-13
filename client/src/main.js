@@ -8,7 +8,7 @@ import vue3GoogleLogin from 'vue3-google-login'
 import "bootstrap/dist/css/bootstrap.min.css"
 
 
-// import "./assets/main.css";
+import "./assets/test.css";
 
 const app = createApp(App);
 const pinia = createPinia()

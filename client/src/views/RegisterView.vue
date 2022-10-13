@@ -25,7 +25,7 @@ export default {
 </script>
 
 <template>
-  <section class="container text-center mt-3">
+  <section class="container text-center mt-5 pt-5">
     <div class="row d-flex justify-content-center">
 
       <br /><br /><br />

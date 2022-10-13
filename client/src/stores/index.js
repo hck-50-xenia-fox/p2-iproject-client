@@ -154,9 +154,9 @@ export const useIndexStore = defineStore('index', {
                         part: 'snippet'
                     }
                 })
-                console.log(video.data.items, '<<<<<<<<')
+                // console.log(video.data.items.id, '<<<<<<<<')
                 this.youtubeVideo = video.data.items
-                console.log(this.youtubeVideo[0], '********')
+                // console.log(this.youtubeVideo[0].id.videoId, '********')
             } catch (error) {
                 console.log(error)
             }

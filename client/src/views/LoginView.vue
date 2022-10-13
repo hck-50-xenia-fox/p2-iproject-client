@@ -68,7 +68,7 @@ export default {
           </div>
 
           <div class="text-center">
-            <p>Not a member? <Router-link to="/">Register</Router-link> </p>
+            <p>Not a member? <Router-link to="/register">Register</Router-link> </p>
             <p>or sign up with:</p>
             <!-- JANGAN LUPA TAMBAHIN TOMBOL GUGEL LOGIN -->
             <GoogleLogin :callback="callback"/>
