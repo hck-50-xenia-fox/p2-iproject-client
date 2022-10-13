@@ -4,7 +4,7 @@ import axios from "axios";
 export const useEmployeeStore = defineStore("employee", {
   state: () => {
     return {
-      baseUrl: "http://localhost:3000",
+      baseUrl: "https://tuesday-app.herokuapp.com",
       access_token: localStorage.getItem("access_token"),
       employees: [],
       memes: [],
@@ -27,7 +27,7 @@ export const useEmployeeStore = defineStore("employee", {
         });
         this.quotesOftheDay = data;
       } catch (error) {
-        console.log(data);
+        errorAlert(error.response.data.message);
       }
     },
     async getMeme() {
@@ -35,7 +35,7 @@ export const useEmployeeStore = defineStore("employee", {
         const { data } = await axios.get(this.baseUrl + "/memes");
         this.memes = data;
       } catch (error) {
-        console.log(error);
+        errorAlert(error.response.data.message);
       }
     },
     async getEmployees() {
@@ -45,7 +45,7 @@ export const useEmployeeStore = defineStore("employee", {
         });
         this.employees = data;
       } catch (error) {
-        console.log(error);
+        errorAlert(error.response.data.message);
       }
     },
     async fireEmployee(id) {
@@ -55,9 +55,28 @@ export const useEmployeeStore = defineStore("employee", {
         });
         this.getEmployees();
         this.router.push("/managers");
+        successAlert("Delete Success");
       } catch (error) {
-        console.log(error);
+        errorAlert(error.response.data.message);
       }
     },
   },
 });
+
+function errorAlert(message) {
+  Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: message,
+  });
+}
+
+function successAlert(message) {
+  Swal.fire({
+    position: "top-end",
+    icon: "success",
+    title: message,
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}

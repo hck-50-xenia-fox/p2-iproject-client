@@ -4,7 +4,7 @@ import axios from "axios";
 export const useTaskStore = defineStore("task", {
   state: () => {
     return {
-      baseUrl: "http://localhost:3000",
+      baseUrl: "https://tuesday-app.herokuapp.com",
       access_token: localStorage.getItem("access_token"),
       tasks: [],
       mytasks: [],
@@ -20,7 +20,7 @@ export const useTaskStore = defineStore("task", {
         });
         this.tasks = data;
       } catch (error) {
-        console.log(error);
+        errorAlert(error);
       }
     },
     async fetchMyTask() {
@@ -30,7 +30,7 @@ export const useTaskStore = defineStore("task", {
         });
         this.mytasks = data;
       } catch (error) {
-        console.log(error);
+        errorAlert(error);
       }
     },
     async addEmployeeTask(input) {
@@ -47,9 +47,9 @@ export const useTaskStore = defineStore("task", {
           }
         );
         this.router.push("/managers/tasks");
-        console.log("berhasil nambah beban");
+        successAlert("Task success added!");
       } catch (error) {
-        console.log(error);
+        errorAlert(error.response.data.message);
       }
     },
     async addTask(input) {
@@ -66,9 +66,9 @@ export const useTaskStore = defineStore("task", {
           }
         );
         this.router.push("/managers");
-        console.log("berhasil nambah task");
+        successAlert("Task successfully added");
       } catch (error) {
-        console.log(error);
+        errorAlert(error.response.data.message);
       }
     },
     async updateTask(id) {
@@ -82,9 +82,28 @@ export const useTaskStore = defineStore("task", {
         );
         this.fetchMyTask();
         this.router.push("/employee");
+        successAlert("Task Completed!");
       } catch (error) {
-        console.log(error);
+        errorAlert(error.response.data.message);
       }
     },
   },
 });
+
+function errorAlert(message) {
+  Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: message,
+  });
+}
+
+function successAlert(message) {
+  Swal.fire({
+    position: "top-end",
+    icon: "success",
+    title: message,
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}

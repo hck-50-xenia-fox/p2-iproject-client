@@ -25,11 +25,19 @@ export default {
         Host: "smtp.elasticemail.com",
         Username: "payman601@gmail.com",
         Password: "F8236C72C00A913B3801F275F9D02E160A70",
-        To: "miftamifta1861@gmail.com",
+        To: this.email,
         From: "payman601@gmail.com",
         Subject: this.subject,
         Body: this.body,
-      }).then((message) => console.log(message));
+      }).then((message) =>
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Message send successfully!",
+          showConfirmButton: false,
+          timer: 1500,
+        })
+      );
       this.email = "";
       this.subject = "";
       this.body = "";

@@ -105,7 +105,7 @@ export default {
                     Login
                   </button>
                   <div class="d-flex justify-content-center mb-3">
-                    <RouterLink v-if="loginType === 'employee'" to="/managers"
+                    <RouterLink to="/"
                       ><button class="btn btn-secondary">
                         Back
                       </button></RouterLink

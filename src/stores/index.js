@@ -4,7 +4,7 @@ import axios from "axios";
 export const useIndexStore = defineStore("index", {
   state: () => {
     return {
-      baseUrl: "http://localhost:3000",
+      baseUrl: "https://tuesday-app.herokuapp.com",
       loginType: "",
       loginStatus: "",
       access_token: localStorage.getItem("access_token"),
@@ -21,9 +21,9 @@ export const useIndexStore = defineStore("index", {
         localStorage.setItem("access_token", data.access_token);
         this.router.push("/dashboard");
         this.loginStatus = true;
-        console.log("berhasil login");
+        successAlert("Login success");
       } catch (error) {
-        console.log(error);
+        errorAlert(error.response.data.message);
       }
     },
     async registerCompany(companyInput) {
@@ -36,9 +36,9 @@ export const useIndexStore = defineStore("index", {
         });
         this.loginType = "company";
         this.router.push("/login");
-        console.log("berhasil");
+        successAlert("Register success");
       } catch (error) {
-        console.log(error);
+        errorAlert(error.response.data.message);
       }
     },
     async registerManager(managerInput) {
@@ -59,9 +59,9 @@ export const useIndexStore = defineStore("index", {
         );
         this.router.push("/dashboard");
         this.loginType = "company";
-        console.log("berhasil register manager");
+        successAlert("Register Success");
       } catch (error) {
-        console.log(error);
+        errorAlert(error.response.data.message);
       }
     },
     async loginManager(managerInput) {
@@ -74,9 +74,9 @@ export const useIndexStore = defineStore("index", {
         localStorage.setItem("access_token", data.access_token);
         this.router.push("/managers");
         this.loginStatus = true;
-        console.log("berhasil login manager");
+        successAlert("Login success");
       } catch (error) {
-        console.log(error);
+        errorAlert(error.response.data.message);
       }
     },
     async registerEmployee(employeeInput) {
@@ -98,9 +98,9 @@ export const useIndexStore = defineStore("index", {
         );
         this.loginType = "manager";
         this.router.push("/managers");
-        console.log("berhasil register employee");
+        successAlert("Register success");
       } catch (error) {
-        console.log(error);
+        errorAlert(error.response.data.message);
       }
     },
     async loginEmployee(employeeInput) {
@@ -113,15 +113,46 @@ export const useIndexStore = defineStore("index", {
         localStorage.setItem("access_token", data.access_token);
         this.router.push("/employee");
         this.loginStatus = true;
-        console.log("berhasil login employee");
+        successAlert("Login success");
       } catch (error) {
-        console.log(error);
+        errorAlert(error.response.data.message);
       }
     },
     logout() {
-      localStorage.clear();
-      this.router.push("/");
-      this.loginStatus = false;
+      Swal.fire({
+        title: "Are you sure want to logout?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes,Logout!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          localStorage.clear();
+          this.router.push("/");
+          this.loginStatus = false;
+          successAlert("Logout Success");
+        }
+      });
     },
   },
 });
+
+function errorAlert(message) {
+  Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: message,
+  });
+}
+
+function successAlert(message) {
+  Swal.fire({
+    position: "top-end",
+    icon: "success",
+    title: message,
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}

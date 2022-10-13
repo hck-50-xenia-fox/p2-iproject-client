@@ -4,7 +4,7 @@ import axios from "axios";
 export const useManagerStore = defineStore("manager", {
   state: () => {
     return {
-      baseUrl: "http://localhost:3000",
+      baseUrl: "https://tuesday-app.herokuapp.com",
       access_token: localStorage.getItem("access_token"),
       managers: [],
     };
@@ -17,7 +17,7 @@ export const useManagerStore = defineStore("manager", {
         });
         this.managers = data;
       } catch (error) {
-        console.log(error);
+        errorAlert(error);
       }
     },
     async fireManager(id) {
@@ -27,9 +27,28 @@ export const useManagerStore = defineStore("manager", {
         });
         this.getManager();
         this.router.push("/dashboard");
+        successAlert("Delete Manager Success");
       } catch (error) {
-        console.log(error);
+        errorAlert(error.response.data.message);
       }
     },
   },
 });
+
+function errorAlert(message) {
+  Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: message,
+  });
+}
+
+function successAlert(message) {
+  Swal.fire({
+    position: "top-end",
+    icon: "success",
+    title: message,
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}

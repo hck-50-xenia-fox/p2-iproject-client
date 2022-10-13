@@ -4,7 +4,7 @@ import { RouterLink } from "vue-router";
 import io from "socket.io-client";
 import { useIndexStore } from "../stores";
 import NavBar from "../components/NavBar.vue";
-const baseUrl = "http://localhost:3000";
+const baseUrl = "https://tuesday-app.herokuapp.com";
 export default {
   name: "ChatRoom",
   data() {
@@ -84,7 +84,6 @@ export default {
                 class="btn btn-dark justify-content-end"
               >
                 <i class="bi bi-chat-text-fill"></i>
-                <small>Send</small>
               </button>
             </div>
           </div>
@@ -96,7 +95,7 @@ export default {
           <RouterLink v-else-if="loginType === 'manager'" to="/managers"
             ><button class="btn btn-secondary">BACK</button></RouterLink
           >
-          <RouterLink v-else-if="loginType === 'employee'" to="/employee"
+          <RouterLink v-else -if="loginType === 'employee'" to="/employee"
             ><button class="btn btn-secondary">BACK</button></RouterLink
           >
           <RouterLink v-else to="/"
