@@ -14,18 +14,20 @@ export const useCounterStore = defineStore("counter", {
   state: () => ({
     isLogin: false,
     dataLogin: "",
-    courseData:[],
-    isPage: ''
+    courseData: [],
+    myCourse: [],
+    isPage: "",
+    paymentResponse: {},
   }),
   actions: {
     checkLogin() {
       if (localStorage.getItem("access_token")) this.isLogin = true;
       else this.isLogin = false;
     },
-    supabase(){
-  supabase.auth.onAuthStateChange((_, session) => {
-    this.loginSosmed()
-  })
+    supabase() {
+      supabase.auth.onAuthStateChange((_, session) => {
+        this.loginSosmed();
+      });
     },
     logout() {
       this.isLogin = false;
@@ -56,36 +58,46 @@ export const useCounterStore = defineStore("counter", {
           provider: "facebook",
         });
         console.log(data);
-        
       } catch (error) {
         console.log(error);
       }
     },
-async loginSosmed() {
-  try {
-    const token = JSON.parse(localStorage.getItem('supabase.auth.token'))
-    const response = await axios.get(`${baseUrl}/login`, {
-      headers: {
-        access_token: token.currentSession.access_token
+    async loginSosmed() {
+      try {
+        const token = JSON.parse(localStorage.getItem("supabase.auth.token"));
+        const response = await axios.post(`${baseUrl}/login`, {
+          headers: {
+            access_token: token.currentSession.access_token,
+          },
+        });
+        const data2 = localStorage.setItem(
+          "access_token",
+          response.data.access_token
+        );
+        if (data2) {
+          this.router.push("/course");
+        } else {
+          this.router.push("/login");
+        }
+      } catch (error) {
+        console.log(error);
       }
-    })
-    const data2 = localStorage.setItem('access_token', response.data.access_token)
-    if(data2) {
-      this.router.push('/course')
-    }else{
-      this.router.push('/login')
-    }
-  } catch (error) {
-    console.log(error);
-  }
-},
+    },
     async register(username, email, password) {
       try {
         const response = await axios({
-
-        })
+          url: `${baseUrl}/register`,
+          method: "POST",
+          data: {
+            username,
+            email,
+            password,
+          },
+        });
+        this.isLogin = false;
+        this.router.push("/login");
       } catch (error) {
-
+        console.log(error);
       }
     },
     async fetchCourse() {
@@ -99,6 +111,86 @@ async loginSosmed() {
         });
         console.log(response);
         this.courseData = response.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async addCourse(id) {
+      try {
+        await axios({
+          url: `${baseUrl}/mycourse`,
+          method: "POST",
+          headers: {
+            access_token: localStorage.getItem("access_token"),
+          },
+          data: {
+            CourseId: id,
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async payment() {
+      try {
+        let { data } = await axios({
+          url: `${baseUrl}/payment`,
+          method: "POST",
+          headers: {
+            access_token: localStorage.getItem("access_token"),
+          },
+        });
+        snap.pay(`${data.transactionToken}`, {
+          onSuccess: async function (result) {
+            this.paymentResponse = result;
+            await axios({
+              method: "PUT",
+              url: `${baseUrl}/mycourse/:courseId`,
+              headers: {
+                access_token: localStorage.getItem("access_token"),
+              },
+            });
+            localStorage.setItem("status", "available");
+            this.available = true;
+            this.checkLogin();
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async fetchMyCourse() {
+      try {
+        const response = await axios({
+          url: `${baseUrl}/mycourse/:courseId`,
+          method: "GET",
+          headers: {
+            access_token: localStorage.getItem("access_token"),
+          },
+        });
+        this.myCourse = response.data;
+        if (!paymentResponse) {
+          this.router.push("/course");
+        } else {
+          this.router.push("/mycourse");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async putMyCourse(id, status) {
+      try {
+        await axios({
+          url: `${baseUrl}/mycourse/:courseId`,
+          method: "PUT",
+          headers: {
+            access_token: localStorage.getItem("access_token"),
+          },
+          data: {
+            status,
+          },
+        });
+        this.fetchCourse();
       } catch (error) {
         console.log(error);
       }

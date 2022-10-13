@@ -19,8 +19,8 @@ const router = createRouter({
       component: About,
     },
     {
-      path: "/courses",
-      name: "courses",
+      path: "/course",
+      name: "course",
       component: Course,
       beforeEnter: (to, from) => {
         if (!localStorage.getItem("access_token")) {
