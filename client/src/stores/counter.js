@@ -8,6 +8,7 @@ export const useCounterStore = defineStore("counter", {
     dataDetailVideo: [],
     dataChannelDetail: [],
     dataChannelVideos: [],
+    dataHistory: [],
   }),
   actions: {
     // Register
@@ -136,6 +137,18 @@ export const useCounterStore = defineStore("counter", {
         });
         console.log("berhasil fatch video");
         this.dataChannelVideos = data.data.filter((el, i) => i < 12);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async getHistory() {
+      try {
+        let data = await axios({
+          url: `http://localhost:3000/users/getHistory`,
+          method: "GET",
+        });
+        this.dataHistory = data.data;
       } catch (error) {
         console.log(error);
       }

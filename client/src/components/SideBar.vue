@@ -42,7 +42,7 @@ export default {
                 <i class="material-icons">library_add_check</i>
                 <span>Library</span>
             </div>
-            <div class="sidebar__category">
+            <div class="sidebar__category" @click.prevent="this.$router.push('/history')">
                 <i class="material-icons">history</i>
                 <span>History</span>
             </div>

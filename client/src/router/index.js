@@ -5,6 +5,7 @@ import LoginPage from "../views/LoginPage.vue";
 import SearchPage from "../views/SearchPage.vue";
 import ChannelDetail from "../views/ChannelDetail.vue";
 import RegisterPage from "../views/RegisterPage.vue";
+import HistoryPage from "../views/HistoryPage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +39,11 @@ const router = createRouter({
       path: "/channeldetail/:id",
       name: "channeldetail",
       component: ChannelDetail,
+    },
+    {
+      path: "/history",
+      name: "history",
+      component: HistoryPage,
     },
   ],
 });
