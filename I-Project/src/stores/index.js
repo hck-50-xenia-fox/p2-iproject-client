@@ -7,8 +7,18 @@ const baseUrl = "http://localhost:3000";
 export const useIprojectStore = defineStore("Iproject", {
   state: () => ({
     isLogin: false,
+    nearby:''
   }),
   actions: {
+    async fetchDataNearby(lat, lng){
+        try {
+          const response = await axios.get(`${baseUrl}/nearby?lat=${lat}&lng=${lng}`)
+          this.nearby = response.data
+          console.log(response.data);
+        } catch (err) {
+          console.log(err);
+        }
+      },
     logout() {
       this.isLogin = false;
       localStorage.clear();
@@ -78,4 +88,6 @@ export const useIprojectStore = defineStore("Iproject", {
     },
 
   },
+
+
 });

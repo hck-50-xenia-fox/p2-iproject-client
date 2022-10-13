@@ -9,7 +9,6 @@ export default {
     name: "Navbar",
     components: {
         RouterLink,
-        mapActions
     },
     methods: {
         ...mapActions(useIprojectStore,['logout']),
