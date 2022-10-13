@@ -19,6 +19,7 @@ import ListNews from '../components/ListNews.vue';
 <template>
   <h1>Next Matches</h1>
   <main>
+    <h1 v-if="dataMatches.length < 1">No Matches This Day</h1>
     <ListNews v-for="data in dataMatches" :key=data.id :data=data pageName="matches"/>
   </main>
 </template>

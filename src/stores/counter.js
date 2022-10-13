@@ -21,15 +21,6 @@ export const useCounterStore = defineStore('counter', {
         this.isLogin = true
       }
     },
-    async facebookLogin(user){
-      try {
-        const {data} = axios({ url: `${baseUrl}/facebookSignIn`, method: 'POST', data: user.response.authResponse.accessToken })
-        localStorage.setItem("access_toqen", data.token);
-        this.$router.push("/");
-      } catch (error) {
-        console.log(error);
-      }
-    },
     async register(user) {
       try {
         await axios.post(`${baseUrl}/register`, user)
@@ -40,6 +31,7 @@ export const useCounterStore = defineStore('counter', {
     },
     async login(user) {
       try {
+        console.log(user);
         const {data} = await axios.post(`${baseUrl}/login`, user)
         localStorage.access_toqen = data.access_toqen
         this.isLogin = true
