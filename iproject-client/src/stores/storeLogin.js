@@ -37,8 +37,10 @@ export const useLoginStore = defineStore("login", {
                 })
                 let access_token = data.access_token
                 let role = data.dataUser.role
+                let username = data.dataUser.username
                 localStorage.setItem("access_token", access_token)
                 localStorage.setItem("role", role)
+                localStorage.setItem("username", username)
                 this.isLogin = true
                 this.$router.push("/")
                 Swal.fire({
@@ -84,6 +86,32 @@ export const useLoginStore = defineStore("login", {
                     text: `${error.response.data.msg}`,
                   });
             }
-        }
+        },
+        async handleCredentialResponse(response){
+            try {
+              const {credential} = response
+              const data = await axios({
+                method: "POST",
+                url: baseUrl + "login/googleLogin",
+                headers:{
+                  google_token : credential
+                }            
+              })
+              localStorage.setItem("access_token", data.data.access_token);
+              Swal.fire({
+                icon: "success",
+                title: "You have logged in!",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              this.$router.push("/")
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: `${error.response.data.msg}`,
+              });
+            }
+          }
     }
 })

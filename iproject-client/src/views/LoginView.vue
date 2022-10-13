@@ -1,6 +1,8 @@
 <script>
 import { mapActions } from 'pinia';
 import { useLoginStore } from '../stores/storeLogin';
+import { decodeCredential } from 'vue3-google-login';
+
 export default {
     name: "LoginView",
     data() {
@@ -12,7 +14,12 @@ export default {
         }
     },
     methods: {
-        ...mapActions(useLoginStore, ["loginHandler"]),
+        ...mapActions(useLoginStore, ["loginHandler", "handleCredentialResponse"]),
+
+        callback(response) {
+            this.handleCredentialResponse(response)
+            console.log("Handle the response", response)
+        }
     }
 }
 </script>
@@ -46,6 +53,7 @@ export default {
                                 I'm a new user <i class="bi bi-person-lines-fill"></i>
                             </button>
                         </form>
+                        <GoogleLogin :callback="callback" class="mt-4"/>
                     </div>
                 </div>
             </div>
