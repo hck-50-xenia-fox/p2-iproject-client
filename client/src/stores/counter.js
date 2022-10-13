@@ -9,6 +9,7 @@ export const useCounterStore = defineStore("counter", {
     dataChannelDetail: [],
     dataChannelVideos: [],
     dataHistory: [],
+    dataComment: [],
   }),
   actions: {
     // Register
@@ -149,6 +150,19 @@ export const useCounterStore = defineStore("counter", {
           method: "GET",
         });
         this.dataHistory = data.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async getComment(id) {
+      try {
+        let data = await axios({
+          url: `http://localhost:3000/youtube/comments/${id}`,
+          method: "GET",
+        });
+        this.dataComment = data.data.content.filter((el, i) => i < 8);
+        console.log(this.dataComment);
       } catch (error) {
         console.log(error);
       }

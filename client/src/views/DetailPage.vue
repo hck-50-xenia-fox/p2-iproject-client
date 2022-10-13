@@ -7,16 +7,19 @@ import { useCounterStore } from '../stores/counter';
 export default {
     components: { YouTube, HeaderPage, SideBar },
     methods: {
-        ...mapActions(useCounterStore, ["getDetailVideo"]),
+        ...mapActions(useCounterStore, ["getDetailVideo", "getComment"]),
         onReady() {
             this.$refs.youtube.playVideo()
         },
+
     },
     computed: {
-        ...mapState(useCounterStore, ["dataDetailVideo"])
+        ...mapState(useCounterStore, ["dataDetailVideo", "dataComment"])
     },
     created() {
         this.getDetailVideo(this.$route.params.id)
+        this.getComment(this.$route.params.id)
+
     }
 }
 </script>
@@ -62,11 +65,23 @@ export default {
                         <h4>Release : {{dataDetailVideo.release}}</h4>
                     </div>
                 </div>
+
+                <!-- contoh -->
             </div>
             <!-- kesamping -->
             <div class="w-75">
                 <div>
-                    <p></p>
+                    <h2>Commentars</h2>
+                </div>
+                <div style="min-height:50px ; width:400px" class=" ms-2 container border" v-for="data in dataComment">
+                    <div class="d-flex">
+                        <div class="align-self-center">
+                            <img style="height: 47px;" :src="data.avatarUrl" alt="">
+                        </div>
+                        <div class="align-self-center me-2">
+                            <h5>{{data.comment}}</h5>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
