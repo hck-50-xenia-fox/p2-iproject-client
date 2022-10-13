@@ -66,17 +66,17 @@ export default {
       </nav>
 
       <div class="header-actions">
-        <a href="#" class="header-action-btn login-btn">
+        <router-link to="/login" class="header-action-btn login-btn">
           <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
 
           <span class="span">Login / Register</span>
-        </a>
+        </router-link>
 
-        <a href="#" class="header-action-btn login-btn">
+        <router-link to="/" class="header-action-btn login-btn">
           <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
 
           <span class="span">Logout</span>
-        </a>
+        </router-link>
 
         <button
           class="header-action-btn nav-open-btn"

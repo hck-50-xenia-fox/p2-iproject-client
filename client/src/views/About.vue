@@ -105,51 +105,5 @@ export default {
                   </div>
                 </li>
               </ul>
-
-              <a href="#" class="btn btn-primary">
-                <span class="span">Know About Us</span>
-
-                <ion-icon
-                  name="arrow-forward-outline"
-                  aria-hidden="true"
-                ></ion-icon>
-              </a>
-            </div>
-          </div>
-          <section
-          class="section newsletter"
-          aria-label="newsletter"
-          style="background-image: url('../assets/images/newsletter-bg.jpg')"
-        >
-          <div class="container">
-            <p class="section-subtitle">Subscribe Newsletter</p>
-            <form action="" class="newsletter-form">
-              <div class="input-wrapper">
-                <input
-                  type="email"
-                  name="email_address"
-                  aria-label="email"
-                  placeholder="Enter your mail address"
-                  required
-                  class="email-field"
-                />
-
-                <ion-icon
-                  name="mail-open-outline"
-                  aria-hidden="true"
-                ></ion-icon>
-              </div>
-
-              <button type="submit" class="btn btn-primary">
-                <span class="span">Subscribe</span>
-
-                <ion-icon
-                  name="arrow-forward-outline"
-                  aria-hidden="true"
-                ></ion-icon>
-              </button>
-            </form>
-          </div>
-        </section>
         </section>
 </template>

@@ -22,15 +22,11 @@ export const useCounterStore = defineStore("counter", {
       if (localStorage.getItem("access_token")) this.isLogin = true;
       else this.isLogin = false;
     },
-    // async spotify() {
-    //   try {
-    //     const { user, session, error } = await supabase.auth.signIn({
-    //       provider: "facebook",
-    //     });
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
-    // },
+    supabase(){
+  supabase.auth.onAuthStateChange((_, session) => {
+    this.loginSosmed()
+  })
+    },
     logout() {
       this.isLogin = false;
       localStorage.clear();
@@ -55,27 +51,51 @@ export const useCounterStore = defineStore("counter", {
       }
     },
     async signInWithFacebook() {
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: "facebook",
-      });
+      try {
+        const { data, error } = await supabase.auth.signInWithOAuth({
+          provider: "facebook",
+        });
+        console.log(data);
+        
+      } catch (error) {
+        console.log(error);
+      }
     },
-    // async register(username, email, password) {
-    //   try {
-    //     const response = await axios({
+async loginSosmed() {
+  try {
+    const token = JSON.parse(localStorage.getItem('supabase.auth.token'))
+    const response = await axios.get(`${baseUrl}/login`, {
+      headers: {
+        access_token: token.currentSession.access_token
+      }
+    })
+    const data2 = localStorage.setItem('access_token', response.data.access_token)
+    if(data2) {
+      this.router.push('/course')
+    }else{
+      this.router.push('/login')
+    }
+  } catch (error) {
+    console.log(error);
+  }
+},
+    async register(username, email, password) {
+      try {
+        const response = await axios({
 
-    //     })
-    //   } catch (error) {
+        })
+      } catch (error) {
 
-    //   }
-    // },
+      }
+    },
     async fetchCourse() {
       try {
         const dataCourse = await axios({
           url: baseUrl + "/course",
           method: "GET",
-          // headers: {
-          //   access_token: localStorage.getItem("access_token"),
-          // },
+          headers: {
+            access_token: localStorage.getItem("access_token"),
+          },
         });
         console.log(response);
         this.courseData = response.data;

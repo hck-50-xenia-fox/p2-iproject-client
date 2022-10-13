@@ -3,6 +3,7 @@ import HomeView from "../views/HomeView.vue";
 import LoginPage from "../views/LoginPage.vue";
 import About from "../views/About.vue";
 import Course from "../views/Course.vue";
+import MyCourse from "../views/MyCourse.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,6 +22,24 @@ const router = createRouter({
       path: "/courses",
       name: "courses",
       component: Course,
+      beforeEnter: (to, from) => {
+        if (!localStorage.getItem("access_token")) {
+          return { path: "/login" };
+        }
+      },
+    },
+    {
+      path: "/mycourse",
+      name: "mycourse",
+      component: MyCourse,
+      beforeEnter: (to, from) => {
+        if (!localStorage.getItem("access_token")) {
+          return { path: "/login" };
+        }
+        if (!localStorage.getItem("transactionToken")) {
+          return { path: "/course" };
+        }
+      },
     },
     {
       path: "/login",
