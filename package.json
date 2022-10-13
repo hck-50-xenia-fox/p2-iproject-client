@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "bootstrap-vue": "^2.22.0"
+  },
+  "dependencies": {
+    "bootstrap": "^5.2.2",
+    "vue": "^2.7.11"
+  }
+}
