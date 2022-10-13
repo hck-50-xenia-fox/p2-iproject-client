@@ -19,7 +19,7 @@ export default {
       <div class="row mt-3 justify-content-center">
         <div class="row mt-3 mb-3 justify-content-center">
 
-            <h1 style="text-align:center">Follow our Twitter Account to obtain daily news and update!</h1>
+            <h1 style="text-align:center;color:goldenrod">Follow our Twitter Account to obtain daily news and update!</h1>
         </div>
         <Twitter />
         

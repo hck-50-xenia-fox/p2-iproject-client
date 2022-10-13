@@ -1,13 +1,13 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
-const baseUrl = 'http://localhost:3000'
+// const baseUrl = 'http://localhost:3000'
 import {createClient} from '@supabase/supabase-js'
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN2bHJxbXlmeGZzaXB4b29odXhhIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjU1NjE3MjAsImV4cCI6MTk4MTEzNzcyMH0.sm1Hm8SWvM3o1xHERgs8WutBgEte-tfnNygA-EGO12I'
 const SUPABASE_URL = 'https://cvlrqmyfxfsipxoohuxa.supabase.co'
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
 // const [session, setSession] = useState(null);
-
+const baseUrl = 'https://individual-project-server.herokuapp.com'
 export const useIndexStore = defineStore('index', {
     state: () => {
         return {
@@ -91,7 +91,7 @@ export const useIndexStore = defineStore('index', {
             try {
                 let {data} = await axios({
                     method: 'get',
-                    url: `${baseUrl}/characters`
+                    url: `https://individual-project-server.herokuapp.com/characters`
                 })
                 this.characters = data
             } catch (error) {
