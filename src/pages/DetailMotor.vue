@@ -11,6 +11,7 @@ export default {
     },
     created() {
         this.getMotorcycleById(this.$route.params.id)
+        // Nambah comment buat branch test-git-flow
     }
 }
 </script>
@@ -31,7 +32,8 @@ export default {
                             Fuel: {{currentMotorcycle.fuel}}
                             Price: {{currentMotorcycle.price}}
                         </p>
-                        <button v-if="currentMotorcycle.status === `Available`" class="btn-block btn-success btn-outline:hover">
+                        <button v-if="currentMotorcycle.status === `Available`"
+                            class="btn-block btn-success btn-outline:hover">
                             {{currentMotorcycle.status}}
                         </button>
                         <button v-else class="btn-block btn-danger">
@@ -40,7 +42,7 @@ export default {
                     </div>
                 </div>
                 <div class="col-md-7 animate-box">
-                    <img :src="currentMotorcycle.imageUrl" style="height: 450px;"/>
+                    <img :src="currentMotorcycle.imageUrl" style="height: 450px;" />
                 </div>
             </div>
         </div>
