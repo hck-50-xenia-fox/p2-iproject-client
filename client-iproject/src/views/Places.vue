@@ -148,14 +148,14 @@ export default {
       <li class="nav-item">
         <RouterLink class="nav-link" :class="{ active: $route.fullPath == '/hotels' }" to="/hotels">Hotels</RouterLink>
       </li>
-      <!-- <li class="nav-item">
-        <RouterLink class="nav-link" :class="{ active: activeNav == 'Restaurants' }" to="/restaurants">Restaurants
+      <li class="nav-item">
+        <RouterLink class="nav-link" :class="{ active: $route.fullPath == 'Restaurants' }" to="/restaurants">Restaurants
         </RouterLink>
       </li>
       <li class="nav-item">
-        <RouterLink class="nav-link" :class="{ active: activeNav == 'Attractions' }" to="/attractions">Attractions
+        <RouterLink class="nav-link" :class="{ active: $route.fullPath == 'Attractions' }" to="/attractions">Attractions
         </RouterLink>
-      </li> -->
+      </li>
     </ul>
   </div>
   <div class="container mb-4" style="margin-top: 3em">
