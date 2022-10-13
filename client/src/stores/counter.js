@@ -53,6 +53,8 @@ export const useCounterStore = defineStore("counter", {
             password,
           },
         });
+        console.log(data.data.access_token);
+        console.log(data.data.username);
         localStorage.setItem("access_token", data.data.access_token);
         localStorage.setItem("username", data.data.username);
         Swal.fire({
