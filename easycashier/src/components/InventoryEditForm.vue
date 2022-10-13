@@ -1,5 +1,5 @@
 <script>
-import { mapActions } from "pinia";
+import { mapActions, mapState, mapWritableState } from "pinia";
 import { useDataStore } from "../stores/dataprocess";
 
 export default {
@@ -12,23 +12,51 @@ export default {
         pricePerItem: "",
         rev: "",
       },
+      dataId: "",
     };
   },
-  methods: {
-    ...mapActions(useDataStore, ["addInventory"]),
-    addInventoryHandler() {
-      this.addInventory(this.InventoryForm);
+  watch: {
+    "$route.params": {
+      handler(params) {
+        this.dataId = params.id;
+      },
+      immediate: true,
     },
+  },
+  methods: {
+    ...mapActions(useDataStore, ["getInventoryById", "editInventory"]),
+    editInventoryHandler() {
+      this.editInventory(this.InventoryForm, this.dataId);
+    },
+    getInventoryByIdHandler() {
+      this.getInventoryById(this.dataId);
+      this.InventoryForm.productName = this.oneInventory?.productName;
+      this.InventoryForm.quantity = this.oneInventory?.quantity;
+      this.InventoryForm.supplierName = this.oneInventory?.supplierName;
+      this.InventoryForm.pricePerItem = this.oneInventory?.pricePerItem;
+      this.InventoryForm.rev = this.oneInventory?.rev;
+    },
+  },
+  computed: {
+    ...mapState(useDataStore, ["oneInventory"]),
+  },
+  created() {
+    this.getInventoryById(this.dataId);
+    // this.InventoryForm.productName = this.oneInventory?.productName;
+    // this.InventoryForm.quantity = this.oneInventory?.quantity;
+    // this.InventoryForm.supplierName = this.oneInventory?.supplierName;
+    // this.InventoryForm.pricePerItem = this.oneInventory?.pricePerItem;
+    // this.InventoryForm.rev = this.oneInventory?.rev;
   },
 };
 </script>
 <template>
   <main class="form-signup mt-5" style="background-color: whitesmoke">
-    <form @submit.prevent="addInventoryHandler">
+    <form @submit.prevent="editInventoryHandler">
       <h1 class="h3 mb-3 fw-normal text-center">
         Please Fill the Inventory Form
       </h1>
-
+      <button @click.prevent="getInventoryByIdHandler">show old data</button>
       <div class="form-floating">
         <input
           type="text"
@@ -81,14 +109,12 @@ export default {
       </div>
       <br />
       <div class="d-flex justify-content-center gap-2">
-        <button class="w-45 btn btn-lg btn-warning" type="submit">
-          <router-link
-            class="text-dark"
-            style="text-decoration: none"
-            to="/inventory"
-            >Cancel</router-link
-          >
-        </button>
+        <router-link
+          class="text-dark w-45 btn btn-lg btn-warning"
+          style="text-decoration: none"
+          to="/inventory"
+          >Cancel</router-link
+        >
         <button class="w-45 btn btn-lg btn-primary" type="submit">
           Submit
         </button>

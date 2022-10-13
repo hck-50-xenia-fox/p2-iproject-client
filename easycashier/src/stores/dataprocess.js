@@ -1,15 +1,19 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import easyinvoice from "easyinvoice";
-const url = "http://localhost:3000";
+// const url = "http://localhost:3000";
+const url = "https://easycashier.herokuapp.com"
 
 export const useDataStore = defineStore("data", {
   state: () => ({
     InventoryList: [],
     InvoiceList: [],
+    oneInvoice: {},
+    oneInventory: {},
   }),
   actions: {
     changePage(page) {
+      console.log(page);
       this.router.push(`/${page}`);
     },
 
@@ -43,6 +47,38 @@ export const useDataStore = defineStore("data", {
         });
       }
     },
+    async getInventoryById(id) {
+      try {
+        let data = await axios.get(`${url}/stock/${id}`, {
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        this.oneInventory = data.data;
+      } catch (error) {
+        console.log(error);
+        Swal.fire({
+          icon: "error",
+          text: `${error.response.data.message}`,
+        });
+      }
+    },
+    async getInvoiceById(id) {
+      try {
+        let data = await axios.get(`${url}/invoice/${id}`, {
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        this.oneInvoice = data.data;
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          text: `${error.response.data.message}`,
+        });
+      }
+    },
+
     async addInventory(inventory) {
       try {
         let { productName, supplierName, quantity, pricePerItem, rev } =
@@ -106,9 +142,74 @@ export const useDataStore = defineStore("data", {
         );
         Swal.fire({
           icon: "success",
-          text: `Inventory Success Added`,
+          text: `Invoice Success Added`,
         });
         this.router.push("/invoice");
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          text: `${error.response.data.message}`,
+        });
+      }
+    },
+
+    async editInventory(edit, id) {
+      console.log(edit, "ini di edit store");
+      try {
+        let { productName, supplierName, quantity, pricePerItem, rev } = edit;
+        await axios.put(
+          `${url}/stock/${id}`,
+          { productName, supplierName, quantity, pricePerItem, rev },
+          {
+            headers: {
+              access_token: localStorage.access_token,
+            },
+          }
+        );
+        Swal.fire({
+          icon: "success",
+          text: `Inventory Success Edit`,
+        });
+        this.router.push("/inventory");
+      } catch (error) {
+        console.log(error);
+        Swal.fire({
+          icon: "error",
+          text: `${error.response.data.message}`,
+        });
+      }
+    },
+    async deleteInventory(id) {
+      try {
+        await axios.delete(`${url}/stock/${id}`, {
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        Swal.fire({
+          icon: "success",
+          text: `Inventory Success delete`,
+        });
+        this.fetchInventory;
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          text: `${error.response.data.message}`,
+        });
+      }
+    },
+    async deleteInvoice(id) {
+      try {
+        await axios.delete(`${url}/invoice/${id}`, {
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        Swal.fire({
+          icon: "success",
+          text: `Invoice Success delete`,
+        });
+        this.fetchAllInvoice;
       } catch (error) {
         Swal.fire({
           icon: "error",

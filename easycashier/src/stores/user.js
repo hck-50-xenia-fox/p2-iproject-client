@@ -1,7 +1,9 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import easyinvoice from "easyinvoice";
-const url = "http://localhost:3000";
+// const url = "http://localhost:3000";
+const url = "https://easycashier.herokuapp.com";
+
 export const useUserStore = defineStore("user", {
   state: () => ({
     isLogin: false,

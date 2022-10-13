@@ -1,6 +1,23 @@
 <script>
+import { mapActions } from "pinia";
+import { useDataStore } from "../stores/dataprocess";
+
 export default {
   props: ["inventory", "index"],
+  methods: {
+    ...mapActions(useDataStore, [
+      "changePage",
+      "deleteInventory",
+      "fetchInventory",
+    ]),
+    deleteInventoryHandler(id) {
+      this.deleteInventory(id);
+      this.fetchInventory();
+    },
+    changePageHandler(page) {
+      this.changePage(page);
+    },
+  },
 };
 </script>
 <template>
@@ -11,6 +28,17 @@ export default {
     <td>{{ inventory.quantity }}</td>
     <td>{{ inventory.pricePerItem }}</td>
     <td>{{ inventory.rev }}</td>
-    <td><button>Edit</button> || <button>Delete</button></td>
+    <td>
+      <button
+        @click.prevent="changePageHandler(`InventoryEditForm/${inventory.id}`)"
+      >
+        Edit
+      </button>
+
+      ||
+      <button @click.prevent="deleteInventoryHandler(inventory.id)">
+        Delete
+      </button>
+    </td>
   </tr>
 </template>

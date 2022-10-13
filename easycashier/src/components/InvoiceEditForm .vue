@@ -62,15 +62,11 @@ export default {
         class="form-select mb-3"
         aria-label="Default select example"
         v-model="InvoiceForm.InventoryId"
+        v-for="(inventory, index) in InventoryList"
+        :key="index"
       >
         <option Value="" selected disable>--Select--</option>
-        <option
-          v-for="(inventory, index) in InventoryList"
-          :key="index"
-          :value="inventory.id"
-        >
-          {{ inventory.productName }}
-        </option>
+        <option :value="inventory.id">{{ inventory.productName }}</option>
       </select>
       <div class="form-floating">
         <input

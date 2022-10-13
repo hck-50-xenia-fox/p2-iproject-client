@@ -1,10 +1,70 @@
 <script>
-import TableData from "../components/Table.vue";
+import { mapActions, mapState } from "pinia";
+import { useHistoryStore } from "../stores/history";
 import Sidebar from "../components/Sidebar.vue";
 export default {
+  name: "dashboard",
+  data() {
+    return {
+      totalExpense: "",
+      totalRevenue: "",
+      grossProfit: "",
+    };
+  },
   components: {
-    TableData,
     Sidebar,
+  },
+  methods: {
+    ...mapActions(useHistoryStore, ["GetReportData"]),
+    HandleGetReportData() {
+      this.GetReportData();
+      this.totalExpense = this.reportData.totalExpense;
+      this.totalRevenue = this.reportData.totalRevenue;
+      this.grossProfit = this.reportData.grossProfit;
+    },
+  },
+  computed: {
+    ...mapState(useHistoryStore, ["reportData"]),
+  },
+  created() {
+    this.HandleGetReportData();
+  },
+  mounted() {
+    const ctx = document.getElementById("myChart");
+    const myChart = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: ["total Expense", "total Revenue", "Gross Profit"],
+        datasets: [
+          {
+            label: "# of Votes",
+            data: [
+              Number(this.totalExpense),
+              Number(this.totalRevenue),
+              Number(this.grossProfit),
+            ],
+            backgroundColor: [
+              "rgba(255, 99, 132, 0.2)",
+              "rgba(54, 162, 235, 0.2)",
+              "rgba(255, 206, 86, 0.2)",
+            ],
+            borderColor: [
+              "rgba(255, 99, 132, 1)",
+              "rgba(54, 162, 235, 1)",
+              "rgba(255, 206, 86, 1)",
+            ],
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
   },
 };
 </script>
@@ -21,29 +81,23 @@ export default {
           <h1 class="h2">Dashboard</h1>
           <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
-              <button type="button" class="btn btn-sm btn-outline-secondary">
+              <!-- <button type="button" class="btn btn-sm btn-outline-secondary">
                 Share
               </button>
               <button type="button" class="btn btn-sm btn-outline-secondary">
                 Export
-              </button>
+              </button> -->
             </div>
-            <button
+            <!-- <button
               type="button"
               class="btn btn-sm btn-outline-secondary dropdown-toggle"
             >
               <span data-feather="calendar"></span>
               This week
-            </button>
+            </button> -->
           </div>
         </div>
-
-        <canvas
-          class="my-4 w-100"
-          id="myChart"
-          width="900"
-          height="380"
-        ></canvas>
+        <canvas id="myChart" height="200"></canvas>
       </main>
     </div>
   </div>
