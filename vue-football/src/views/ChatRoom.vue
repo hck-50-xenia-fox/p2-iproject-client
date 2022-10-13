@@ -1,7 +1,7 @@
 <script>
   import NavBar from '../components/NavBar.vue';
   import io from "socket.io-client";
-  const baseUrl = "http://localhost:3000";
+  const baseUrl = "https://iscoref.herokuapp.com";
 
   export default {
     name: "chatRoom",

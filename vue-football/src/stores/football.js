@@ -1,7 +1,8 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 
-const baseURL = "http://localhost:3000";
+// const baseURL = "http://localhost:3000";
+const baseURL = "https://iscoref.herokuapp.com";
 
 export const useFootballStore = defineStore("football", {
   state: () => {
@@ -147,7 +148,7 @@ export const useFootballStore = defineStore("football", {
             },
           }
         );
-        console.log(dataGoogle);
+        // console.log(dataGoogle);
         localStorage.setItem("access_token", dataGoogle.data.accessToken);
 
         Swal.fire({

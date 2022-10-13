@@ -26,6 +26,7 @@
 
 <template>
   <NavBar />
+  <!-- <pre>{{premierLeagueData}}</pre> -->
   <div class="container mb-4">
     <div style="margin-top: 4.5em">
       <h3 class="text-center">Premier League</h3>

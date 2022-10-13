@@ -1,8 +1,8 @@
 <script>
   import NavBar from '../components/NavBar.vue';
   import CardLeague from '../components/CardLeague.vue';
-import { mapActions, mapState } from 'pinia';
-import { useFootballStore } from '../stores/football';
+  import { mapActions, mapState } from 'pinia';
+  import { useFootballStore } from '../stores/football';
 
   export default {
     name: "championsLeague",
@@ -29,7 +29,7 @@ import { useFootballStore } from '../stores/football';
   <NavBar />
   <div class="container mb-4">
     <div style="margin-top: 4.5em">
-      <h3 class="text-center">Premier League</h3>
+      <h3 class="text-center">Champions League</h3>
       <hr>
     </div>
     <div class="row mb-4">
