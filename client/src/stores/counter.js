@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-let baseUrl = `https://youtube-alex-chandra-hanif.herokuapp.com`;
-// let baseUrl = `http://localhost:3000`;
+// let baseUrl = `https://youtube-alex-chandra-hanif.herokuapp.com`;
+let baseUrl = `http://localhost:3000`;
 export const useCounterStore = defineStore("counter", {
   state: () => ({
     dataTrailerMovie: [],
