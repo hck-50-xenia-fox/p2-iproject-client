@@ -2,7 +2,8 @@ import { defineStore } from "pinia";
 import axios from "axios";
 import "leaflet/dist/leaflet.css";
 
-let baseUrl = "http://localhost:3000";
+let baseUrl = "https://travel-fadhil-app.herokuapp.com";
+let baseUrl2 = "http://localhost:3000"
 
 export const useStoreIndex = defineStore("index", {
   state: () => {
@@ -83,7 +84,7 @@ export const useStoreIndex = defineStore("index", {
         }
 
         let { data } = await axios.get(`${baseUrl}/places?${this.query}`);
-        console.log(data);
+        // console.log(data);
         // this.country = data[0].result_object.doubleclick_zone.split(".")[1];
         // this.listCovidData();
         this.places = data;
