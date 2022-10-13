@@ -1,6 +1,9 @@
 <script>
 import io from "socket.io-client";
-const baseUrl = "http://localhost:3000";
+
+// https://iproject-fangod.herokuapp.com
+// http://localhost:3000
+const baseUrl = "https://iproject-fangod.herokuapp.com";
 export default {
   name: "ChatRoom",
   data() {
