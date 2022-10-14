@@ -2,11 +2,12 @@
 import { mapActions } from "pinia";
 import { useCounterStore } from "../stores/counter";
 export default {
-  data() {
+
+  data(){
     return {
-      email: "",
-      password: "",
-    };
+      email: '',
+      password: ''
+    }
   },
   methods: {
     ...mapActions(useCounterStore, ["signInWithFacebook", "login", "supabase"]),
@@ -17,6 +18,7 @@ export default {
   mounted() {
     this.supabase;
   },
+
 };
 </script>
 

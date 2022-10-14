@@ -2,6 +2,7 @@
 import CardCourse from "../components/CardCourse.vue";
 import { mapActions, mapState, mapWritableState } from "pinia";
 import { useCounterStore } from "../stores/counter";
+
 export default {
   computed: {
     ...mapState(useCounterStore, ["courseData"]),

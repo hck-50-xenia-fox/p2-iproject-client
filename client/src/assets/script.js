@@ -12,6 +12,7 @@ const toggleElem = function (elem) {
  * navbar toggle
  */
 
+
 const navbar = document.querySelector("[data-navbar]");
 const navTogglers = document.querySelectorAll("[data-nav-toggler]");
 const overlay = document.querySelector("[data-overlay]");
@@ -52,6 +53,7 @@ window.addEventListener("scroll", function () {
     header.classList.remove("header-anim");
   }
 });
+
 
 /**
  * whishlist button toggle

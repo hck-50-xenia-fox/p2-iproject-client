@@ -3,6 +3,7 @@ import { mapActions } from "pinia";
 import NavBar from "./components/NavBar.vue";
 import { useCounterStore } from "./stores/counter";
 import { RouterView } from "vue-router";
+
 export default {
   components: {
     NavBar,

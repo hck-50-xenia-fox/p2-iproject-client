@@ -20,11 +20,6 @@ const router = createRouter({
       component: About,
     },
     {
-
-      path: "/courses",
-      name: "courses",
-      component: Course,
-
       path: "/course",
       name: "course",
       component: Course,
