@@ -23,6 +23,17 @@ for (let i = 0; i < navTogglers.length; i++) {
   });
 }
 
+// const navbar = document.querySelector("[data-navbar]");
+// const navTogglers = document.querySelectorAll("[data-nav-toggler]");
+// const overlay = document.querySelector("[data-overlay]");
+
+// for (let i = 0; i < navTogglers.length; i++) {
+//   navTogglers[i].addEventListener("click", function () {
+//     toggleElem(navbar);
+//     toggleElem(overlay);
+//   });
+// }
+
 /**
  * header sticky & back to top button
  */
@@ -41,7 +52,6 @@ window.addEventListener("scroll", function () {
     header.classList.remove("header-anim");
   }
 });
-
 
 /**
  * whishlist button toggle

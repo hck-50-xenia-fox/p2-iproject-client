@@ -2,10 +2,11 @@
 import { mapActions } from "pinia";
 import NavBar from "./components/NavBar.vue";
 import { useCounterStore } from "./stores/counter";
-import {RouterView} from 'vue-router' 
+import { RouterView } from "vue-router";
 export default {
   components: {
     NavBar,
+    RouterView,
   },
   methods: {
     ...mapActions(useCounterStore, ["checkLogin"]),
@@ -18,5 +19,6 @@ export default {
 
 <template>
   <NavBar />
+
   <RouterView />
 </template>
