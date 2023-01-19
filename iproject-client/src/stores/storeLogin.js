@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from 'axios'
-let baseUrl = "https://petshop-app-22.herokuapp.com/"
+let baseUrl = "https://petshop-app.up.railway.app/"
+// let baseUrl = "http://localhost:3000/"
 
 export const useLoginStore = defineStore("login", {
     state: () => {
