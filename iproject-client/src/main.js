@@ -15,4 +15,5 @@ app.use(pinia)
 app.use(vue3GoogleLogin, {
     clientId: '331000375864-nsqaubq36q1hh1s21181ao3v6jameanf.apps.googleusercontent.com'
   })
+app.provide("baseUrl", "https://petshop-app.up.railway.app/");
 app.mount('#app')
