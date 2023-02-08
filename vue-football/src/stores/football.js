@@ -2,7 +2,8 @@ import { defineStore } from "pinia";
 import axios from "axios";
 
 // const baseURL = "http://localhost:3000";
-const baseURL = "https://iscoref.herokuapp.com";
+// const baseURL = "https://iscoref.herokuapp.com";
+const baseURL = "https://iscoref-backend-production.up.railway.app";
 
 export const useFootballStore = defineStore("football", {
   state: () => {
